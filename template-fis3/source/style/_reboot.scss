@@ -1,0 +1,337 @@
+/**
+ * reboot
+ * based on bootstrap v4 reboot
+ */
+
+// Make viewport responsive
+//
+// @viewport is needed because IE 10+ doesn't honor <meta name="viewport"> in
+// some cases. See http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/.
+// Eventually @viewport will replace <meta name="viewport">. It's been manually
+// prefixed for forward-compatibility.
+//
+// However, `device-width` is broken on IE 10 on Windows (Phone) 8,
+// (see http://timkadlec.com/2013/01/windows-phone-8-and-device-width/ and https://github.com/twbs/bootstrap/issues/10497)
+// and the fix for that involves a snippet of JavaScript to sniff the user agent
+// and apply some conditional CSS.
+//
+// See http://getbootstrap.com/getting-started/#support-ie10-width for the relevant hack.
+
+@viewport {
+  width: device-width;
+}
+
+html {
+  // Sets a specific default `font-size` for user with `rem` type scales.
+  font-size: 16px;
+
+  @if $use-border-box {
+    box-sizing: border-box;
+  }
+
+  // Changes the default tap highlight to be completely transparent in iOS.
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizelegibility;
+}
+
+@if $use-border-box {
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+}
+
+body {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+
+  // Go easy on the eyes and use something other than `#000` for text
+  color: $base-color;
+
+  // By default, `<body>` has no `background-color` so we set one as a best practice.
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+%margin-bottom {
+  margin: {
+    top: 0;
+    bottom: $base-font-size;
+  };
+}
+
+%margin-bottom-half {
+  margin: {
+    top: 0;
+    bottom: $base-font-size * 0.5;
+  };
+}
+
+// Remove top margins from headings
+//
+// By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
+// margin for easier control within type scales as it avoids margin collapsing.
+h1, h2, h3, h4, h5, h6 {
+  @extend %margin-bottom-half;
+}
+
+// Reset margins on paragraphs
+//
+// Similarly, the top margin on `<p>`s get reset. However, we also reset the
+// bottom margin to use `rem` units instead of `em`.
+p {
+  @extend %margin-bottom;
+}
+
+// Abbreviations and acronyms
+// Add data-* attribute to help out our tooltip plugin, per https://github.com/twbs/bootstrap/issues/5257
+abbr[title],
+abbr[data-original-title] {
+  cursor: help;
+  border-bottom: 1px dotted #818a91;
+}
+
+address {
+  margin-bottom: $base-font-size;
+  font-style: normal;
+  line-height: inherit;
+}
+
+ol,
+ul,
+dl {
+  @extend %margin-bottom;
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+  margin-bottom: 0;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin: {
+    left: 0; // Undo browser default
+    bottom: $base-font-size * 0.5;
+  };
+}
+
+blockquote {
+  margin: 0 0 $base-font-size;
+}
+
+a {
+  text-decoration: $link-decoration;
+  color: $link-color;
+
+  &:focus,
+  &:hover {
+    text-decoration: $link-hover-decoration;
+    color: $link-hover-color;
+  }
+
+  &:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+  }
+}
+
+figure {
+  // Normalize adds `margin` to `figure`s as browsers apply it inconsistently.
+  // We reset that to create a better flow in-page.
+  margin: 0 0 $base-font-size;
+}
+
+img {
+  // By default, `<img>`s are `inline-block`. This assumes that, and vertically
+  // centers them. This won't apply should you reset them to `block` level.
+  vertical-align: middle;
+  -ms-interpolation-mode: bicubic;
+}
+
+table {
+  // Reset for nesting within parents with `background-color`.
+  background-color: transparent;
+}
+
+caption {
+  padding-top: $base-font-size * 0.75;
+  padding-bottom: $base-font-size * 0.75;
+  color: #818a91;
+  text-align: left;
+  caption-side: bottom;
+}
+
+th {
+  // Centered by default, but left-align-ed to match the `td`s below.
+  text-align: left;
+}
+
+label {
+  // Allow labels can use `margin` for spacing.
+  display: inline-block;
+  margin-bottom: $base-font-size * 0.5;
+}
+
+input,
+button,
+select,
+textarea {
+  // Remove all `margin`s so our classes don't have to do it themselves.
+  margin: 0;
+
+  // Normalize includes `font: inherit;`, so `font-family`. `font-size`, etc are
+  // properly inherited. However, `line-height` isn't addressed there. Using this
+  // ensures we don't need to unnecessarily redeclare the global font stack.
+  line-height: inherit;
+
+  // iOS adds rounded borders by default
+  border-radius: 0;
+}
+
+textarea {
+  // Textareas should really only resize vertically so they don't break their (horizontal) containers.
+  resize: vertical;
+}
+
+fieldset {
+  // Chrome and Firefox set a `min-width: min-content;` on fieldsets,
+  // so we reset that to ensure it behaves more like a standard block element.
+  // See https://github.com/twbs/bootstrap/issues/12359.
+  min-width: 0;
+
+  // Reset the default outline behavior of fieldsets so they don't affect page layout.
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+legend {
+  // Reset the entire legend element to match the `fieldset`
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: $base-font-size * 0.5;
+  font-size: $base-font-size * 1.5;
+  line-height: inherit;
+
+  //  border: 0;
+}
+
+input[type='search'] {
+  // Undo Normalize's default here to match our global overrides.
+  box-sizing: inherit;
+
+  // This overrides the extra rounded corners on search inputs in iOS so that our
+  // `.form-control` class can properly style them. Note that this cannot simply
+  // be added to `.form-control` as it's not specific enough. For details, see
+  // https://github.com/twbs/bootstrap/issues/11586.
+  -webkit-appearance: none;
+}
+
+output {
+  display: inline-block;
+}
+
+mark {
+  padding: $base-font-size * 0.2;
+  background-color: #fcf8e3;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: $font-family-monospace;
+}
+
+code {
+  font-size: 90%;
+  padding: ($base-font-size * 0.2) ($base-font-size * 0.4);
+  color: #bd4147;
+  border-radius: $base-font-size * 0.25;
+  background-color: #f7f7f9;
+}
+
+kbd {
+  font-size: 90%;
+  padding: ($base-font-size * 0.2) ($base-font-size * 0.4);
+  color: #fff;
+  border-radius: $base-font-size * 0.25;
+  background-color: #333;
+}
+
+kbd kbd {
+  font-size: 100%;
+  font-weight: bold;
+  padding: 0;
+}
+
+pre {
+  // Remove browser default top margin
+  // Reset browser default of `1em` to use `rem`s
+  @extend %margin-bottom;
+
+  font-size: 90%;
+  line-height: 1.5;
+  display: block;
+  color: #373a3c;
+}
+
+pre code {
+  font-size: inherit;
+  padding: 0;
+  color: inherit;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.container,
+.container-fluid {
+  @extend .clearfix;
+
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $base-font-size * 0.9375;
+  padding-left: $base-font-size * 0.9375;
+}
+
+.container {
+  @if $support-for-ie {
+    max-width: 1156px;
+    _width: expression((document.documentElement.clientWidth || document.body.clientWidth) > 1200 ? '1156px' : 'auto');
+  }
+
+  @each $screen-width, $container-width in (34, 34), (48, 45), (62, 60), (75, 72.25) {
+    @media (min-width: $screen-width + em) {
+      & {
+        max-width: $base-font-size * $container-width;
+      }
+    }
+  }
+}
+
+.clearfix {
+  @if $support-for-ie {
+    zoom: 1;
+  }
+
+  &::before,
+  &::after {
+    display: table;
+    content: '';
+  }
+
+  &::after {
+    clear: both;
+  }
+}
