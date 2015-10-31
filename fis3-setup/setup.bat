@@ -46,7 +46,6 @@ echo.
 echo fis3 已安装
 echo .......................................................
 echo 安装常用插件
-pause
 call npm i -g tar.gz
 call npm i -g winzip
 call npm i -g fis-optimizer-uglify-js
