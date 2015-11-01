@@ -47,7 +47,7 @@ var pluginAutoPrefixer = getPlugin('fis-postprocessor-autoprefixer', {
   ]),
 });
 
-var pluginCleanCSS = getPlugin('fis-optimizer-clean-css', {
+var pluginCleanCSS = getPlugin('fis-optimizer-clean-css-2x', {
   compatibility : (supportForIE ? [
     '+properties.ieBangHack',
     '+properties.iePrefixHack',

@@ -51,7 +51,7 @@ call npm i -g winzip
 call npm i -g fis3-server-php
 call npm i -g fis3-server-node
 call npm i -g fis-optimizer-uglify-js
-call npm i -g fis-optimizer-clean-css
+call npm i -g fis-optimizer-clean-css-2x
 call npm i -g fis-optimizer-png-compressor
 call npm i -g fis-optimizer-jpeg-compressor
 call npm i -g fis-postprocessor-autoprefixer
