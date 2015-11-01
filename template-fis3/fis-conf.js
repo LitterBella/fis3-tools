@@ -102,7 +102,17 @@ var preProcessor = [
   {
     'ext' : ['sass','scss'],
     'type' : 'css',
-    'parser' : 'fis-parser-sass',
+    'parser' : getPlugin('fis-parser-node-sass', {
+      //indentType : 'space',
+      //indentWidth : 2,
+      //linefeed : 'lf',
+      outputStyle : 'expanded',
+      //precision : 5,
+      sourceComments : true,
+      //sourceMap : true,
+      //sourceMapContents : true,
+      //sourceMapEmbed : false,
+    }),
   },
   {
     'ext' : 'styl',
@@ -152,6 +162,7 @@ $
     lint :  LINT_CSS ? $.plugin('csslint') : null,
   })
   .match(getExtsReg('css'), {
+    preprocessor : supportForIE ? getPlugin('fis-preprocessor-cssgrace') : null,
     postprocessor : pluginAutoPrefixer,
   })
   .match(getExtsReg('css', true), {
@@ -245,7 +256,7 @@ function toArray(s){
   return s.push ? s.slice() : s.split(',');
 }
 function getPlugin(s, options){
-  return s.__plugin ? s : $.plugin(s.replace(/^(?:fis|fis3)\-(?:lint|parser|optimizer|postprocessor|postpackager)\-/, ''), options || {});
+  return s.__plugin ? s : $.plugin(s.replace(/^(?:fis|fis3)\-(?:lint|parser|optimizer|postprocessor|postpackager|preprocessor)\-/, ''), options || {});
 }
 function getExtsReg(ext, inline){
   var exts = [];

@@ -2,8 +2,8 @@
 :: const
 set CONFIG_FILE=fis-conf.js
 set SOURCE_FOLDER=source
-set SERVER_TYPE=java
-:: java,php,node
+set SERVER_TYPE=node
+:: java,php,node,jello...
 set SERVER_PORT=8081
 set RELEASE_FOLDER=release
 set DIST_FOLDER=dist
@@ -63,6 +63,7 @@ set DIST_FILENAME=%FOLDER%.%date:~2,2%%date:~5,2%%date:~8,2%-%hour%%time:~3,2%%t
 echo .......................................................
 echo packing files
 if "%DIST_FILETYPE%"=="tar.gz" ( call targz -l 9 -m 9 -c "%RELEASE_FOLDER%" "%DIST_FOLDER%\%DIST_FILENAME%.tar.gz" ) else ( call winzip zip "%RELEASE_FOLDER%" "%DIST_FOLDER%\%DIST_FILENAME%" )
+if errorlevel 1 ( pause )
 echo ..................................................done.
 echo.
 
@@ -104,21 +105,29 @@ cls
 
 :: check java server
 if /i "%SERVER_TYPE%"=="java" (
-  call java -version
+  call java -version > nul
   if errorlevel 1 ( set SERVER_TYPE=node )
 )
 
 :: check php server
 if /i "%SERVER_TYPE%"=="php" (
-  call php -v
+  call php -v > nul
   if errorlevel 1 ( set SERVER_TYPE=node )
 )
+
+:: stop server
+echo .......................................................
+echo stop server
+call fis3 server stop
+if errorlevel 1 ( pause )
+echo ..................................................done.
+echo.
 
 :: clean up
 echo .......................................................
 echo clean up server folder
-if exist %LOG_FILE% del /Q %LOG_FILE%
 call fis3 server clean
+if errorlevel 1 ( pause )
 echo ..................................................done.
 echo.
 
@@ -135,6 +144,7 @@ echo.
 echo .......................................................
 echo start server
 call fis3 server start --port %SERVER_PORT% --type %SERVER_TYPE%
+if errorlevel 1 ( pause )
 echo ..................................................done.
 echo.
 
@@ -142,13 +152,11 @@ echo.
 echo .......................................................
 echo watching files
 call fis3 release dev --root ".\%SOURCE_FOLDER%" --lint --watch --live --verbose --no-color
-
-:: quit
-goto end
+pause
 
 :: error
 :error
-cls
+REM cls
 echo .......................................................
 echo                      error occurred
 echo .......................................................

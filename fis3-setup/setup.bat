@@ -48,23 +48,31 @@ echo .......................................................
 echo 安装常用插件
 call npm i -g tar.gz
 call npm i -g winzip
+call npm i -g fis3-server-php
+call npm i -g fis3-server-node
 call npm i -g fis-optimizer-uglify-js
 call npm i -g fis-optimizer-clean-css
-call npm i -g fis-postprocessor-autoprefixer
 call npm i -g fis-optimizer-png-compressor
 call npm i -g fis-optimizer-jpeg-compressor
-call npm i -g fis-hook-relative
+call npm i -g fis-postprocessor-autoprefixer
+call npm i -g fis3-hook-relative
 call npm i -g fis-parser-less-2.x
 call npm i -g fis-parser-sass
+call npm i -g fis-parser-node-sass
 call npm i -g fis-parser-stylus2
 call npm i -g fis-parser-coffee-script
 call npm i -g fis-parser-es6-babel
 call npm i -g fis3-parser-typescript
 call npm i -g fis-lint-csslint
 call npm i -g fis-lint-jshint
+call npm i -g fis-preprocessor-cssgrace
 call npm i -g fis-postpackager-replace
+call npm i -g fis-packager-autopack 
 call npm i -g fis-spriter-csssprites
 call npm i -g fis-postpackager-loader
+call npm i -g fi3-deploy-replace
+call npm i -g fi3-deploy-tar
+call npm i -g fi3-deploy-zip
 call npm i -g fi3-deploy-local-deliver
 echo ..................................................done.
 goto end
