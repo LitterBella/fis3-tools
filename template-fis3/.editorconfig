@@ -1,5 +1,4 @@
 # editorconfig.org
-
 root = true
 
 [*]
@@ -13,10 +12,12 @@ trim_trailing_whitespace = true
 [*.{bat,cmd}]
 charset = ansi
 end_of_line = crlf
-trim_trailing_whitespace = false
 
 [*.{md,markdown}]
 trim_trailing_whitespace = false
 
 [*.py]
 indent_size = 4
+
+[**.html]
+insert_final_newline = false

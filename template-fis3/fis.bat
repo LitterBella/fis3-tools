@@ -28,7 +28,7 @@ echo.
 echo.
 echo.  [1] debug
 echo.  [2] distribute
-echo.  [3] distribute ^& pack
+echo.  [3] distribute ^& archive
 echo.  [Q] quit
 echo.
 echo.
@@ -46,9 +46,8 @@ if "%choice%"=="3" ( goto release )
 if /i "%choice%"=="q" ( cls & goto end )
 goto debug
 
-
-:: pack
-:pack
+:: archive
+:archive
 
 :: make distribute folder ready
 if not exist %DIST_FOLDER% md %DIST_FOLDER%
@@ -59,7 +58,7 @@ set hour=%time:~0,2%
 if /i %hour% LSS 10 (set hour=0%time:~1,1%)
 set DIST_FILENAME=%FOLDER%.%date:~2,2%%date:~5,2%%date:~8,2%-%hour%%time:~3,2%%time:~6,2%
 
-:: pack files to distribute folder
+:: archive files to distribute folder
 echo .......................................................
 echo packing files
 if "%DIST_FILETYPE%"=="tar.gz" ( call targz -l 9 -m 9 -c "%RELEASE_FOLDER%" "%DIST_FOLDER%\%DIST_FILENAME%.tar.gz" ) else ( call winzip zip "%RELEASE_FOLDER%" "%DIST_FOLDER%\%DIST_FILENAME%" )
@@ -93,7 +92,7 @@ if errorlevel 1 ( goto error )
 echo ..................................................done.
 echo.
 
-if "%choice%"=="3" ( goto pack )
+if "%choice%"=="3" ( goto archive )
 
 :: quit
 goto end
