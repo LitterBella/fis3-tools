@@ -10,26 +10,31 @@ set DIST_FOLDER=dist
 set DIST_FILETYPE=zip
 :: zip,tar.gz  tar.gz NOT support chinese filename
 set LOG_FILE=release.log
-
+set TEMP_RESOURCE_FOLDER=$$$TEMP_RESOURCE$$$
 
 :: init window
 REM chcp 65001
 title fis3 debug ^& distribute script
 color 37
-mode con cols=56 lines=20
+REM mode con cols=80 lines=25
 
 :: display info
-echo ========================================================
-echo             fis3 debug ^& distribute script
-echo                 see http://fis.baidu.com
-echo             fisker Cheung lionkay@gmail.com
-echo ========================================================
+echo.
+echo ===============================================================================
+echo                        fis3 debug ^& distribute script
+echo                             see http://fis.baidu.com
+echo                         fisker Cheung lionkay@gmail.com
+echo ===============================================================================
 echo.
 echo.
-echo.  [1] debug
-echo.  [2] distribute
-echo.  [3] distribute ^& archive
-echo.  [Q] quit
+echo.
+echo.
+echo.
+echo.       [1] debug
+echo.       [2] distribute
+echo.       [3] distribute ^& archive
+echo.       [Q] quit
+echo.
 echo.
 echo.
 echo.
@@ -59,11 +64,11 @@ if /i %hour% LSS 10 (set hour=0%time:~1,1%)
 set DIST_FILENAME=%FOLDER%.%date:~2,2%%date:~5,2%%date:~8,2%-%hour%%time:~3,2%%time:~6,2%
 
 :: archive files to distribute folder
-echo .......................................................
+echo ...............................................................................
 echo packing files
 if "%DIST_FILETYPE%"=="tar.gz" ( call targz -l 9 -m 9 -c "%RELEASE_FOLDER%" "%DIST_FOLDER%\%DIST_FILENAME%.tar.gz" ) else ( call winzip zip "%RELEASE_FOLDER%" "%DIST_FOLDER%\%DIST_FILENAME%" )
 if errorlevel 1 ( pause )
-echo ..................................................done.
+echo ..........................................................................done.
 echo.
 
 :: quit
@@ -77,19 +82,20 @@ cls
 if exist %SOURCE_FOLDER%\fis-conf.js ( set CONFIG_FILE=%SOURCE_FOLDER%\fis-conf.js )
 
 :: remove release file and log file
-echo .......................................................
+echo ...............................................................................
 echo clean release folder
 if exist %RELEASE_FOLDER% rd /S /Q %RELEASE_FOLDER%
 if exist %LOG_FILE% del /Q %LOG_FILE%
-echo ..................................................done.
+echo ..........................................................................done.
 echo.
 
 :: release file
-echo .......................................................
+echo ...............................................................................
 echo releasing files
 call fis3 release production --dest release --lint --unique --root ".\%SOURCE_FOLDER%" --file %CONFIG_FILE% --verbose --no-color > %LOG_FILE%
 if errorlevel 1 ( goto error )
-echo ..................................................done.
+if exist %RELEASE_FOLDER%\%TEMP_RESOURCE_FOLDER% rd /S /Q %RELEASE_FOLDER%\%TEMP_RESOURCE_FOLDER%
+echo ..........................................................................done.
 echo.
 
 if "%choice%"=="3" ( goto archive )
@@ -115,11 +121,11 @@ if /i "%SERVER_TYPE%"=="php" (
 )
 
 :: stop server
-echo .......................................................
+echo ...............................................................................
 echo stop server
 call fis3 server stop
 if errorlevel 1 ( pause )
-echo ..................................................done.
+echo ..........................................................................done.
 echo.
 
 :: clean up
@@ -127,28 +133,28 @@ echo .......................................................
 echo clean up server folder
 call fis3 server clean
 if errorlevel 1 ( pause )
-echo ..................................................done.
+echo ..........................................................................done.
 echo.
 
 :: release
-echo .......................................................
+echo ...............................................................................
 echo release files
 call fis3 release dev --root ".\%SOURCE_FOLDER%" --lint --verbose --no-color > %LOG_FILE%
 if errorlevel 1 ( goto error )
 del /Q %LOG_FILE%
-echo ..................................................done.
+echo ..........................................................................done.
 echo.
 
 :: start server
-echo .......................................................
+echo ...............................................................................
 echo start server
 call fis3 server start --port %SERVER_PORT% --type %SERVER_TYPE%
 if errorlevel 1 ( pause )
-echo ..................................................done.
+echo ..........................................................................done.
 echo.
 
 :: start livereload
-echo .......................................................
+echo ...............................................................................
 echo watching files
 call fis3 release dev --root ".\%SOURCE_FOLDER%" --lint --watch --live --verbose --no-color
 pause
@@ -156,11 +162,11 @@ pause
 :: error
 :error
 REM cls
-echo .......................................................
-echo                      error occurred
-echo .......................................................
+echo ...............................................................................
+echo                                 error occurred
+echo ...............................................................................
 echo.
-:: type %LOG_FILE%
+type %LOG_FILE%
 %LOG_FILE%
 pause
 goto end

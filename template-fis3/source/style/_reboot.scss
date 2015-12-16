@@ -1,6 +1,10 @@
 /**
- * reboot
+ * Reboot
  * based on bootstrap v4 reboot
+ * @module: reboot
+ * @author: fisker Cheung <lionkay@gmail.com>
+ * @date: 2015-11-01Z16:07:20+0800
+ * @version: 1.0
  */
 
 // Make viewport responsive
@@ -74,7 +78,12 @@ body {
 //
 // By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
 // margin for easier control within type scales as it avoids margin collapsing.
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   @extend %margin-bottom-half;
 }
 
@@ -101,16 +110,17 @@ address {
 }
 
 ol,
-ul,
-dl {
+ul {
   @extend %margin-bottom;
+
+  ol,
+  ul {
+    margin-bottom: 0;
+  }
 }
 
-ol ol,
-ul ul,
-ol ul,
-ul ol {
-  margin-bottom: 0;
+dl {
+  @extend %margin-bottom;
 }
 
 dt {
@@ -268,12 +278,12 @@ kbd {
   color: #fff;
   border-radius: $base-font-size * 0.25;
   background-color: #333;
-}
 
-kbd kbd {
-  font-size: 100%;
-  font-weight: bold;
-  padding: 0;
+  kbd {
+    font-size: 100%;
+    font-weight: bold;
+    padding: 0;
+  }
 }
 
 pre {
@@ -285,14 +295,15 @@ pre {
   line-height: 1.5;
   display: block;
   color: #373a3c;
-}
 
-pre code {
-  font-size: inherit;
-  padding: 0;
-  color: inherit;
-  border-radius: 0;
-  background-color: transparent;
+  // Account for some code outputs that place code tags in pre tags
+  code {
+    font-size: inherit;
+    padding: 0;
+    color: inherit;
+    border-radius: 0;
+    background-color: transparent;
+  }
 }
 
 .container,
@@ -334,4 +345,39 @@ pre code {
   &::after {
     clear: both;
   }
+}
+
+h1 {
+  font-size: $base-font-size * 2.5;
+}
+
+h2 {
+  font-size: $base-font-size * 2;
+}
+
+h3 {
+  font-size: $base-font-size * 1.75;
+}
+
+h4 {
+  font-size: $base-font-size * 1.5;
+}
+
+h5 {
+  font-size: $base-font-size * 1.25;
+}
+
+h6 {
+  font-size: $base-font-size * 1;
+}
+
+//
+// Horizontal rules
+//
+
+hr {
+  margin-top: $base-font-size * 1;
+  margin-bottom: $base-font-size * 1;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

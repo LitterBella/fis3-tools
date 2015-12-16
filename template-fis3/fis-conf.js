@@ -89,9 +89,6 @@ fis-conf.js
     '.svn/**',
     'fis-conf.js',
   ]);
-  $.match('_**', {
-    release: false
-  });
   $.set('livereload.hostname', 'localhost');
 
   if (USE_HASH) {
@@ -158,7 +155,6 @@ fis-conf.js
     if (data.lint) {
       processor.lint = getPlugin(data.lint);
     }
-    $.match(getExtsReg(ext), processor);
     $.match(getExtsReg(ext, true), processor); //inline text
     fileExts[type] = fileExts[type] || [];
     fileExts[type] = fileExts[type].concat(ext);
@@ -196,14 +192,11 @@ fis-conf.js
   */
 
   prod
-    .match(getExtsReg('css'), {
+    .match(getExtsReg('css', true), {
       optimizer: pluginCleanCSS,
       useSprite: true,
     })
-    .match('*.html:css', {
-      //optimizer: pluginCleanCSS
-    })
-    .match(getExtsReg('js'), {
+    .match(getExtsReg('js', true), {
       optimizer: pluginUglifyJS
     })
     .match('*.html:js', {
@@ -257,6 +250,16 @@ fis-conf.js
       })
     });
 
+  $.match('_**', {
+    release: false
+  });
+
+  // inline included resource shoud release to a temp folder then clear in command line
+  $.match('_**.{png,jpg,gif,css,js,html}', {
+    release: '/$$$TEMP_RESOURCE$$$/$0',
+    relative: '/',
+  });
+
   //help functions
   function toArray(s) {
     return s.push ? s.slice() : s.split(',');
@@ -274,7 +277,13 @@ fis-conf.js
     } else {
       exts = toArray(ext);
     }
-    return (inline ? '*.html:' : '*.') +
-      (1 === exts.length ? exts[0] : '{' + exts.join(',') + '}');
+
+    exts = exts.lenth === 1 ? exts : '{' + exts.join(',') + '}';
+
+    if ( inline ){
+      return '{*.html:,*.}' + exts;
+    } else {
+      return '*.' + exts;
+    }
   }
 })(fis);
