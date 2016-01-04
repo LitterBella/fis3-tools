@@ -1,9 +1,11 @@
-/**
- * @{filename}
- * @require reboot
- */
 $support-for-ie: true;
 
 @import "variables";
 @import "normalize";
 @import "reboot";
+@import "funcs";
+
+/**
+ * @{filename}
+ * @require reboot
+ */

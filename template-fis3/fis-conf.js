@@ -1,18 +1,4 @@
 /* global fis */
-/*!
-fis-conf.js
-*/
-/*
-;(function($, undefined){
-'use strict';
-var CONFIG = {
-  SUPPORT_IE : true,  // IE < 9 支持
-  USE_HASH :  false,  // 文件名 md5 戳
-  MD5_CONNECTOR ： '.', //
-}
-
-})(fis);
-*/
 
 /**********
 fis-conf.js
@@ -133,7 +119,7 @@ fis-conf.js
     'type': 'js',
     'parser': 'fis-parser-coffee-script',
   }, {
-    'ext': 'es6',
+    'ext': ['es6', 'jsx'],
     'type': 'js',
     'parser': 'fis-parser-es6-babel',
   }, {

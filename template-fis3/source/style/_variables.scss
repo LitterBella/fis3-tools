@@ -1,6 +1,5 @@
-/**
- * variables
- */
+// variables
+
 $support-for-ie: false !default;
 
 //for old ie should use 16px instead
@@ -10,10 +9,39 @@ $use-border-box: if($support-for-ie, false, true) !default;
 
 $base-color: #373a3c !default;
 $base-line-height: 1.5 !default;
-$base-font-family: Helvetica Neue, Helvetica, PingFang SC, Lantinghei SC, Microsoft YaHei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans !default;
+$base-font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Lantinghei SC, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif !default;
 
 $link-color: #0275d8 !default;
 $link-decoration: none !default;
 $link-hover-color: #014c8c !default;
 $link-hover-decoration: underline !default;
 $font-family-monospace: Menlo, Monaco, Consolas, Courier New, monospace !default;
+
+// Grid breakpoints
+//
+// Define the minimum and maximum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 544px,
+  // Medium screen / tablet
+  md: 768px,
+  // Large screen / desktop
+  lg: 992px,
+  // Extra large screen / wide desktop
+  xl: 1200px
+) !default;
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+  sm: 576px,
+  md: 720px,
+  lg: 940px,
+  xl: 1140px
+) !default;
