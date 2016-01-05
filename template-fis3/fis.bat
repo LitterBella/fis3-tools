@@ -30,7 +30,7 @@ echo.
 echo.
 echo.
 echo.
-echo.       [1] debug
+echo.       [1] debug (default)
 echo.       [2] distribute
 echo.       [3] distribute ^& archive
 echo.       [Q] quit
@@ -148,8 +148,8 @@ echo.
 :: start server
 echo ...............................................................................
 echo start server
-::call fis3 server start --port %SERVER_PORT% --type %SERVER_TYPE%
 call fis3 server start --type %SERVER_TYPE%
+REM call fis3 server start --port %SERVER_PORT% --type %SERVER_TYPE%
 if errorlevel 1 ( pause )
 echo ..........................................................................done.
 echo.
