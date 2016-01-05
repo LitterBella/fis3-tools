@@ -1,275 +1,367 @@
-/* global fis */
-
-/**********
+/* global fis:true */
+/*!
 fis-conf.js
-***********/
-(function($) {
-  'use strict';
-  var supportForIE = true;
-  //使用md5
-  var USE_HASH = false;
-  //md5 连接符
-  var MD5_CONNECTOR = '.';
-  //使用相对路径 !`相对路径`和`Sprite`冲突
-  var USE_RELATIVE = true;
-  //JS lint
-  var LINT_JS = true;
-  //CSS lint
-  var LINT_CSS = true;
+by fisker Cheung <lionkay@gmail.com>
+2016.1.4
+*/
+'use strict';
+(function($, undefined) {
+  var CONFIG = {
+    SUPPORT_FOR_IE: true, // IE < 9 支持
+    USE_HASH: false, // 文件名添加md5戳
+    MD5_LENGTH: 6, // md5戳长度
+    MD5_CONNECTOR: '.', // md5戳连接符
+    USE_RELATIVE: true, // 使用相对路径
+    LINT_JS: true, // js 代码检查
+    LINT_CSS: true, // css 代码检查
+    COMPRESS_JS: true, //js 代码压缩
+    COMPRESS_CSS: true, //css 代码压缩
+    COMPRESS_HTML: false, //html 代码压缩
+    RELEASE_DIR: './release', //发布目录
+    PNG_LOSSY: true, // 有损压缩PNG
+    PROGRESSIVE: true, // 渐进式 JPEG
+    LIVERELOAD_HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
+    TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$',
+    IGNORE: [
+      '.**',
+      '.git/**',
+      '.svn/**',
+      'node_modules/**',
+      'test/**',
+      'fis-conf.js',
+      '*.bat',
+      '*.cmd',
+      '*.sh',
+    ], //忽略文件
+    RELEASE_IGNORE: [
+      '_**',
+    ],
+    LINT_IGNORE: [
+      '*.min.**',
+      '*-min.**',
+    ],
+    OPTIMIZER_IGNORE: [
+      '*.min.**',
+      '*-min.**',
+    ],
+  };
 
-  //有损压缩PNG
-  var PNG_LOSSY = true;
-
-  var prod = $.media('production');
-  var dev = $.media('dev');
-
-  var pluginUglifyJS = getPlugin('fis-optimizer-uglify-js', {});
-
-  var pluginAutoPrefixer = getPlugin('fis-postprocessor-autoprefixer', {
-    browsers: (supportForIE ? [
-      'ie >= 5.5',
-    ] : [
-      'ie >= 9',
-    ]).concat([
-      'and_chr >= 1',
-      'and_ff >=1',
-      'and_uc >=1',
-      'android >= 2.1',
-      'bb >= 7',
-      'chrome >= 4',
-      'edge >= 12',
-      'firefox >= 2',
-      'ie_mob >= 10',
-      'ios_saf >= 3.2',
-      'op_mini >= 5',
-      'op_mob >= 10',
-      'opera >= 9',
-      'safari >= 3.1',
-    ]),
-  });
-
-  var pluginCleanCSS = getPlugin('fis-optimizer-clean-css-2x', {
-    compatibility: (supportForIE ? [
-      '+properties.ieBangHack',
-      '+properties.iePrefixHack',
-      '+properties.ieSuffixHack',
-      '+selectors.ie7Hack',
-    ] : []),
-    keepSpecialComments: 0,
-  });
-
-  var pluginPNGCompressor = getPlugin('fis-optimizer-png-compressor', {
-    type: PNG_LOSSY ? 'pngquant' : 'pngcrush',
-    speed: 1,
-  });
-
-  var pluginJPGCompressor = getPlugin('fis-optimizer-jpeg-compressor', {
-    progressive: true
-  });
-
-  $.set('project.ignore', [
-    '.**',
-    'node_modules/**',
-    'output/**',
-    '.git/**',
-    '.svn/**',
-    'fis-conf.js',
-  ]);
-  $.set('livereload.hostname', 'localhost');
-
-  if (USE_HASH) {
-    $.set('project.md5Length', 6);
-    $.set('project.md5Connector', MD5_CONNECTOR);
-    $.match('*', {
-      useHash: USE_HASH
-    });
-  }
-
-  if (USE_RELATIVE) {
-    $.hook('relative');
-    $.match('*', {
-      relative: USE_RELATIVE
-    });
-  }
-
-  var preProcessor = [{
-    'ext': 'less',
-    'type': 'css',
-    'parser': 'fis-parser-less-2.x',
-  }, {
-    'ext': ['sass', 'scss'],
-    'type': 'css',
-    'parser': getPlugin('fis-parser-node-sass', {
+  var PLUGINS_CONFIG = {
+    'fis-parser-node-sass': {
       //indentType : 'space',
       //indentWidth : 2,
       //linefeed : 'lf',
       outputStyle: 'expanded',
-      //precision : 5,
+      precision: 8, //default 5
       sourceComments: true,
       //sourceMap : true,
       //sourceMapContents : true,
       //sourceMapEmbed : false,
-    }),
-  }, {
-    'ext': 'styl',
-    'type': 'css',
-    'parser': 'fis-parser-stylus2',
-  }, {
-    'ext': 'coffee',
-    'type': 'js',
-    'parser': 'fis-parser-coffee-script',
-  }, {
-    'ext': ['es6', 'jsx'],
-    'type': 'js',
-    'parser': 'fis-parser-es6-babel',
-  }, {
-    'ext': ['ts', 'tsx'],
-    'type': 'js',
-    'parser': 'fis3-parser-typescript',
-  },
-  ];
-
-  var fileExts = {};
-  preProcessor.forEach(function(data) {
-    var ext = toArray(data.ext);
-    var type = data.type;
-    var parser = getPlugin(data.parser);
-    var processor = {
-      rExt: '.' + type,
-      parser: parser,
-    };
-    if (data.lint) {
-      processor.lint = getPlugin(data.lint);
-    }
-    $.match(getExtsReg(ext, true), processor); //inline text
-    fileExts[type] = fileExts[type] || [];
-    fileExts[type] = fileExts[type].concat(ext);
-  });
-
-  //CSS files
-  $
-    .match('*.css', {
-      lint: LINT_CSS ? $.plugin('csslint') : null,
-    })
-    .match(getExtsReg('css'), {
-      preprocessor: supportForIE ?
-        getPlugin('fis-preprocessor-cssgrace') :
-        null,
-      postprocessor: pluginAutoPrefixer,
-    })
-    .match(getExtsReg('css', true), {
-      postprocessor: pluginAutoPrefixer,
-    });
-
-  //JS files
-  $
-    .match('*.js', {
-      lint: LINT_JS ? getPlugin('fis-lint-jshint') : null,
-    });
-
-  // HTML
-  /*
-  $
-    .match('*.html',{
-      postpackager : getPlugin('fis-postpackager-replace', {
-
-      });
-    });
-  */
-
-  prod
-    .match(getExtsReg('css', true), {
-      optimizer: pluginCleanCSS,
-      useSprite: true,
-    })
-    .match(getExtsReg('js', true), {
-      optimizer: pluginUglifyJS
-    })
-    .match('*.html:js', {
-      //optimizer: $.plugin('uglify-js')
-    })
-    .match('*.png', {
-      optimizer: pluginPNGCompressor
-    })
-    /* useless
-      .match('*.jpg', {
-          optimizer: pluginJPGCompressor
-      })
-    */
-    .match('*{.,-}min.*', {
-      optimizer: null
-    });
-
-  $.match('*{.,-}min.*', {
-    lint: null,
-  });
-
-  $.match('::package', {
-    spriter: $.plugin('csssprites', {
+    },
+    'fis-parser-stylus2': {},
+    'fis-parser-less-2.x': {},
+    'fis-postprocessor-autoprefixer': {
+      browsers: (CONFIG.SUPPORT_FOR_IE ? ['ie >= 5.5'] : ['ie >= 9']).concat([
+        'and_chr >= 1',
+        'and_ff >=1',
+        'and_uc >=1',
+        'android >= 2.1',
+        'bb >= 7',
+        'chrome >= 4',
+        'edge >= 12',
+        'firefox >= 2',
+        'ie_mob >= 10',
+        'ios_saf >= 3.2',
+        'op_mini >= 5',
+        'op_mob >= 10',
+        'opera >= 9',
+        'safari >= 3.1',
+      ]),
+    },
+    'fis-optimizer-uglify-js': {},
+    'fis-optimizer-clean-css-2x': {
+      advanced: CONFIG.SUPPORT_FOR_IE ? false : true,
+      compatibility: (CONFIG.SUPPORT_FOR_IE ? [
+        '+properties.ieBangHack',
+        '+properties.iePrefixHack',
+        '+properties.ieSuffixHack',
+        '-properties.merging',
+        '+selectors.ie7Hack',
+      ] : []),
+      keepSpecialComments: 0,
+    },
+    'fis-optimizer-png-compressor': {
+      type: CONFIG.PNG_LOSSY ? 'pngquant' : 'pngcrush',
+      speed: 1,
+    },
+    'fis-optimizer-jpeg-compressor': {
+      progressive: CONFIG.PROGRESSIVE
+    },
+    'fis-spriter-csssprites': {
       margin: 10,
       layout: 'linear', //'linear/matrix' default linear
-    })
+    },
+    'fis3-deploy-local-deliver': {
+      to: CONFIG.RELEASE_DIR,
+    },
+  };
+  var pluginTypes = [
+    'lint',
+    'parser',
+    'preprocessor',
+    'standard',
+    'postprocessor',
+    'optimizer',
+    'prepacakger',
+    'spriter',
+    'packager',
+    'postpackager',
+    'deploy',
+  ];
+
+  var prod = $.media('production');
+  //var dev = $.media('dev');
+
+  var fileExts = {};
+
+  if (CONFIG.IGNORE) {
+    $.set('project.ignore', CONFIG.IGNORE);
+  }
+
+  CONFIG.RELEASE_IGNORE.forEach(function(preg) {
+    $.match(preg, {
+      release: false
+    });
   });
 
-  /*
-      $.match('::package', {
-        postpackager: $.plugin('loader', {
-          allInOne: true
-        })
-      });
-  */
+  if (CONFIG.LIVERELOAD_HOSTNAME) {
+    $.set('livereload.hostname', CONFIG.LIVERELOAD_HOSTNAME);
+  }
 
-  /*
-      $.match('*.{less,css}', {
-        packTo: '/static/aio.css'
-      });
+  if (CONFIG.USE_HASH) {
+    if (CONFIG.MD5_LENGTH) {
+      $.set('project.md5Length', CONFIG.MD5_LENGTH);
+    }
+    if (CONFIG.MD5_CONNECTOR) {
+      $.set('project.md5Connector', CONFIG.MD5_CONNECTOR);
+    }
+    $.match('*', {
+      useHash: CONFIG.USE_HASH
+    });
+  }
 
-      $.match('*.js', {
-        packTo: '/static/aio.js'
-      });
-  */
+  if (CONFIG.USE_RELATIVE) {
+    $.hook('relative');
+    $.match('*', {
+      relative: CONFIG.USE_RELATIVE
+    });
+  }
 
-  prod
-    .match('**', {
-      deploy: $.plugin('local-deliver', {
-        to: './release'
-      })
+  // preProcessor
+  ([
+    {
+      ext: 'less',
+      type: 'css',
+      parser: 'fis-parser-less-2.x',
+    },
+    {
+      ext: ['sass', 'scss'],
+      type: 'css',
+      parser: 'fis-parser-node-sass',
+    },
+    {
+      ext: 'styl',
+      type: 'css',
+      parser: 'fis-parser-stylus2',
+    },
+    {
+      ext: 'coffee',
+      type: 'js',
+      parser: 'fis-parser-coffee-script',
+    },
+    {
+      ext: ['es6', 'jsx'],
+      type: 'js',
+      parser: 'fis-parser-es6-babel',
+    },
+    {
+      ext: ['ts', 'tsx'],
+      type: 'js',
+      parser: 'fis3-parser-typescript',
+    }
+  ]).forEach(function(data){
+      var exts = toArray(data.ext);
+      var processor = {
+        rExt: '.' + data.type,
+      };
+      // plugins
+      ['parser', 'lint'].forEach(function(type){
+        if (data[type]) {
+          processor[type] = getPlugin(data[type]);
+        }
+      });
+      fileExts[data.type] = fileExts[data.type] || [];
+      fileExts[data.type] = fileExts[data.type].concat(exts);
+      $.match(getExtsReg(exts), processor);
     });
 
-  $.match('_**', {
-    release: false
+  // standardProccessor
+  ([
+    {
+      type: 'css',
+      lint: CONFIG.LINT_CSS ? 'fis-lint-csslint' : null,
+      preprocessor: CONFIG.SUPPORT_FOR_IE ? 'fis-preprocessor-cssgrace' : null,
+      optimizer: CONFIG.COMPRESS_CSS ? 'fis-optimizer-clean-css-2x' : '',
+      postprocessor: 'fis-postprocessor-autoprefixer',
+      useSprite: true
+    },
+    {
+      type: 'js',
+      //lint: CONFIG.LINT_JS ? ['fis-lint-jshint', 'fis-lint-jscs'] : null,
+      lint: CONFIG.LINT_JS ? ['fis-lint-jshint'] : null,
+      optimizer: CONFIG.COMPRESS_JS ? 'fis-optimizer-uglify-js' : '',
+    },
+    {
+      type: 'png',
+      optimizer: 'fis-optimizer-png-compressor',
+    },
+    {
+      type: 'jpg',
+      optimizer: 'fis-optimizer-jpeg-compressor',
+    },
+    {
+      type: 'html',
+      optimizer: CONFIG.COMPRESS_HTML ? 'fis-optimizer-htmlmin' : '',
+    }
+  ]).forEach(function(data){
+      // lint can't used on preProcessor
+      if (data.lint) {
+        $.match(getExtsReg(toArray(data.type)), {
+          lint: getPlugin(data.lint)
+        });
+      }
+      var processor = {};
+      ['useSprite'].forEach(function(type){
+        if (type in data) {
+          processor[type] = data[type];
+        }
+      });
+      //plugins
+      ['preprocessor', 'postprocessor'].forEach(function(type){
+        if(data[type]){
+          processor[type] = getPlugin(data[type]);
+        }
+      });
+
+      $.match(getExtsReg(data.type), processor);
+
+      if (data.optimizer) {
+        prod.match(getExtsReg(data.type), {
+          optimizer: getPlugin(data.optimizer)
+        });
+      }
+    });
+
+
+  CONFIG.LINT_IGNORE.forEach(function(reg){
+    $.match(reg, {
+      lint: null
+    });
   });
 
-  // inline included resource shoud release to a temp folder then clear in command line
-  $.match('_**.{png,jpg,gif,css,js,html}', {
-    release: '/$$$TEMP_RESOURCE$$$/$0',
+  CONFIG.OPTIMIZER_IGNORE.forEach(function(reg){
+    $.match(reg, {
+      optimizer: null
+    });
+  });
+
+  CONFIG.RELEASE_IGNORE.forEach(function(reg){
+    $.match(reg, {
+      release: false
+    });
+  });
+  // standrad files should release
+  $.match('_' + getExtsReg(['png', 'jpg', 'gif', 'css', 'js', 'html'], false), {
+    release: '/' + CONFIG.TEMP_RESOURCE_FOLDER + '/$0',
     relative: '/',
   });
 
+
+  $.match('::package', {
+    spriter: getPlugin('fis-spriter-csssprites')
+  });
+
+  prod
+    .match('**', {
+      deploy: getPlugin('fis3-deploy-local-deliver')
+    });
+
   //help functions
   function toArray(s) {
-    return s.push ? s.slice() : s.split(',');
+    return s.split ? s.split(',') : Array.prototype.slice.call(s);
   }
 
-  function getPlugin(s, options) {
-    return s.__plugin ? s : $.plugin(s.replace(/^(?:fis|fis3)\-(?:lint|parser|optimizer|postprocessor|postpackager|preprocessor)\-/, ''), options || {});
+  function getPlugin(pluginNames, pluginOptions) {
+    if (pluginNames.__plugin){
+      return pluginNames;
+    }
+    if (!pluginNames) {
+      return null;
+    }
+    var plugins = [];
+    var pluginPrefixRegex = new RegExp('^(?:fis|fis3)\-(?:' + pluginTypes.join('|') + ')\-');
+
+    toArray(pluginNames).forEach(function(pluginName){
+      if (!pluginName) {
+        return null;
+      }
+      var plugin;
+      if (pluginName.__plugin) {
+        plugin = pluginName;
+      }else{
+        var shortPluginName = pluginName.replace(pluginPrefixRegex, '');
+        var options = pluginOptions || (PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {});
+        plugin = $.plugin(shortPluginName, extend({}, options));
+      }
+      plugins.push(plugin);
+    });
+
+    return 1 === plugins.length ? plugins[0] : plugins;
   }
 
   function getExtsReg(ext, inline) {
     var exts = [];
-    if (fileExts[ext]) {
-      exts = fileExts[ext].slice();
+    var prefix = '';
+
+    if (ext.split && fileExts[ext]) {
+      exts = toArray(fileExts[ext]);
       exts.unshift(ext);
     } else {
       exts = toArray(ext);
     }
-
-    exts = exts.lenth === 1 ? exts : '{' + exts.join(',') + '}';
-
-    if ( inline ){
-      return '{*.html:,*.}' + exts;
+    exts = exts.length === 1 ? exts : '{' + exts.join(',') + '}';
+    if (true === inline){
+      prefix = '*.html:';
+    } else if (false === inline) {
+      prefix = '*.';
     } else {
-      return '*.' + exts;
+      prefix = '{*.html:,*.}';
     }
+    return prefix + exts;
   }
+
+  function extend(dest){
+    var sources = toArray(arguments);
+    sources.shift();
+    sources.forEach(function(source){
+      if (!source) {
+        return;
+      }
+      for (var prop in source) {
+        dest[prop] = source[prop];
+      }
+    });
+    return dest;
+  }
+
 })(fis);
