@@ -1,7 +1,7 @@
 @echo off
 
-:: nodejs v4 存在兼容性问题，请使用 v0.12.7
-set NODE_VERSION=v0.12.7
+:: nodejs v4 v5 存在兼容性问题，请使用 v0.12.x
+set NODE_VERSION=v0.12.9
 
 
 :: init window
@@ -48,6 +48,7 @@ echo .......................................................
 echo 安装常用插件
 call npm i -g tar.gz
 call npm i -g winzip
+call npm i -g node-wget
 call npm i -g fis3-server-php
 call npm i -g fis3-server-node
 call npm i -g fis-optimizer-uglify-js
@@ -57,7 +58,7 @@ call npm i -g fis-optimizer-jpeg-compressor
 call npm i -g fis-postprocessor-autoprefixer
 call npm i -g fis3-hook-relative
 call npm i -g fis-parser-less-2.x
-call npm i -g fis-parser-sass
+REM call npm i -g fis-parser-sass
 call npm i -g fis-parser-node-sass
 call npm i -g fis-parser-stylus2
 call npm i -g fis-parser-coffee-script
@@ -66,13 +67,13 @@ call npm i -g fis3-parser-typescript
 call npm i -g fis-lint-csslint
 call npm i -g fis-lint-jshint
 call npm i -g fis-preprocessor-cssgrace
-call npm i -g fis-postpackager-replace
-call npm i -g fis-packager-autopack 
+REM call npm i -g fis-postpackager-replace
+REM call npm i -g fis-packager-autopack 
 call npm i -g fis-spriter-csssprites
-call npm i -g fis-postpackager-loader
-call npm i -g fi3-deploy-replace
-call npm i -g fi3-deploy-tar
-call npm i -g fi3-deploy-zip
+REM call npm i -g fis-postpackager-loader
+REM call npm i -g fi3-deploy-replace
+REM call npm i -g fi3-deploy-tar
+REM call npm i -g fi3-deploy-zip
 call npm i -g fi3-deploy-local-deliver
 echo ..................................................done.
 goto end

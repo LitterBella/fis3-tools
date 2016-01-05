@@ -324,6 +324,7 @@ by fisker Cheung <lionkay@gmail.com>
         plugin = pluginName;
       }else{
         var shortPluginName = pluginName.replace(pluginPrefixRegex, '');
+        //console.log(pluginName);
         var options = pluginOptions || (PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {});
         plugin = $.plugin(shortPluginName, extend({}, options));
       }
