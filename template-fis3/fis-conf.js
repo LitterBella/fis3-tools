@@ -22,27 +22,30 @@ by fisker Cheung <lionkay@gmail.com>
     PROGRESSIVE: true, // 渐进式 JPEG
     LIVERELOAD_HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
     TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$',
+    //忽略文件
     IGNORE: [
       '.**',
-      '.git/**',
-      '.svn/**',
-      'node_modules/**',
+      '.{git,svn,hg,CVS,idea}/**',
+      '{node_modules,bower_components}/**',
       'test/**',
+      '*.{bat,cmd,sh,tmp,bak}',
+      'Thumbs.db',
       'fis-conf.js',
-      '*.bat',
-      '*.cmd',
-      '*.sh',
-    ], //忽略文件
+    ],
     RELEASE_IGNORE: [
       '_**',
     ],
     LINT_IGNORE: [
       '*.min.**',
       '*-min.**',
+      'lib/**',
+      'thirdparty/**',
     ],
     OPTIMIZER_IGNORE: [
       '*.min.**',
       '*-min.**',
+      //'lib/**',
+      //'thirdparty/**',
     ],
   };
 
