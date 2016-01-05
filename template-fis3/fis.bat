@@ -4,7 +4,7 @@ set CONFIG_FILE=fis-conf.js
 set SOURCE_FOLDER=source
 set SERVER_TYPE=node
 :: java,php,node,jello...
-set SERVER_PORT=8081
+set SERVER_PORT=1983
 set RELEASE_FOLDER=release
 set DIST_FOLDER=dist
 set DIST_FILETYPE=zip
@@ -148,7 +148,8 @@ echo.
 :: start server
 echo ...............................................................................
 echo start server
-call fis3 server start --port %SERVER_PORT% --type %SERVER_TYPE%
+::call fis3 server start --port %SERVER_PORT% --type %SERVER_TYPE%
+call fis3 server start --type %SERVER_TYPE%
 if errorlevel 1 ( pause )
 echo ..........................................................................done.
 echo.

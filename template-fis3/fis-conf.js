@@ -134,6 +134,7 @@ by fisker Cheung <lionkay@gmail.com>
     });
   });
 
+  //$.set('livereload.port', '1988');
   if (CONFIG.LIVERELOAD_HOSTNAME) {
     $.set('livereload.hostname', CONFIG.LIVERELOAD_HOSTNAME);
   }
