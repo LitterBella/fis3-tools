@@ -62,7 +62,9 @@ REM call npm i -g fis-parser-sass
 call npm i -g fis-parser-node-sass
 call npm i -g fis-parser-stylus2
 call npm i -g fis-parser-coffee-script
-call npm i -g fis-parser-es6-babel
+REM call npm i -g fis-parser-es6-babel
+call npm i -g fis-parser-babel-5.x
+call npm i -g fis-parser-babel-6.x
 call npm i -g fis3-parser-typescript
 call npm i -g fis-lint-csslint
 call npm i -g fis-lint-jshint

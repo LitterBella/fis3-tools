@@ -107,6 +107,13 @@ by fisker Cheung <lionkay@gmail.com>
     'fis3-deploy-local-deliver': {
       to: CONFIG.RELEASE_DIR,
     },
+    'fis-parser-babel-5.x': {
+      blacklist: ['regenerator'],
+      optional: ['asyncToGenerator'],
+      sourceMaps: false,
+      stage: 3
+    },
+    'fis-parser-babel-6.x': {},
   };
   var pluginTypes = [
     'lint',
@@ -123,7 +130,7 @@ by fisker Cheung <lionkay@gmail.com>
   ];
 
   var prod = $.media('production');
-  //var dev = $.media('dev');
+  var dev = $.media('dev');
 
   var fileExts = {};
 
@@ -184,15 +191,15 @@ by fisker Cheung <lionkay@gmail.com>
       parser: 'fis-parser-coffee-script',
     },
     {
-      ext: ['es6', 'jsx'],
+      ext: ['es', 'es6', 'jsx'],
       type: 'js',
-      parser: 'fis-parser-es6-babel',
+      parser: 'fis-parser-babel-5.x',
     },
     {
       ext: ['ts', 'tsx'],
       type: 'js',
       parser: 'fis3-parser-typescript',
-    }
+    },
   ]).forEach(function(data){
       var exts = toArray(data.ext);
       var processor = {
@@ -251,19 +258,13 @@ by fisker Cheung <lionkay@gmail.com>
         }
       });
       //plugins
-      ['preprocessor', 'postprocessor'].forEach(function(type){
+      ['preprocessor', 'optimizer', 'postprocessor'].forEach(function(type){
         if(data[type]){
           processor[type] = getPlugin(data[type]);
         }
       });
 
       $.match(getExtsReg(data.type), processor);
-
-      if (data.optimizer) {
-        prod.match(getExtsReg(data.type), {
-          optimizer: getPlugin(data.optimizer)
-        });
-      }
     });
 
 
@@ -300,6 +301,11 @@ by fisker Cheung <lionkay@gmail.com>
       deploy: getPlugin('fis3-deploy-local-deliver')
     });
 
+  dev
+    .match('**', {
+      optimizer: null
+    });
+
   //help functions
   function toArray(s) {
     return s.split ? s.split(',') : Array.prototype.slice.call(s);
@@ -324,7 +330,6 @@ by fisker Cheung <lionkay@gmail.com>
         plugin = pluginName;
       }else{
         var shortPluginName = pluginName.replace(pluginPrefixRegex, '');
-        //console.log(pluginName);
         var options = pluginOptions || (PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {});
         plugin = $.plugin(shortPluginName, extend({}, options));
       }
