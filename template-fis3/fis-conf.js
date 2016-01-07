@@ -2,28 +2,37 @@
 /*!
 fis-conf.js
 by fisker Cheung <lionkay@gmail.com>
-2016.1.4
+verion 0.9
+last update 2016.1.7
 */
 'use strict';
 (function($, undefined) {
   var CONFIG = {
     SUPPORT_FOR_IE: true, // IE < 9 支持
-    LINT: [
-      'css',  // js 代码检查
-      'js',   // css 代码检查
-    ],
-    OPTIMIZER: [
-      'css',  // js 代码压缩
-      'js',   // css 代码压缩
-      //'html', // html 代码压缩
-    ],
-    USE_HASH: false, // 文件名添加md5戳
-    MD5_LENGTH: 6, // md5戳长度
-    MD5_CONNECTOR: '.', // md5戳连接符
+    LINT: {
+      CSS: true, // css 代码检查
+      JS: true,  // js 代码检查
+    },
+    OPTIMIZER: {
+      CSS: true,   // css 代码压缩
+      JS: true,    // js 代码压缩
+      HTML: false, // html 代码压缩
+      PNG: {
+        LOSSY: true, // 有损压缩PNG
+      },
+      JPEG: {
+        PROGRESSIVE: true, // 渐进式 JPEG
+      },
+    },
+    HASH: {
+      LENGTH: 6,      // md5戳长度
+      CONNECTOR: '.', // md5戳连接符
+      USE: [
+        // '*',
+      ],
+    },
     USE_RELATIVE: true, // 使用相对路径
     RELEASE_DIR: './release', //发布目录
-    PNG_LOSSY: true, // 有损压缩PNG
-    PROGRESSIVE: true, // 渐进式 JPEG
     LIVERELOAD_HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
     TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$',
     //忽略文件
@@ -98,11 +107,11 @@ by fisker Cheung <lionkay@gmail.com>
       keepSpecialComments: 0,
     },
     'fis-optimizer-png-compressor': {
-      type: CONFIG.PNG_LOSSY ? 'pngquant' : 'pngcrush',
+      type: (CONFIG.OPTIMIZER.PNG && CONFIG.OPTIMIZER.PNG.LOSSY) ? 'pngquant' : 'pngcrush',
       speed: 1,
     },
     'fis-optimizer-jpeg-compressor': {
-      progressive: CONFIG.PROGRESSIVE
+      progressive: CONFIG.OPTIMIZER.JPEG && CONFIG.OPTIMIZER.JPEG.PROGRESSIVE
     },
     'fis-spriter-csssprites': {
       margin: 10,
@@ -159,21 +168,17 @@ by fisker Cheung <lionkay@gmail.com>
     $.set('livereload.hostname', CONFIG.LIVERELOAD_HOSTNAME);
   }
 
-  if (CONFIG.USE_HASH) {
-    if (CONFIG.MD5_LENGTH) {
-      $.set('project.md5Length', CONFIG.MD5_LENGTH);
-    }
-    if (CONFIG.MD5_CONNECTOR) {
-      $.set('project.md5Connector', CONFIG.MD5_CONNECTOR);
-    }
-    $.match('*', {
-      useHash: CONFIG.USE_HASH
+  prod.set('project.md5Length', CONFIG.HASH.LENGTH);
+  prod.set('project.md5Connector', CONFIG.HASH.CONNECTOR);
+  CONFIG.HASH.USE.forEach(function(reg){
+    prod.match(reg, {
+      useHash: true
     });
-  }
+  });
 
   if (CONFIG.USE_RELATIVE) {
     $.hook('relative');
-    $.match('*', {
+    prod.match('*', {
       relative: CONFIG.USE_RELATIVE
     });
   }
@@ -230,29 +235,29 @@ by fisker Cheung <lionkay@gmail.com>
   ([
     {
       type: 'css',
-      lint: CONFIG.LINT.indexOf('css') >= 0 ? 'fis-lint-csslint' : null,
+      lint: CONFIG.LINT.CSS ? 'fis-lint-csslint' : null,
       preprocessor: CONFIG.SUPPORT_FOR_IE ? 'fis-preprocessor-cssgrace' : null,
-      optimizer: CONFIG.OPTIMIZER.indexOf('css') >= 0 ? 'fis-optimizer-clean-css-2x' : '',
+      optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
       postprocessor: 'fis-postprocessor-autoprefixer',
       useSprite: true
     },
     {
       type: 'js',
-      //lint: CONFIG.LINT.indexOf('js') >= 0 ? ['fis-lint-jshint', 'fis-lint-jscs'] : null,
-      lint: CONFIG.LINT.indexOf('js') >= 0 ? ['fis-lint-jshint'] : null,
-      optimizer: CONFIG.OPTIMIZER.indexOf('js') >= 0 ? 'fis-optimizer-uglify-js' : '',
+      //lint: CONFIG.LINT.JS ? ['fis-lint-jshint', 'fis-lint-jscs'] : null,
+      lint: CONFIG.LINT.JS ? ['fis-lint-jshint'] : null,
+      optimizer: CONFIG.OPTIMIZER.JS ? 'fis-optimizer-uglify-js' : null,
     },
     {
       type: 'png',
-      optimizer: 'fis-optimizer-png-compressor',
+      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis-optimizer-png-compressor' : null,
     },
     {
       type: 'jpg',
-      optimizer: 'fis-optimizer-jpeg-compressor',
+      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis-optimizer-jpeg-compressor' : null,
     },
     {
       type: 'html',
-      optimizer: CONFIG.OPTIMIZER.indexOf('html') >= 0 ? 'fis-optimizer-htmlmin' : '',
+      optimizer: CONFIG.OPTIMIZER.HTML ? 'fis-optimizer-htmlmin' : null,
     }
   ]).forEach(function(data) {
       // lint can't used on preProcessor
@@ -294,6 +299,7 @@ by fisker Cheung <lionkay@gmail.com>
       release: false
     });
   });
+
   // standrad files should release
   $.match('_' + getExtsReg(['png', 'jpg', 'gif', 'css', 'js', 'html'], false), {
     release: '/' + CONFIG.TEMP_RESOURCE_FOLDER + '/$0',
@@ -324,7 +330,7 @@ by fisker Cheung <lionkay@gmail.com>
         properties[type] = properties[type].push ? properties[type] : [properties[type]];
         properties[type].push(plugin);
       }else {
-        properties[plugin.type] = plugin;
+        properties[type] = plugin;
       }
     });
     return properties;
