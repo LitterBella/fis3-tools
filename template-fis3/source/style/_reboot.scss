@@ -1,6 +1,7 @@
 /**
  * Reboot
- * based on bootstrap v4 reboot
+ * based on bootstrap v4 reboot https://github.com/twbs/bootstrap
+ * and suitcss https://github.com/suitcss/base
  * @module: reboot
  * @author: fisker Cheung <lionkay@gmail.com>
  * @date: 2015-11-01Z16:07:20+0800
@@ -59,6 +60,7 @@ body {
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga";
 }
 
 // Suppress the focus outline on elements that cannot be accessed via keyboard.
@@ -66,7 +68,7 @@ body {
 // might still respond to pointer events.
 //
 // Credit: https://github.com/suitcss/base
-[tabindex="-1"]:focus {
+[tabindex='-1']:focus {
   outline: none !important;
 }
 
@@ -122,6 +124,9 @@ address {
 ol,
 ul {
   @extend %margin-bottom;
+
+  list-style: none;
+  padding: 0;
 
   ol,
   ul {
@@ -223,6 +228,17 @@ label {
   margin-bottom: $base-font-size * 0.5;
 }
 
+button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+
+  &:focus {
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+}
+
 input,
 button,
 select,
@@ -253,6 +269,10 @@ fieldset {
   // Reset the default outline behavior of fieldsets so they don't affect page layout.
   padding: 0;
   margin: 0;
+  border: 0;
+}
+
+iframe {
   border: 0;
 }
 
@@ -353,7 +373,7 @@ pre {
     _width: expression((document.documentElement.clientWidth || document.body.clientWidth) > 1200 ? '1140px' : 'auto');
   }
 
-  @each $breakpoint,$width in $container-max-widths{
+  @each $breakpoint, $width in $container-max-widths {
     @media (min-width: #{map-get($grid-breakpoints, $breakpoint)}) {
       max-width: $width;
     }
@@ -394,4 +414,3 @@ hr {
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-

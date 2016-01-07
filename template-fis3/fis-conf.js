@@ -8,15 +8,19 @@ by fisker Cheung <lionkay@gmail.com>
 (function($, undefined) {
   var CONFIG = {
     SUPPORT_FOR_IE: true, // IE < 9 支持
+    LINT: [
+      'css',  // js 代码检查
+      'js',   // css 代码检查
+    ],
+    OPTIMIZER: [
+      'css',  // js 代码压缩
+      'js',   // css 代码压缩
+      //'html', // html 代码压缩
+    ],
     USE_HASH: false, // 文件名添加md5戳
     MD5_LENGTH: 6, // md5戳长度
     MD5_CONNECTOR: '.', // md5戳连接符
     USE_RELATIVE: true, // 使用相对路径
-    LINT_JS: true, // js 代码检查
-    LINT_CSS: true, // css 代码检查
-    COMPRESS_JS: true, //js 代码压缩
-    COMPRESS_CSS: true, //css 代码压缩
-    COMPRESS_HTML: false, //html 代码压缩
     RELEASE_DIR: './release', //发布目录
     PNG_LOSSY: true, // 有损压缩PNG
     PROGRESSIVE: true, // 渐进式 JPEG
@@ -27,8 +31,8 @@ by fisker Cheung <lionkay@gmail.com>
       '.**',
       '.{git,svn,hg,CVS,idea}/**',
       '{node_modules,bower_components}/**',
-      'test/**',
       '*.{bat,cmd,sh,tmp,bak}',
+      'test/**',
       'Thumbs.db',
       'fis-conf.js',
     ],
@@ -36,16 +40,16 @@ by fisker Cheung <lionkay@gmail.com>
       '_**',
     ],
     LINT_IGNORE: [
-      '*.min.**',
-      '*-min.**',
+      '*{.,-}min.**',
       'lib/**',
       'thirdparty/**',
+      'third{_,-}party/**',
     ],
     OPTIMIZER_IGNORE: [
-      '*.min.**',
-      '*-min.**',
+      '*{.,-}min.**',
       //'lib/**',
       //'thirdparty/**',
+      //'third{_,-}party/**',
     ],
   };
 
@@ -110,11 +114,15 @@ by fisker Cheung <lionkay@gmail.com>
     'fis-parser-babel-5.x': {
       blacklist: ['regenerator'],
       optional: ['asyncToGenerator'],
-      sourceMaps: false,
-      stage: 3
+      //sourceMaps: false,
+      stage: 3,
     },
-    'fis-parser-babel-6.x': {},
+    'fis-parser-babel-6.x': {
+      //presets: 'react',
+      //sourceMaps: false,
+    },
   };
+
   var pluginTypes = [
     'lint',
     'parser',
@@ -133,6 +141,8 @@ by fisker Cheung <lionkay@gmail.com>
   var dev = $.media('dev');
 
   var fileExts = {};
+  var hasOwn = fileExts.hasOwnProperty;
+  var slice = pluginTypes.slice;
 
   if (CONFIG.IGNORE) {
     $.set('project.ignore', CONFIG.IGNORE);
@@ -200,13 +210,13 @@ by fisker Cheung <lionkay@gmail.com>
       type: 'js',
       parser: 'fis3-parser-typescript',
     },
-  ]).forEach(function(data){
+  ]).forEach(function(data) {
       var exts = toArray(data.ext);
       var processor = {
         rExt: '.' + data.type,
       };
       // plugins
-      ['parser', 'lint'].forEach(function(type){
+      ['parser', 'lint'].forEach(function(type) {
         if (data[type]) {
           processor[type] = getPlugin(data[type]);
         }
@@ -220,17 +230,17 @@ by fisker Cheung <lionkay@gmail.com>
   ([
     {
       type: 'css',
-      lint: CONFIG.LINT_CSS ? 'fis-lint-csslint' : null,
+      lint: CONFIG.LINT.indexOf('css') >= 0 ? 'fis-lint-csslint' : null,
       preprocessor: CONFIG.SUPPORT_FOR_IE ? 'fis-preprocessor-cssgrace' : null,
-      optimizer: CONFIG.COMPRESS_CSS ? 'fis-optimizer-clean-css-2x' : '',
+      optimizer: CONFIG.OPTIMIZER.indexOf('css') >= 0 ? 'fis-optimizer-clean-css-2x' : '',
       postprocessor: 'fis-postprocessor-autoprefixer',
       useSprite: true
     },
     {
       type: 'js',
-      //lint: CONFIG.LINT_JS ? ['fis-lint-jshint', 'fis-lint-jscs'] : null,
-      lint: CONFIG.LINT_JS ? ['fis-lint-jshint'] : null,
-      optimizer: CONFIG.COMPRESS_JS ? 'fis-optimizer-uglify-js' : '',
+      //lint: CONFIG.LINT.indexOf('js') >= 0 ? ['fis-lint-jshint', 'fis-lint-jscs'] : null,
+      lint: CONFIG.LINT.indexOf('js') >= 0 ? ['fis-lint-jshint'] : null,
+      optimizer: CONFIG.OPTIMIZER.indexOf('js') >= 0 ? 'fis-optimizer-uglify-js' : '',
     },
     {
       type: 'png',
@@ -242,9 +252,9 @@ by fisker Cheung <lionkay@gmail.com>
     },
     {
       type: 'html',
-      optimizer: CONFIG.COMPRESS_HTML ? 'fis-optimizer-htmlmin' : '',
+      optimizer: CONFIG.OPTIMIZER.indexOf('html') >= 0 ? 'fis-optimizer-htmlmin' : '',
     }
-  ]).forEach(function(data){
+  ]).forEach(function(data) {
       // lint can't used on preProcessor
       if (data.lint) {
         $.match(getExtsReg(toArray(data.type)), {
@@ -252,14 +262,14 @@ by fisker Cheung <lionkay@gmail.com>
         });
       }
       var processor = {};
-      ['useSprite'].forEach(function(type){
+      ['useSprite'].forEach(function(type) {
         if (type in data) {
           processor[type] = data[type];
         }
       });
       //plugins
-      ['preprocessor', 'optimizer', 'postprocessor'].forEach(function(type){
-        if(data[type]){
+      ['preprocessor', 'optimizer', 'postprocessor'].forEach(function(type) {
+        if (data[type]) {
           processor[type] = getPlugin(data[type]);
         }
       });
@@ -267,20 +277,19 @@ by fisker Cheung <lionkay@gmail.com>
       $.match(getExtsReg(data.type), processor);
     });
 
-
-  CONFIG.LINT_IGNORE.forEach(function(reg){
+  CONFIG.LINT_IGNORE.forEach(function(reg) {
     $.match(reg, {
       lint: null
     });
   });
 
-  CONFIG.OPTIMIZER_IGNORE.forEach(function(reg){
+  CONFIG.OPTIMIZER_IGNORE.forEach(function(reg) {
     $.match(reg, {
       optimizer: null
     });
   });
 
-  CONFIG.RELEASE_IGNORE.forEach(function(reg){
+  CONFIG.RELEASE_IGNORE.forEach(function(reg) {
     $.match(reg, {
       release: false
     });
@@ -291,15 +300,10 @@ by fisker Cheung <lionkay@gmail.com>
     relative: '/',
   });
 
-
-  $.match('::package', {
-    spriter: getPlugin('fis-spriter-csssprites')
-  });
+  $.match('::package', pluginToProperties('fis-spriter-csssprites'));
 
   prod
-    .match('**', {
-      deploy: getPlugin('fis3-deploy-local-deliver')
-    });
+    .match('**', pluginToProperties('fis3-deploy-local-deliver'));
 
   dev
     .match('**', {
@@ -308,28 +312,51 @@ by fisker Cheung <lionkay@gmail.com>
 
   //help functions
   function toArray(s) {
-    return s.split ? s.split(',') : Array.prototype.slice.call(s);
+    return s.split ? s.split(',') : slice.call(s);
+  }
+
+  function pluginToProperties(pluginNames, pluginOptions) {
+    var properties = {};
+    toArray(pluginNames).forEach(function(pluginName) {
+      var type = parsePlugin(pluginName).type;
+      var plugin = getPlugin(pluginName);
+      if (properties[type]) {
+        properties[type] = properties[type].push ? properties[type] : [properties[type]];
+        properties[type].push(plugin);
+      }else {
+        properties[plugin.type] = plugin;
+      }
+    });
+    return properties;
+  }
+
+  function parsePlugin(pluginName) {
+    var match = pluginName.match(new RegExp('^(?:fis|fis3)\-(' + pluginTypes.join('|') + ')\-(.*?)$'));
+    return match && match[2] && {
+      'name': match[0],
+      'type': match[1],
+      'short': match[2],
+    };
   }
 
   function getPlugin(pluginNames, pluginOptions) {
-    if (pluginNames.__plugin){
+    if (pluginNames.__plugin) {
       return pluginNames;
     }
     if (!pluginNames) {
       return null;
     }
     var plugins = [];
-    var pluginPrefixRegex = new RegExp('^(?:fis|fis3)\-(?:' + pluginTypes.join('|') + ')\-');
 
-    toArray(pluginNames).forEach(function(pluginName){
+    toArray(pluginNames).forEach(function(pluginName) {
       if (!pluginName) {
         return null;
       }
       var plugin;
       if (pluginName.__plugin) {
         plugin = pluginName;
-      }else{
-        var shortPluginName = pluginName.replace(pluginPrefixRegex, '');
+      }else {
+        var shortPluginName = parsePlugin(pluginName).short;
         var options = pluginOptions || (PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {});
         plugin = $.plugin(shortPluginName, extend({}, options));
       }
@@ -350,7 +377,7 @@ by fisker Cheung <lionkay@gmail.com>
       exts = toArray(ext);
     }
     exts = exts.length === 1 ? exts : '{' + exts.join(',') + '}';
-    if (true === inline){
+    if (true === inline) {
       prefix = '*.html:';
     } else if (false === inline) {
       prefix = '*.';
@@ -360,18 +387,16 @@ by fisker Cheung <lionkay@gmail.com>
     return prefix + exts;
   }
 
-  function extend(dest){
+  function extend(dest) {
     var sources = toArray(arguments);
     sources.shift();
-    sources.forEach(function(source){
-      if (!source) {
-        return;
-      }
+    sources.forEach(function(source) {
       for (var prop in source) {
-        dest[prop] = source[prop];
+        if (hasOwn.call(source, prop)) {
+          dest[prop] = source[prop];
+        }
       }
     });
     return dest;
   }
-
 })(fis);

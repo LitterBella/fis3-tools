@@ -1,5 +1,9 @@
 {
   "preset": "google",
+  "maximumLineLength": {
+    "value": 120,
+    "allExcept": ["comments", "regex"]
+  },
   "disallowSpacesInAnonymousFunctionExpression": null,
   "validateLineBreaks": "LF",
   "validateIndentation": 2,
