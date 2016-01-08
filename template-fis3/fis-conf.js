@@ -140,9 +140,6 @@ last update 2016.1.7
     'fis-parser-jade': {
       pretty: true,
     },
-    'fis-parser-jade': {
-      pretty: true,
-    },
     'fis-parser-jade-to-html': {
       pretty: true,
     },
