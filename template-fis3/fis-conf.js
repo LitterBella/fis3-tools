@@ -137,6 +137,15 @@ last update 2016.1.7
       //presets: 'react',
       //sourceMaps: false,
     },
+    'fis-parser-jade': {
+      pretty: true,
+    },
+    'fis-parser-jade': {
+      pretty: true,
+    },
+    'fis-parser-jade-to-html': {
+      pretty: true,
+    },
   };
 
   var pluginTypes = [
@@ -221,6 +230,11 @@ last update 2016.1.7
       ext: ['ts', 'tsx'],
       type: 'js',
       parser: 'fis3-parser-typescript',
+    },
+    {
+      ext: 'jade',
+      type: 'html',
+      parser: 'fis-parser-jade-to-html',
     },
   ]).forEach(function(data) {
       var exts = toArray(data.ext);

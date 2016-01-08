@@ -76,6 +76,8 @@ REM call npm i -g fis-postpackager-loader
 REM call npm i -g fi3-deploy-replace
 REM call npm i -g fi3-deploy-tar
 REM call npm i -g fi3-deploy-zip
+REM call npm i -g fis-parser-jade
+call npm i -g fis-parser-jade-to-html
 call npm i -g fi3-deploy-local-deliver
 echo ..................................................done.
 goto end
