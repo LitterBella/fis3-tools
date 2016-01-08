@@ -357,7 +357,6 @@ pre {
   }
 }
 
-.container,
 .container-fluid {
   @extend %clearfix;
 
@@ -367,15 +366,18 @@ pre {
   padding-left: $base-font-size * 0.9375;
 }
 
-.container {
-  @if $support-for-ie {
+@if $support-for-ie {
+  .container {
+    @extend .container-fluid;
+
     max-width: 1140px;
     _width: expression((document.documentElement.clientWidth || document.body.clientWidth) > 1200 ? '1140px' : 'auto');
-  }
 
-  @each $breakpoint, $width in $container-max-widths {
-    @media (min-width: #{map-get($grid-breakpoints, $breakpoint)}) {
-      max-width: $width;
+
+    @each $breakpoint, $width in $container-max-widths {
+      @media (min-width: #{map-get($grid-breakpoints, $breakpoint)}) {
+        max-width: $width;
+      }
     }
   }
 }

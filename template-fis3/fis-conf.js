@@ -94,7 +94,14 @@ last update 2016.1.7
         'safari >= 3.1',
       ]),
     },
-    'fis-optimizer-uglify-js': {},
+    'fis-optimizer-uglify-js': {
+      mangle: {
+        except: 'exports, module, require, define'
+      },
+      compress : {
+        drop_console: true
+      }
+    },
     'fis-optimizer-clean-css-2x': {
       advanced: CONFIG.SUPPORT_FOR_IE ? false : true,
       compatibility: (CONFIG.SUPPORT_FOR_IE ? [
@@ -178,7 +185,7 @@ last update 2016.1.7
 
   if (CONFIG.USE_RELATIVE) {
     $.hook('relative');
-    prod.match('*', {
+    $.match('*', {
       relative: CONFIG.USE_RELATIVE
     });
   }
