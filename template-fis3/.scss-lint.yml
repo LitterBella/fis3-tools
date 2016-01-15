@@ -21,7 +21,7 @@ linters:
     enabled: false
 
   ColorKeyword:
-    enabled: true
+    enabled: false
 
   ColorVariable:
     enabled: false
@@ -93,7 +93,7 @@ linters:
 
   MergeableSelector:
     enabled: true
-    force_nesting: true
+    force_nesting: false
 
   NameFormat:
     enabled: true
@@ -101,7 +101,7 @@ linters:
     convention: hyphenated_lowercase # or 'camel_case', or 'snake_case', or a regex pattern
 
   NestingDepth:
-    enabled: true
+    enabled: false
     max_depth: 3
     ignore_parent_selectors: true
 
