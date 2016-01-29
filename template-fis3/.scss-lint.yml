@@ -14,7 +14,7 @@ linters:
     max_elements: 1
 
   BorderZero:
-    enabled: true
+    enabled: false
     convention: zero # or `none`
 
   ChainedClasses:
@@ -43,7 +43,7 @@ linters:
     enabled: false
 
   ElsePlacement:
-    enabled: true
+    enabled: false
     style: same_line # or 'new_line'
 
   EmptyLineBetweenBlocks:
@@ -92,7 +92,7 @@ linters:
     enabled: false
 
   MergeableSelector:
-    enabled: true
+    enabled: false
     force_nesting: false
 
   NameFormat:

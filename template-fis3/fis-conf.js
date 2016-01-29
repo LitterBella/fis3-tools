@@ -33,12 +33,15 @@ last update 2016.1.7
     },
     USE_RELATIVE: true, // 使用相对路径
     RELEASE_DIR: './release', //发布目录
-    LIVERELOAD_HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
+    LIVERELOAD: {
+      //PORT: 1988,           // livereload 端口，留空自动查找
+      HOSTNAME: 'localhost',  // livereload IP地址，留空自动查找
+    },
     TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$',
     //忽略文件
     IGNORE: [
       '.**',
-      '.{git,svn,hg,CVS,idea}/**',
+      '.{git,svn,hg,CVS,idea,sass-cache}/**',
       '{node_modules,bower_components}/**',
       '*.{bat,cmd,sh,tmp,bak}',
       'test/**',
@@ -53,26 +56,43 @@ last update 2016.1.7
       'lib/**',
       'thirdparty/**',
       'third{_,-}party/**',
+      'vendors/**',
     ],
     OPTIMIZER_IGNORE: [
       '*{.,-}min.**',
       //'lib/**',
       //'thirdparty/**',
       //'third{_,-}party/**',
+      //'vendors/**',
     ],
   };
 
   var PLUGINS_CONFIG = {
     'fis-parser-node-sass': {
-      //indentType : 'space',
-      //indentWidth : 2,
-      //linefeed : 'lf',
-      outputStyle: 'expanded',
-      precision: 8, //default 5
-      sourceComments: true,
-      //sourceMap : true,
-      //sourceMapContents : true,
-      //sourceMapEmbed : false,
+      __sperate: true,
+      common: {
+        includePaths: [],
+        indentType: 'space',
+        indentWidth: 2,
+        linefeed: 'lf',
+        omitSourceMapUrl: false,
+        //outFile: '',
+        outputStyle: 'expanded', //nested, expanded, compact, compressed
+        precision: 8, //default 5
+        sourceComments: true,
+        sourceMap: false,
+        sourceMapContents: true,
+        sourceMapEmbed: true,
+        //sourceMapRoot: ''
+      },
+      dev: {
+        sourceComments: true,
+        sourceMapEmbed: true,
+      },
+      prod: {
+        sourceComments: false,
+        sourceMapEmbed: false,
+      },
     },
     'fis-parser-stylus2': {},
     'fis-parser-less-2.x': {},
@@ -95,12 +115,13 @@ last update 2016.1.7
       ]),
     },
     'fis-optimizer-uglify-js': {
+      //jscs: disable requireCamelCaseOrUpperCaseIdentifiers
       mangle: {
-        except: 'exports, module, require, define'
+        except: 'exports, module, require, define',
       },
-      compress : {
-        drop_console: true
-      }
+      compress: {
+        drop_console: true,
+      },
     },
     'fis-optimizer-clean-css-2x': {
       advanced: CONFIG.SUPPORT_FOR_IE ? false : true,
@@ -127,15 +148,36 @@ last update 2016.1.7
     'fis3-deploy-local-deliver': {
       to: CONFIG.RELEASE_DIR,
     },
+    'fis-parser-coffee-script': {
+      //header: true,
+    },
     'fis-parser-babel-5.x': {
-      blacklist: ['regenerator'],
-      optional: ['asyncToGenerator'],
-      //sourceMaps: false,
-      stage: 3,
+      __sperate: true,
+      common: {
+        blacklist: ['regenerator'],
+        optional: ['asyncToGenerator'],
+        sourceMaps: false,
+        stage: 3,
+      },
+      dev: {
+        sourceMaps: true,
+      },
+      prod: {
+        sourceMaps: false,
+      },
     },
     'fis-parser-babel-6.x': {
-      //presets: 'react',
-      //sourceMaps: false,
+      __sperate: true,
+      common: {
+        presets: 'react',
+        sourceMaps: false,
+      },
+      dev: {
+        sourceMaps: true,
+      },
+      prod: {
+        sourceMaps: false,
+      },
     },
     'fis-parser-jade': {
       pretty: true,
@@ -159,7 +201,7 @@ last update 2016.1.7
     'deploy',
   ];
 
-  var prod = $.media('production');
+  var prod = $.media('prod');
   var dev = $.media('dev');
 
   var fileExts = {};
@@ -176,14 +218,16 @@ last update 2016.1.7
     });
   });
 
-  //$.set('livereload.port', '1988');
-  if (CONFIG.LIVERELOAD_HOSTNAME) {
-    $.set('livereload.hostname', CONFIG.LIVERELOAD_HOSTNAME);
+  if (CONFIG.LIVERELOAD.PORT) {
+    $.set('livereload.port', CONFIG.LIVERELOAD.PORT);
+  }
+  if (CONFIG.LIVERELOAD.HOSTNAME) {
+    $.set('livereload.hostname', CONFIG.LIVERELOAD.HOSTNAME);
   }
 
   prod.set('project.md5Length', CONFIG.HASH.LENGTH);
   prod.set('project.md5Connector', CONFIG.HASH.CONNECTOR);
-  CONFIG.HASH.USE.forEach(function(reg){
+  CONFIG.HASH.USE.forEach(function(reg) {
     prod.match(reg, {
       useHash: true
     });
@@ -231,22 +275,29 @@ last update 2016.1.7
     {
       ext: 'jade',
       type: 'html',
-      parser: 'fis-parser-jade-to-html',
+      parser: 'fis-parser-jade',
     },
   ]).forEach(function(data) {
       var exts = toArray(data.ext);
       var processor = {
         rExt: '.' + data.type,
       };
-      // plugins
-      ['parser', 'lint'].forEach(function(type) {
-        if (data[type]) {
-          processor[type] = getPlugin(data[type]);
-        }
-      });
       fileExts[data.type] = fileExts[data.type] || [];
       fileExts[data.type] = fileExts[data.type].concat(exts);
       $.match(getExtsReg(exts), processor);
+
+      // plugins
+      var plugins = ['parser', 'lint'];
+      ['dev', 'prod'].forEach(function(media) {
+        var processor = {};
+        plugins.forEach(function(pluginType) {
+          if (data[pluginType]) {
+            processor[pluginType] = getPlugin(data[pluginType], media);
+          }
+        });
+
+        $.media(media).match(getExtsReg(exts), processor);
+      });
     });
 
   // standardProccessor
@@ -319,6 +370,7 @@ last update 2016.1.7
   });
 
   // standrad files should release
+  // for inline include
   $.match('_' + getExtsReg(['png', 'jpg', 'gif', 'css', 'js', 'html'], false), {
     release: '/' + CONFIG.TEMP_RESOURCE_FOLDER + '/$0',
     relative: '/',
@@ -339,7 +391,7 @@ last update 2016.1.7
     return s.split ? s.split(',') : slice.call(s);
   }
 
-  function pluginToProperties(pluginNames, pluginOptions) {
+  function pluginToProperties(pluginNames) {
     var properties = {};
     toArray(pluginNames).forEach(function(pluginName) {
       var type = parsePlugin(pluginName).type;
@@ -363,7 +415,16 @@ last update 2016.1.7
     };
   }
 
-  function getPlugin(pluginNames, pluginOptions) {
+  function getPluginOptions(pluginName, media) {
+    media = media || 'dev';
+    var shortPluginName = parsePlugin(pluginName).short;
+    var options = PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {};
+    return options.__sperate ?
+          extend({}, options.common, options[media])
+          : options;
+  }
+
+  function getPlugin(pluginNames, media) {
     if (pluginNames.__plugin) {
       return pluginNames;
     }
@@ -371,7 +432,6 @@ last update 2016.1.7
       return null;
     }
     var plugins = [];
-
     toArray(pluginNames).forEach(function(pluginName) {
       if (!pluginName) {
         return null;
@@ -381,8 +441,7 @@ last update 2016.1.7
         plugin = pluginName;
       }else {
         var shortPluginName = parsePlugin(pluginName).short;
-        var options = pluginOptions || (PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {});
-        plugin = $.plugin(shortPluginName, extend({}, options));
+        plugin = $.plugin(shortPluginName, getPluginOptions(pluginName, media));
       }
       plugins.push(plugin);
     });
@@ -415,6 +474,7 @@ last update 2016.1.7
     var sources = toArray(arguments);
     sources.shift();
     sources.forEach(function(source) {
+      source = source || {};
       for (var prop in source) {
         if (hasOwn.call(source, prop)) {
           dest[prop] = source[prop];

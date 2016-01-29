@@ -17,10 +17,42 @@
     <script src="static/js/html5.min.js"></script>
     <![endif]-->
     <link href="static/style/main.scss" rel="stylesheet">
+    <style type="text/x-scss">
+      @import "static/style/utils";
+      .container {
+        padding-top: 15px;
+        padding-right: 15px;
+      }
+      .icons {
+        @include clear-spacing();
+      }
+      .icon {
+        display: inline-block;
+        background: #1cf;
+        border-radius: 5px;
+        color: #fff;
+        padding: 0 10px;
+        margin: 10px;
+        height: 2.5rem;
+      }
+      $icons: caret arrow plus close;
+      @each $icon in $icons {
+        .icon-#{$icon} {
+          @extend %icon-#{$icon};
+          vertical-align: -.125rem;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="container"></div>
-    <div class="container-fluid"></div>
+    <div class="container-fluid">
+      <div class="container icons">
+        <button class="icon"><i class="icon-caret"></i> <span>三角</span></button>
+        <button class="icon"><i class="icon-arrow"></i> <span>箭头</span></button>
+        <button class="icon"><i class="icon-plus"></i> <span>加号</span></button>
+        <button class="icon"><i class="icon-close"></i> <span>乘号</span></button>
+      </div>
+    </div>
 
     <!--[if IE 6]>
     <script src="static/js/dd_belatedpng.min.js"></script>

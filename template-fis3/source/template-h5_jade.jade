@@ -1,0 +1,67 @@
+doctype html
+include jade/_funcs
+
+-
+  title = 'title';
+
+  keywords = [
+  ];
+
+  description = '';
+
+  viewport = {
+    width: 'device-width',
+    'initial-scale': 1,
+    'maximum-scale': 1,
+    'minimum-scale': 1,
+    'user-scalable': 'no',
+    'shrink-to-fit': 'no',
+  };
+
+  formatDetection = {
+    'telephone': 'no',
+    'email': 'no',
+    'address': 'no',
+    'date': 'no',
+  };
+
+  cssFiles = [
+    'static/style/main.scss',
+  ];
+
+  headjsFiles = [
+  ];
+
+  jsFiles = [
+    'static/js/zepto.min.js',
+  ];
+
+
+html(lang='zh-cmn-Hans')
+  head
+    meta(charset='UTF-8')
+    meta(name='google', value='notranslate')
+    + meta('robots', ['index','follow'])
+    + meta('viewport', viewport)
+    + meta('format-detection', formatDetection)
+    + meta('msapplication-tap-highlight', 'no')
+    title= title
+    + meta('keywords', keywords)
+    + meta('description', description)
+    - each headjsFile in headjsFiles
+      + js(headjsFile)
+    - each cssFile in cssFiles
+      + css(cssFile)
+  body
+    .container-fluid
+
+    - each jsFile in jsFiles
+      + js(jsFile)
+
+    //a empty nav element to aviod uc brower font size adjust.
+    nav
+
+
+
+
+

@@ -4,8 +4,8 @@
  * and suitcss https://github.com/suitcss/base
  * @module: reboot
  * @author: fisker Cheung <lionkay@gmail.com>
- * @date: 2015-11-01Z16:07:20+0800
- * @version: 1.0
+ * @date: 2016-01-26Z16:27:20+0800
+ * @version: 1.1
  */
 
 // Make viewport responsive
@@ -29,11 +29,19 @@
 
 html {
   // Sets a specific default `font-size` for user with `rem` type scales.
-  font-size: 16px;
+  font-size: $root-font-size;
 
   @if $use-border-box {
     box-sizing: border-box;
   }
+
+  // As a side-effect of setting the @viewport above,
+  // IE11 & Edge make the scrollbar overlap the content and automatically hide itself when not in use.
+  // Unfortunately, the auto-showing of the scrollbar is sometimes too sensitive,
+  // thus making it hard to click on stuff near the right edge of the page.
+  // So we add this style to force IE11 & Edge to use a "normal", non-overlapping, non-auto-hiding scrollbar.
+  // See https://github.com/twbs/bootstrap/issues/18543
+  -ms-overflow-style: scrollbar;
 
   // Changes the default tap highlight to be completely transparent in iOS.
   -webkit-tap-highlight-color: transparent;
@@ -68,7 +76,7 @@ body {
 // might still respond to pointer events.
 //
 // Credit: https://github.com/suitcss/base
-[tabindex='-1']:focus {
+[tabindex="-1"]:focus {
   outline: none !important;
 }
 
@@ -223,7 +231,7 @@ th {
 }
 
 label {
-  // Allow labels can use `margin` for spacing.
+  // Allow labels to use `margin` for spacing.
   display: inline-block;
   margin-bottom: $base-font-size * 0.5;
 }
@@ -288,10 +296,7 @@ legend {
   //  border: 0;
 }
 
-input[type='search'] {
-  // Undo Normalize's default here to match our global overrides.
-  box-sizing: inherit;
-
+input[type="search"] {
   // This overrides the extra rounded corners on search inputs in iOS so that our
   // `.form-control` class can properly style them. Note that this cannot simply
   // be added to `.form-control` as it's not specific enough. For details, see
@@ -358,7 +363,7 @@ pre {
 }
 
 .container-fluid {
-  @extend %clearfix;
+  @include clearfix();
 
   margin-right: auto;
   margin-left: auto;
@@ -371,11 +376,11 @@ pre {
     @extend .container-fluid;
 
     max-width: 1140px;
-    _width: expression((document.documentElement.clientWidth || document.body.clientWidth) > 1200 ? '1140px' : 'auto');
+    _width: expression((document.documentElement.clientWidth || document.body.clientWidth) > 1200 ? "1140px" : "auto");
 
 
     @each $breakpoint, $width in $container-max-widths {
-      @media (min-width: #{map-get($grid-breakpoints, $breakpoint)}) {
+      @include breakpoint($breakpoint) {
         max-width: $width;
       }
     }

@@ -92,7 +92,7 @@ echo.
 :: release file
 echo ...............................................................................
 echo releasing files
-call fis3 release production --dest release --lint --unique --root ".\%SOURCE_FOLDER%" --file %CONFIG_FILE% --verbose --no-color > %LOG_FILE%
+call fis3 release prod --dest release --lint --unique --root ".\%SOURCE_FOLDER%" --file %CONFIG_FILE% --verbose --no-color > %LOG_FILE%
 if errorlevel 1 ( goto error )
 if exist %RELEASE_FOLDER%\%TEMP_RESOURCE_FOLDER% rd /S /Q %RELEASE_FOLDER%\%TEMP_RESOURCE_FOLDER%
 echo ..........................................................................done.

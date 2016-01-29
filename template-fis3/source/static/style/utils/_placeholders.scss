@@ -1,0 +1,45 @@
+// placeholders
+
+%clearfix {
+  @include clearfix();
+}
+
+%center-block {
+  @include center-block();
+}
+
+%hide-text {
+  @include hide-text();
+}
+
+%sr-only {
+  @include sr-only();
+}
+
+%scrollable {
+  @include scrollable();
+}
+
+%ellipsis {
+  @include ellipsis();
+}
+
+%clear-spacing {
+  @include clear-spacing();
+}
+
+%icon-caret {
+  @include triangle(down, 1em);
+}
+
+%icon-arrow {
+  @include arrow(right, 1em, 2px);
+}
+
+%icon-plus {
+  @include plus(1em, 2px);
+}
+
+%icon-close {
+  @include close(1em, 2px);
+}
