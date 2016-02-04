@@ -8,7 +8,7 @@ last update 2016.1.7
 'use strict';
 (function($, undefined) {
   var CONFIG = {
-    SUPPORT_FOR_IE: true, // IE < 9 支持
+    LEGACY_IE: true, // IE < 9 支持
     LINT: {
       CSS: true, // css 代码检查
       JS: true,  // js 代码检查
@@ -97,7 +97,7 @@ last update 2016.1.7
     'fis-parser-stylus2': {},
     'fis-parser-less-2.x': {},
     'fis-postprocessor-autoprefixer': {
-      browsers: (CONFIG.SUPPORT_FOR_IE ? ['ie >= 5.5'] : ['ie >= 9']).concat([
+      browsers: (CONFIG.LEGACY_IE ? ['ie >= 5.5'] : ['ie >= 9']).concat([
         'and_chr >= 1',
         'and_ff >=1',
         'and_uc >=1',
@@ -124,8 +124,8 @@ last update 2016.1.7
       },
     },
     'fis-optimizer-clean-css-2x': {
-      advanced: CONFIG.SUPPORT_FOR_IE ? false : true,
-      compatibility: (CONFIG.SUPPORT_FOR_IE ? [
+      advanced: CONFIG.LEGACY_IE ? false : true,
+      compatibility: (CONFIG.LEGACY_IE ? [
         '+properties.ieBangHack',
         '+properties.iePrefixHack',
         '+properties.ieSuffixHack',
@@ -305,7 +305,7 @@ last update 2016.1.7
     {
       type: 'css',
       lint: CONFIG.LINT.CSS ? 'fis-lint-csslint' : null,
-      preprocessor: CONFIG.SUPPORT_FOR_IE ? 'fis-preprocessor-cssgrace' : null,
+      preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
       optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
       postprocessor: 'fis-postprocessor-autoprefixer',
       useSprite: true

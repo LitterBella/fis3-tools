@@ -1,13 +1,13 @@
 // variables
 
-$support-for-ie: true !default;
+$legacy-ie: false !default;
 
 $root-font-size: 16px !default;
 
 //for old ie should use 16px instead
-$base-font-size: if($support-for-ie, 16px, 1rem) !default;
+$base-font-size: if($legacy-ie, 16px, 1rem) !default;
 
-$use-border-box: if($support-for-ie, false, true) !default;
+$use-border-box: if($legacy-ie, false, true) !default;
 
 $base-color: #373a3c !default;
 $base-line-height: 1.5 !default;

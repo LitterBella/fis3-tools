@@ -371,7 +371,7 @@ pre {
   padding-left: $base-font-size * 0.9375;
 }
 
-@if $support-for-ie {
+@if $legacy-ie {
   .container {
     @extend .container-fluid;
 
