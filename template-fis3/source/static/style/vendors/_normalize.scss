@@ -326,6 +326,15 @@ input::-moz-focus-inner {
 }
 
 /**
+ * Restore focus style in Firefox 4+ (unset by a rule above)
+ */
+
+button:-moz-focusring,
+input:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
  * Address Firefox 4+ setting `line-height` on `input` using `!important` in
  * the UA stylesheet.
  */
@@ -407,27 +416,10 @@ textarea {
 }
 
 /**
- * Don't inherit the `font-weight` (applied by a rule above).
+ * Restore font weight (unset by a rule above).
  * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
  */
 
 optgroup {
   font-weight: bold;
-}
-
-/* Tables
-   ========================================================================== */
-
-/**
- * Remove most spacing between table cells.
- */
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-td,
-th {
-  padding: 0;
 }

@@ -42,6 +42,23 @@
           vertical-align: -.125rem;
         }
       }
+
+
+      .box-sizing {
+        box-sizing: border-box;
+
+        &::before,
+        &::after {
+          content: "";
+          display: inline-block;
+          width: 100px;
+          height: 100px;
+          padding: 10px;
+          border: 1px solid #ddd;
+          background: #eee;
+        }
+
+      }
     </style>
   </head>
   <body>
@@ -53,6 +70,25 @@
         <button class="icon"><i class="icon-close"></i> <span>乘号</span></button>
       </div>
     </div>
+
+    <div class="container-fluid">
+      <div class="box-sizing">
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="select">
+        <select name="" id="">
+          <option value="1">option 1</option>
+          <option value="2">option 2</option>
+          <option value="3">option 3</option>
+          <option value="4">option 4</option>
+          <option value="5">option 5</option>
+        </select>
+      </div>
+    </div>
+
+
 
     <!--[if IE 6]>
     <script src="static/js/dd_belatedpng.min.js"></script>

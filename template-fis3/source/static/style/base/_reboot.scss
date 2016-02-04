@@ -48,12 +48,16 @@ html {
   text-rendering: optimizelegibility;
 }
 
-@if $use-border-box {
-  *,
-  *::before,
-  *::after {
+
+*,
+::before,
+::after {
+  @if $use-border-box {
     box-sizing: inherit;
   }
+
+  // specify the core styles of all elements
+  background-repeat: no-repeat;
 }
 
 body {
@@ -215,6 +219,11 @@ textarea {
 table {
   // Reset for nesting within parents with `background-color`.
   background-color: transparent;
+
+  // normalize will remove this in v4
+  // https://github.com/necolas/normalize.css/issues/506
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 caption {
@@ -225,9 +234,11 @@ caption {
   caption-side: bottom;
 }
 
+// normalize will remove this in v4
+// https://github.com/necolas/normalize.css/issues/506
+td,
 th {
-  // Centered by default, but left-align-ed to match the `td`s below.
-  text-align: left;
+  padding: 0;
 }
 
 label {
@@ -236,8 +247,25 @@ label {
   margin-bottom: $base-font-size * 0.5;
 }
 
+// Work around a Firefox/IE bug where the transparent `button` background
+// results in a loss of the default `button` focus styles.
+//
+// Credit: https://github.com/suitcss/base/
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+// https://github.com/10up/sanitize.css/blob/master/dist/sanitize.css
+/* specify the background color of form elements */
+button,
+input,
+select,
+textarea {
+  background-color: transparent;
+}
+
 button {
-  background: transparent;
   border: 0;
   padding: 0;
 
@@ -245,6 +273,10 @@ button {
     outline: 1px dotted;
     outline: 5px auto -webkit-focus-ring-color;
   }
+}
+
+input[type="number"] {
+  width: auto;/* Firefox 36+ */
 }
 
 input,
@@ -267,6 +299,8 @@ textarea {
   // Textareas should really only resize vertically so they don't break their (horizontal) containers.
   resize: vertical;
 }
+
+
 
 fieldset {
   // Chrome and Firefox set a `min-width: min-content;` on fieldsets,

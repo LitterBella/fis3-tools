@@ -73,9 +73,8 @@
     display: -webkit-box;
     -webkit-line-clamp: $lines;
     -webkit-box-orient: vertical;
-    border-radius: 2px;
 
-    $line-height: if(unitless($line-height), 1px * $line-height, $line-height);
+    $line-height: if(unitless($line-height), 1em * $line-height, $line-height);
     @if value-of($line-height) != 0 {
       line-height: $line-height;
       max-height: $line-height * $lines;

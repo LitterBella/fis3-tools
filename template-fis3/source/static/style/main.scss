@@ -3,6 +3,8 @@
  * @require normalize
  * @require reboot
  */
+$legacy-ie: true;  // ie < 9 support
+$link-hover-decoration: none;
 
 @import "utils/utils";
 @import "vendors/normalize";
