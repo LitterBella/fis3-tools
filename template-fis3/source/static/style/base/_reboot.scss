@@ -48,7 +48,6 @@ html {
   text-rendering: optimizelegibility;
 }
 
-
 *,
 ::before,
 ::after {
@@ -85,17 +84,13 @@ body {
 }
 
 %margin-bottom {
-  margin: {
-    top: 0;
-    bottom: $base-font-size;
-  };
+  margin-top: 0;
+  margin-bottom: $base-font-size;
 }
 
 %margin-bottom-half {
-  margin: {
-    top: 0;
-    bottom: $base-font-size * 0.5;
-  };
+  margin-top: 0;
+  margin-bottom: $base-font-size * .5;
 }
 
 // Remove top margins from headings
@@ -155,10 +150,8 @@ dt {
 }
 
 dd {
-  margin: {
-    left: 0; // Undo browser default
-    bottom: $base-font-size * 0.5;
-  };
+  margin-left: 0; // Undo browser default
+  margin-bottom: $base-font-size * .5;
 }
 
 blockquote {
@@ -193,6 +186,12 @@ img {
   // centers them. This won't apply should you reset them to `block` level.
   vertical-align: middle;
   -ms-interpolation-mode: bicubic;
+
+  // Get rid of gap under images by making them display: inline-block; by default
+  // https://github.com/zurb/foundation-sites/blob/develop/scss/_global.scss
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
 }
 
 // Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.
@@ -227,8 +226,8 @@ table {
 }
 
 caption {
-  padding-top: $base-font-size * 0.75;
-  padding-bottom: $base-font-size * 0.75;
+  padding-top: $base-font-size * .75;
+  padding-bottom: $base-font-size * .75;
   color: #818a91;
   text-align: left;
   caption-side: bottom;
@@ -244,16 +243,7 @@ th {
 label {
   // Allow labels to use `margin` for spacing.
   display: inline-block;
-  margin-bottom: $base-font-size * 0.5;
-}
-
-// Work around a Firefox/IE bug where the transparent `button` background
-// results in a loss of the default `button` focus styles.
-//
-// Credit: https://github.com/suitcss/base/
-button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
+  margin-bottom: $base-font-size * .5;
 }
 
 // https://github.com/10up/sanitize.css/blob/master/dist/sanitize.css
@@ -270,13 +260,19 @@ button {
   padding: 0;
 
   &:focus {
-    outline: 1px dotted;
-    outline: 5px auto -webkit-focus-ring-color;
+    @if $focus-outline {
+      outline: 1px dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+    }
+
+    @else {
+      outline: 0;
+    }
   }
 }
 
 input[type="number"] {
-  width: auto;/* Firefox 36+ */
+  width: auto; /* Firefox 36+ */
 }
 
 input,
@@ -300,8 +296,6 @@ textarea {
   resize: vertical;
 }
 
-
-
 fieldset {
   // Chrome and Firefox set a `min-width: min-content;` on fieldsets,
   // so we reset that to ensure it behaves more like a standard block element.
@@ -323,7 +317,7 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: $base-font-size * 0.5;
+  margin-bottom: $base-font-size * .5;
   font-size: $base-font-size * 1.5;
   line-height: inherit;
 
@@ -343,7 +337,7 @@ output {
 }
 
 mark {
-  padding: $base-font-size * 0.2;
+  padding: $base-font-size * .2;
   background-color: #fcf8e3;
 }
 
@@ -352,21 +346,22 @@ kbd,
 pre,
 samp {
   font-family: $font-family-monospace;
+  tab-size: 2;
 }
 
 code {
   font-size: 90%;
-  padding: ($base-font-size * 0.2) ($base-font-size * 0.4);
+  padding: ($base-font-size * .2) ($base-font-size * .4);
   color: #bd4147;
-  border-radius: $base-font-size * 0.25;
+  border-radius: $base-font-size * .25;
   background-color: #f7f7f9;
 }
 
 kbd {
   font-size: 90%;
-  padding: ($base-font-size * 0.2) ($base-font-size * 0.4);
+  padding: ($base-font-size * .2) ($base-font-size * .4);
   color: #fff;
-  border-radius: $base-font-size * 0.25;
+  border-radius: $base-font-size * .25;
   background-color: #333;
 
   kbd {
@@ -401,8 +396,8 @@ pre {
 
   margin-right: auto;
   margin-left: auto;
-  padding-right: $base-font-size * 0.9375;
-  padding-left: $base-font-size * 0.9375;
+  padding-right: $base-font-size * .9375;
+  padding-left: $base-font-size * .9375;
 }
 
 @if $legacy-ie {
@@ -411,7 +406,6 @@ pre {
 
     max-width: 1140px;
     _width: expression((document.documentElement.clientWidth || document.body.clientWidth) > 1200 ? "1140px" : "auto");
-
 
     @each $breakpoint, $width in $container-max-widths {
       @include breakpoint($breakpoint) {
@@ -453,5 +447,5 @@ hr {
   margin-top: $base-font-size * 1;
   margin-bottom: $base-font-size * 1;
   border: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, .1);
 }

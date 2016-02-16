@@ -43,3 +43,7 @@
 %icon-close {
   @include close(1em, 2px);
 }
+
+%justify-box {
+  @include justify-box();
+}

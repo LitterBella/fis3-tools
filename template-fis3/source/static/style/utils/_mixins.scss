@@ -1,6 +1,7 @@
 // mixins
 
-@mixin clearfix() {
+// http://cssmojo.com/the-very-latest-clearfix-reloaded/
+@mixin clearfix {
   @if $legacy-ie {
     *zoom: 1;
 
@@ -13,10 +14,12 @@
     &::after {
       clear: both;
     }
-  } @else {
+  }
+
+  @else {
     &::after {
       content: "";
-      display: table;
+      display: block;
       clear: both;
     }
   }
@@ -27,14 +30,14 @@
   height: if(unitless($height), 1px * $height, $height);
 }
 
-@mixin center-block() {
+@mixin center-block {
   // display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
 // https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
-@mixin hide-text() {
+@mixin hide-text {
   font: 0/0 a;
   color: transparent;
   text-shadow: none;
@@ -53,7 +56,7 @@
   border: 0;
 }
 
-@mixin scrollable() {
+@mixin scrollable {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -65,6 +68,7 @@
     @if $legacy-ie {
       word-wrap: normal; //for ie
     }
+
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -75,9 +79,11 @@
     -webkit-box-orient: vertical;
 
     $line-height: if(unitless($line-height), 1em * $line-height, $line-height);
+
     @if value-of($line-height) != 0 {
       line-height: $line-height;
       max-height: $line-height * $lines;
+
       // &:after {
       //   content: " ...";
       // }
@@ -86,9 +92,9 @@
 }
 
 // http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%e5%8e%bb%e9%99%a4%e9%97%b4%e8%b7%9d/
-@mixin clear-spacing() {
+@mixin clear-spacing {
   display: table;
-  word-spacing: -0.43em;
+  word-spacing: -.43em;
 
   > * {
     word-spacing: normal;
@@ -127,28 +133,24 @@
 }
 
 // arrow
-@mixin arrow($direction: right, $size: 1em, $border-width: 0.125em) {
+@mixin arrow($direction: right, $size: 1em, $border-width: .125em) {
   $direction: if($direction == up, top, $direction);
   $direction: if($direction == down, bottom, $direction);
-  $degs: (
-    right: 45deg,
-    bottom: 45deg + 90deg,
-    left: 45deg + 180deg,
-    top: 45deg + 90deg + 180deg,
-    );
+  $degs: (right: 45deg, bottom: 45deg + 90deg, left: 45deg + 180deg, top: 45deg + 90deg + 180deg);
+
   $deg: map-get($degs, $direction);
 
   display: inline-block;
   vertical-align: middle;
-  width: ($size / 1.414);
-  height: ($size / 1.414);
+  width: $size / 1.414;
+  height: $size / 1.414;
   border-style: solid;
   border-width: $border-width $border-width 0 0;
   transform: rotate($deg);
 }
 
 // plus
-@mixin plus($size: 1em, $border-width: 0.125em) {
+@mixin plus($size: 1em, $border-width: .125em) {
   display: inline-block;
   vertical-align: middle;
   width: $size;
@@ -174,8 +176,9 @@
 }
 
 // close
-@mixin close($size: 1em, $border-width: 0.125em) {
+@mixin close($size: 1em, $border-width: .125em) {
   @include plus($size, $border-width);
+
   overflow: hidden;
 
   &::before {
@@ -188,16 +191,35 @@
 }
 
 @mixin font-face($font-name, $font-file: "../font/#{$font-name}") {
+
   @font-face {
     font-family: $font-name;
+
     @if $legacy-ie {
       src: url(#{$font-file}.eot);
     }
-    src: url(#{$font-file}.eot?#iefix) format("embedded-opentype"),
-         url(#{$font-file}.woff) format("woff"),
-         url(#{$font-file}.ttf) format("truetype"),
-         url(#{$font-file}.svg) format("svg");
+
+    src: url(#{$font-file}.eot?#iefix) format("embedded-opentype"), url(#{$font-file}.woff) format("woff"), url(#{$font-file}.ttf) format("truetype"), url(#{$font-file}.svg) format("svg");
     font-weight: normal;
     font-style: normal;
+  }
+}
+
+@mixin justify-box($children-selector: "> *", $shim-selector: if($legacy-ie, ".shim", "&::after")) {
+  text-align: justify;
+
+  #{$shim-selector} {
+
+    @if not $legacy-ie {
+      content: "";
+    }
+
+    width: 100%;
+  }
+
+  #{$children-selector},
+
+  #{$shim-selector} {
+    display: inline-block;
   }
 }

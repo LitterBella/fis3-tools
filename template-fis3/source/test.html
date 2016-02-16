@@ -18,6 +18,7 @@
     <![endif]-->
     <link href="static/style/main.scss" rel="stylesheet">
     <style type="text/x-scss">
+      $legacy-ie: false;
       @import "static/style/utils/utils";
       .container {
         padding-top: 15px;
@@ -59,6 +60,10 @@
         }
 
       }
+
+      .justify-box {
+        @include justify-box("> div");
+      }
     </style>
   </head>
   <body>
@@ -88,6 +93,14 @@
       </div>
     </div>
 
+    <div class="container-fluid">
+      <div class="container justify-box">
+        <div>content 1<br>content<br> 1content 1<br></div>
+        <div>content 2</div>
+        <div>content 3</div>
+        <div class="shim"></div>
+      </div>
+    </div>
 
 
     <!--[if IE 6]>

@@ -1,10 +1,11 @@
 /**
- * @fileName: ${file_name}
+ * @fileName: main.scss
  * @require normalize
  * @require reboot
  */
 $legacy-ie: true;  // ie < 9 support
 $link-hover-decoration: none;
+$focus-outline: false; //outline on focus
 
 @import "utils/utils";
 @import "vendors/normalize";
