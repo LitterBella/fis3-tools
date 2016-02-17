@@ -11,11 +11,11 @@ last update 2016.1.7
     LEGACY_IE: true, // IE < 9 支持
     LINT: {
       CSS: true, // css 代码检查
-      JS: true,  // js 代码检查
+      JS: true, // js 代码检查
     },
     OPTIMIZER: {
-      CSS: true,   // css 代码压缩
-      JS: true,    // js 代码压缩
+      CSS: true, // css 代码压缩
+      JS: true, // js 代码压缩
       HTML: false, // html 代码压缩
       PNG: {
         LOSSY: true, // 有损压缩PNG
@@ -25,7 +25,7 @@ last update 2016.1.7
       },
     },
     HASH: {
-      LENGTH: 6,      // md5戳长度
+      LENGTH: 6, // md5戳长度
       CONNECTOR: '.', // md5戳连接符
       USE: [
         // '*',
@@ -34,8 +34,8 @@ last update 2016.1.7
     USE_RELATIVE: true, // 使用相对路径
     RELEASE_DIR: './release', //发布目录
     LIVERELOAD: {
-      //PORT: 1988,           // livereload 端口，留空自动查找
-      HOSTNAME: 'localhost',  // livereload IP地址，留空自动查找
+      //PORT: 1988, // livereload 端口，留空自动查找
+      HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
     },
     TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$',
     //忽略文件
@@ -278,27 +278,28 @@ last update 2016.1.7
       parser: 'fis-parser-jade',
     },
   ]).forEach(function(data) {
-      var exts = toArray(data.ext);
-      var processor = {
-        rExt: '.' + data.type,
-      };
-      fileExts[data.type] = fileExts[data.type] || [];
-      fileExts[data.type] = fileExts[data.type].concat(exts);
-      $.match(getExtsReg(exts), processor);
+    var exts = toArray(data.ext);
+    var processor = {
+      rExt: '.' + data.type,
+    };
+    fileExts[data.type] = fileExts[data.type] || [];
+    fileExts[data.type] = fileExts[data.type].concat(exts);
+    $.match(getExtsReg(exts), processor);
 
-      // plugins
-      var plugins = ['parser', 'lint'];
-      ['dev', 'prod'].forEach(function(media) {
-        var processor = {};
-        plugins.forEach(function(pluginType) {
-          if (data[pluginType]) {
-            processor[pluginType] = getPlugin(data[pluginType], media);
-          }
-        });
+    // plugins
+    var plugins = ['parser', 'lint'];
 
-        $.media(media).match(getExtsReg(exts), processor);
+    ['dev', 'prod'].forEach(function(media) {
+      var processor = {};
+      plugins.forEach(function(pluginType) {
+        if (data[pluginType]) {
+          processor[pluginType] = getPlugin(data[pluginType], media);
+        }
       });
+
+      $.media(media).match(getExtsReg(exts), processor);
     });
+  });
 
   // standardProccessor
   ([
@@ -329,27 +330,29 @@ last update 2016.1.7
       optimizer: CONFIG.OPTIMIZER.HTML ? 'fis-optimizer-htmlmin' : null,
     }
   ]).forEach(function(data) {
-      // lint can't used on preProcessor
-      if (data.lint) {
-        $.match(getExtsReg(toArray(data.type)), {
-          lint: getPlugin(data.lint)
-        });
-      }
-      var processor = {};
-      ['useSprite'].forEach(function(type) {
-        if (type in data) {
-          processor[type] = data[type];
-        }
+    // lint can't used on preProcessor
+    if (data.lint) {
+      $.match(getExtsReg(toArray(data.type)), {
+        lint: getPlugin(data.lint)
       });
-      //plugins
-      ['preprocessor', 'optimizer', 'postprocessor'].forEach(function(type) {
-        if (data[type]) {
-          processor[type] = getPlugin(data[type]);
-        }
-      });
+    }
+    var processor = {};
 
-      $.match(getExtsReg(data.type), processor);
+    ['useSprite'].forEach(function(type) {
+      if (type in data) {
+        processor[type] = data[type];
+      }
     });
+
+    //plugins
+    ['preprocessor', 'optimizer', 'postprocessor'].forEach(function(type) {
+      if (data[type]) {
+        processor[type] = getPlugin(data[type]);
+      }
+    });
+
+    $.match(getExtsReg(data.type), processor);
+  });
 
   CONFIG.LINT_IGNORE.forEach(function(reg) {
     $.match(reg, {
@@ -399,7 +402,7 @@ last update 2016.1.7
       if (properties[type]) {
         properties[type] = properties[type].push ? properties[type] : [properties[type]];
         properties[type].push(plugin);
-      }else {
+      } else {
         properties[type] = plugin;
       }
     });
@@ -419,9 +422,9 @@ last update 2016.1.7
     media = media || 'dev';
     var shortPluginName = parsePlugin(pluginName).short;
     var options = PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {};
-    return options.__sperate ?
-          extend({}, options.common, options[media])
-          : options;
+    return options.__sperate
+      ? extend({}, options.common, options[media])
+      : options;
   }
 
   function getPlugin(pluginNames, media) {
@@ -439,7 +442,7 @@ last update 2016.1.7
       var plugin;
       if (pluginName.__plugin) {
         plugin = pluginName;
-      }else {
+      } else {
         var shortPluginName = parsePlugin(pluginName).short;
         plugin = $.plugin(shortPluginName, getPluginOptions(pluginName, media));
       }
