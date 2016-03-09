@@ -92,11 +92,11 @@
 }
 
 // http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%e5%8e%bb%e9%99%a4%e9%97%b4%e8%b7%9d/
-@mixin clear-spacing {
+@mixin clear-spacing($child-selector: "> *") {
   display: table;
   word-spacing: -.43em;
 
-  > * {
+  #{$child-selector} {
     word-spacing: normal;
   }
 }
@@ -218,8 +218,45 @@
   }
 
   #{$children-selector},
-
   #{$shim-selector} {
     display: inline-block;
   }
+}
+
+@mixin tab-control($tab-count: 2,
+  $input-selector: "&-input",
+  $tabs-selector: "&-tabs",
+  $tab-selector: "&-tab",
+  $contents-selector: "&-contents",
+  $content-selector: "&-content"
+  ) {
+  #{$input-selector}{
+    display: none;
+  }
+
+  #{$tab-selector}{
+    cursor: pointer;
+  }
+
+  #{$content-selector} {
+    display: none;
+  }
+
+  $current-tab-selectors: ();
+  $current-content-selectors: ();
+  @for $index from 1 through $tab-count {
+    $current-tab-selector: "#{$input-selector}:nth-of-child(#{$index}):checked ~ #{$tabs-selector} > #{$tab-selector}:nth-child(#{$index})";
+    $current-content-selector: "#{$input-selector}:nth-of-child(#{$index}):checked ~ #{$contents-selector} > #{$content-selector}:nth-child(#{$index})";
+    $current-tab-selectors: append($current-tab-selectors, $current-tab-selector, comma);
+    $current-content-selectors: append($current-content-selectors, $current-content-selector, comma);
+  }
+
+  #{$current-tab-selectors} {
+    /* current tab style */
+  }
+
+  #{$current-content-selectors} {
+    display: block;
+  }
+
 }

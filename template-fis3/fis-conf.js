@@ -422,9 +422,9 @@ last update 2016.1.7
     media = media || 'dev';
     var shortPluginName = parsePlugin(pluginName).short;
     var options = PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {};
-    return options.__sperate
-      ? extend({}, options.common, options[media])
-      : options;
+    return options.__sperate ?
+      extend({}, options.common, options[media]) :
+      options;
   }
 
   function getPlugin(pluginNames, media) {
