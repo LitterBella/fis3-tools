@@ -132,13 +132,15 @@ ol,
 ul {
   @extend %margin-bottom;
 
-  list-style: none;
-  padding-left: 0;
-
   ol,
   ul {
     margin-bottom: 0;
   }
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
 }
 
 dl {

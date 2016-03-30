@@ -1,14 +1,10 @@
 {
-  "preset": "google",
+  "preset": "airbnb",
   "maximumLineLength": {
     "value": 120,
     "allExcept": ["comments", "regex"]
   },
   "disallowSpacesInAnonymousFunctionExpression": null,
-  "validateLineBreaks": "LF",
-  "validateIndentation": 2,
-  "validateQuoteMarks": "'",
-  "requireDotNotation": false,
-  "requireCamelCaseOrUpperCaseIdentifiers": true,
+  "requireDollarBeforejQueryAssignment": false,
   "esnext": true
 }
