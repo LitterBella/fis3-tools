@@ -6,7 +6,7 @@ verion 0.9
 last update 2016.1.7
 */
 'use strict';
-(function($, undefined) {
+;(function($, undefined) {
   var CONFIG = {
     LEGACY_IE: true, // IE < 9 支持
     LINT: {
@@ -125,17 +125,17 @@ last update 2016.1.7
     },
     'fis-optimizer-clean-css-2x': {
       advanced: CONFIG.LEGACY_IE ? false : true,
-      compatibility: (CONFIG.LEGACY_IE ? [
+      compatibility: CONFIG.LEGACY_IE ? [
         '+properties.ieBangHack',
         '+properties.iePrefixHack',
         '+properties.ieSuffixHack',
         '-properties.merging',
         '+selectors.ie7Hack',
-      ] : []),
+      ] : [],
       keepSpecialComments: 0,
     },
     'fis-optimizer-png-compressor': {
-      type: (CONFIG.OPTIMIZER.PNG && CONFIG.OPTIMIZER.PNG.LOSSY) ? 'pngquant' : 'pngcrush',
+      type: CONFIG.OPTIMIZER.PNG && CONFIG.OPTIMIZER.PNG.LOSSY ? 'pngquant' : 'pngcrush',
       speed: 1,
     },
     'fis-optimizer-jpeg-compressor': {
@@ -201,6 +201,73 @@ last update 2016.1.7
     'deploy',
   ];
 
+  var preProcessors = [
+    {
+      ext: 'less',
+      type: 'css',
+      parser: 'fis-parser-less-2.x',
+    },
+    {
+      ext: ['sass', 'scss'],
+      type: 'css',
+      parser: 'fis-parser-node-sass',
+    },
+    {
+      ext: 'styl',
+      type: 'css',
+      parser: 'fis-parser-stylus2',
+    },
+    {
+      ext: 'coffee',
+      type: 'js',
+      parser: 'fis-parser-coffee-script',
+    },
+    {
+      ext: ['es', 'es6', 'jsx'],
+      type: 'js',
+      parser: 'fis-parser-babel-5.x',
+    },
+    {
+      ext: ['ts', 'tsx'],
+      type: 'js',
+      parser: 'fis3-parser-typescript',
+    },
+    {
+      ext: 'jade',
+      type: 'html',
+      parser: 'fis-parser-jade',
+    },
+  ];
+
+  var standardProcessors = [
+    {
+      type: 'css',
+      lint: CONFIG.LINT.CSS ? 'fis-lint-csslint' : null,
+      preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
+      optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
+      postprocessor: 'fis-postprocessor-autoprefixer',
+      useSprite: true
+    },
+    {
+      type: 'js',
+      //lint: CONFIG.LINT.JS ? ['fis-lint-jshint', 'fis-lint-jscs'] : null,
+      lint: CONFIG.LINT.JS ? ['fis-lint-jshint'] : null,
+      optimizer: CONFIG.OPTIMIZER.JS ? 'fis-optimizer-uglify-js' : null,
+    },
+    {
+      type: 'png',
+      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis-optimizer-png-compressor' : null,
+    },
+    {
+      type: 'jpg',
+      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis-optimizer-jpeg-compressor' : null,
+    },
+    {
+      type: 'html',
+      optimizer: CONFIG.OPTIMIZER.HTML ? 'fis-optimizer-htmlmin' : null,
+    }
+  ];
+
   var prod = $.media('prod');
   var dev = $.media('dev');
 
@@ -240,54 +307,124 @@ last update 2016.1.7
     });
   }
 
-  // preProcessor
-  ([
-    {
-      ext: 'less',
-      type: 'css',
-      parser: 'fis-parser-less-2.x',
-    },
-    {
-      ext: ['sass', 'scss'],
-      type: 'css',
-      parser: 'fis-parser-node-sass',
-    },
-    {
-      ext: 'styl',
-      type: 'css',
-      parser: 'fis-parser-stylus2',
-    },
-    {
-      ext: 'coffee',
-      type: 'js',
-      parser: 'fis-parser-coffee-script',
-    },
-    {
-      ext: ['es', 'es6', 'jsx'],
-      type: 'js',
-      parser: 'fis-parser-babel-5.x',
-    },
-    {
-      ext: ['ts', 'tsx'],
-      type: 'js',
-      parser: 'fis3-parser-typescript',
-    },
-    {
-      ext: 'jade',
-      type: 'html',
-      parser: 'fis-parser-jade',
-    },
-  ]).forEach(function(data) {
+
+  //help functions
+  function toArray(s) {
+    return s.split ? s.split(',') : slice.call(s);
+  }
+
+  function extend(dest) {
+    var sources = toArray(arguments);
+    sources.shift();
+    sources.forEach(function(source) {
+      var prop;
+      source = source || {};
+      for (prop in source) {
+        if (hasOwn.call(source, prop)) {
+          dest[prop] = source[prop];
+        }
+      }
+    });
+    return dest;
+  }
+
+  function parsePlugin(pluginName) {
+    var match = pluginName.match(new RegExp('^(?:fis|fis3)-(' + pluginTypes.join('|') + ')-(.*?)$'));
+    return match && match[2] && {
+      'name': match[0],
+      'type': match[1],
+      'short': match[2],
+    };
+  }
+
+  function getPluginOptions(pluginName, media) {
+    var shortPluginName = parsePlugin(pluginName).short;
+    var options = PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {};
+
+    media = media || 'dev';
+
+    return options.__sperate ?
+      extend({}, options.common, options[media]) :
+      options;
+  }
+
+  function getPlugin(pluginNames, media) {
+    var plugins = [];
+
+    if (pluginNames.__plugin) {
+      return pluginNames;
+    }
+    if (!pluginNames) {
+      return null;
+    }
+    toArray(pluginNames).forEach(function(pluginName) {
+      var plugin;
+      var shortPluginName;
+
+      if (!pluginName) {
+        return null;
+      }
+      if (pluginName.__plugin) {
+        plugin = pluginName;
+      } else {
+        shortPluginName = parsePlugin(pluginName).short;
+        plugin = $.plugin(shortPluginName, getPluginOptions(pluginName, media));
+      }
+      plugins.push(plugin);
+    });
+
+    return plugins.length === 1 ? plugins[0] : plugins;
+  }
+
+  function pluginToProperties(pluginNames) {
+    var properties = {};
+    toArray(pluginNames).forEach(function(pluginName) {
+      var type = parsePlugin(pluginName).type;
+      var plugin = getPlugin(pluginName);
+      if (properties[type]) {
+        properties[type] = properties[type].push ? properties[type] : [properties[type]];
+        properties[type].push(plugin);
+      } else {
+        properties[type] = plugin;
+      }
+    });
+    return properties;
+  }
+
+  function getExtsReg(ext, inline) {
+    var exts = [];
+    var prefix = '';
+
+    if (ext.split && fileExts[ext]) {
+      exts = toArray(fileExts[ext]);
+      exts.unshift(ext);
+    } else {
+      exts = toArray(ext);
+    }
+    exts = exts.length === 1 ? exts : '{' + exts.join(',') + '}';
+    if (inline === true) {
+      prefix = '*.html:';
+    } else if (inline === false) {
+      prefix = '*.';
+    } else {
+      prefix = '{*.html:,*.}';
+    }
+    return prefix + exts;
+  }
+
+
+
+  preProcessors.forEach(function(data) {
     var exts = toArray(data.ext);
     var processor = {
       rExt: '.' + data.type,
     };
+    // plugins
+    var plugins = ['parser', 'lint'];
+
     fileExts[data.type] = fileExts[data.type] || [];
     fileExts[data.type] = fileExts[data.type].concat(exts);
     $.match(getExtsReg(exts), processor);
-
-    // plugins
-    var plugins = ['parser', 'lint'];
 
     ['dev', 'prod'].forEach(function(media) {
       var processor = {};
@@ -301,42 +438,15 @@ last update 2016.1.7
     });
   });
 
-  // standardProccessor
-  ([
-    {
-      type: 'css',
-      lint: CONFIG.LINT.CSS ? 'fis-lint-csslint' : null,
-      preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
-      optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
-      postprocessor: 'fis-postprocessor-autoprefixer',
-      useSprite: true
-    },
-    {
-      type: 'js',
-      //lint: CONFIG.LINT.JS ? ['fis-lint-jshint', 'fis-lint-jscs'] : null,
-      lint: CONFIG.LINT.JS ? ['fis-lint-jshint'] : null,
-      optimizer: CONFIG.OPTIMIZER.JS ? 'fis-optimizer-uglify-js' : null,
-    },
-    {
-      type: 'png',
-      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis-optimizer-png-compressor' : null,
-    },
-    {
-      type: 'jpg',
-      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis-optimizer-jpeg-compressor' : null,
-    },
-    {
-      type: 'html',
-      optimizer: CONFIG.OPTIMIZER.HTML ? 'fis-optimizer-htmlmin' : null,
-    }
-  ]).forEach(function(data) {
+  standardProcessors.forEach(function(data) {
+    var processor = {};
+
     // lint can't used on preProcessor
     if (data.lint) {
       $.match(getExtsReg(toArray(data.type)), {
         lint: getPlugin(data.lint)
       });
     }
-    var processor = {};
 
     ['useSprite'].forEach(function(type) {
       if (type in data) {
@@ -389,101 +499,5 @@ last update 2016.1.7
       optimizer: null
     });
 
-  //help functions
-  function toArray(s) {
-    return s.split ? s.split(',') : slice.call(s);
-  }
 
-  function pluginToProperties(pluginNames) {
-    var properties = {};
-    toArray(pluginNames).forEach(function(pluginName) {
-      var type = parsePlugin(pluginName).type;
-      var plugin = getPlugin(pluginName);
-      if (properties[type]) {
-        properties[type] = properties[type].push ? properties[type] : [properties[type]];
-        properties[type].push(plugin);
-      } else {
-        properties[type] = plugin;
-      }
-    });
-    return properties;
-  }
-
-  function parsePlugin(pluginName) {
-    var match = pluginName.match(new RegExp('^(?:fis|fis3)\-(' + pluginTypes.join('|') + ')\-(.*?)$'));
-    return match && match[2] && {
-      'name': match[0],
-      'type': match[1],
-      'short': match[2],
-    };
-  }
-
-  function getPluginOptions(pluginName, media) {
-    media = media || 'dev';
-    var shortPluginName = parsePlugin(pluginName).short;
-    var options = PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {};
-    return options.__sperate ?
-      extend({}, options.common, options[media]) :
-      options;
-  }
-
-  function getPlugin(pluginNames, media) {
-    if (pluginNames.__plugin) {
-      return pluginNames;
-    }
-    if (!pluginNames) {
-      return null;
-    }
-    var plugins = [];
-    toArray(pluginNames).forEach(function(pluginName) {
-      if (!pluginName) {
-        return null;
-      }
-      var plugin;
-      if (pluginName.__plugin) {
-        plugin = pluginName;
-      } else {
-        var shortPluginName = parsePlugin(pluginName).short;
-        plugin = $.plugin(shortPluginName, getPluginOptions(pluginName, media));
-      }
-      plugins.push(plugin);
-    });
-
-    return 1 === plugins.length ? plugins[0] : plugins;
-  }
-
-  function getExtsReg(ext, inline) {
-    var exts = [];
-    var prefix = '';
-
-    if (ext.split && fileExts[ext]) {
-      exts = toArray(fileExts[ext]);
-      exts.unshift(ext);
-    } else {
-      exts = toArray(ext);
-    }
-    exts = exts.length === 1 ? exts : '{' + exts.join(',') + '}';
-    if (true === inline) {
-      prefix = '*.html:';
-    } else if (false === inline) {
-      prefix = '*.';
-    } else {
-      prefix = '{*.html:,*.}';
-    }
-    return prefix + exts;
-  }
-
-  function extend(dest) {
-    var sources = toArray(arguments);
-    sources.shift();
-    sources.forEach(function(source) {
-      source = source || {};
-      for (var prop in source) {
-        if (hasOwn.call(source, prop)) {
-          dest[prop] = source[prop];
-        }
-      }
-    });
-    return dest;
-  }
 })(fis);
