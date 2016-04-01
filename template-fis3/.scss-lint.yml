@@ -1,4 +1,3 @@
-
 # Default application configuration that all configurations inherit from.
 
 scss_files: "**/*.scss"
@@ -14,7 +13,7 @@ linters:
     max_elements: 1
 
   BorderZero:
-    enabled: false
+    enabled: true
     convention: zero # or `none`
 
   ChainedClasses:
@@ -148,6 +147,8 @@ linters:
   SelectorFormat:
     enabled: true
     convention: hyphenated_lowercase # or 'strict_BEM', or 'hyphenated_BEM', or 'snake_case', or 'camel_case', or a regex pattern
+    class_convention: ^(?!js-).*
+    class_convention_explanation: should not be written in the form js-*
 
   Shorthand:
     enabled: true
