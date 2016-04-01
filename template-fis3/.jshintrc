@@ -22,5 +22,8 @@
   "nonstandard": true,
   "strict": true,
   "typed": true,
-  "worker": true
+  "worker": true,
+  "-W003": true,
+  "-W083": true,
+  "-W126": true
 }

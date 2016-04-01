@@ -1,5 +1,12 @@
 {
   "preset": "airbnb",
+  "requireSpacesInAnonymousFunctionExpression": false,
+  "requirePaddingNewLinesAfterBlocks": false,
+  "requirePaddingNewLinesBeforeLineComments": false,
+  "requireTrailingComma": false,
+  "requireSpacesInsideObjectBrackets": false,
+  "disallowSpaceBeforePostfixUnaryOperators": false,
+  "disallowSpaceAfterPrefixUnaryOperators": false,
   "maximumLineLength": {
     "value": 120,
     "allExcept": ["comments", "regex"]
