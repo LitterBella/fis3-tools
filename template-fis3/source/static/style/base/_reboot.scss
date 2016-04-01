@@ -21,8 +21,11 @@
 // and apply some conditional CSS.
 //
 // See http://getbootstrap.com/getting-started/#support-ie10-width for the relevant hack.
+//
+// Wrap `@viewport` with `@at-root` for when folks do a nested import (e.g.,
+// `.class-name { @import "bootstrap"; }`).
 @at-root {
-  @viewport {
+  @-ms-viewport {
     width: device-width;
   }
 }
@@ -217,10 +220,18 @@ textarea {
   touch-action: manipulation;
 }
 
+label,
 button,
 [type="button"],
 [type="reset"],
-[type="submit"] {
+[type="submit"],
+[type="file"],
+[type="image"] {
+  cursor: pointer;
+}
+
+[type="file"]::-webkit-file-upload-button {
+  -webkit-appearance: button;
   cursor: pointer;
 }
 
@@ -276,10 +287,8 @@ button {
     @if $focus-outline {
       outline: 1px dotted;
       outline: 5px auto -webkit-focus-ring-color;
-    }
-
-    @else {
-      outline: 0;
+    } @else {
+      outline-width: 0;
     }
   }
 }
@@ -333,8 +342,7 @@ legend {
   margin-bottom: $base-font-size * .5;
   font-size: $base-font-size * 1.5;
   line-height: inherit;
-
-  //  border: 0;
+  // border: 0;
 }
 
 input[type="search"] {
