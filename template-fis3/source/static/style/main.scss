@@ -4,10 +4,13 @@
  * @require reboot
  */
 $legacy-ie: true;  // ie < 9 support
-$link-hover-decoration: none;
-$focus-outline: false; //outline on focus
-$link-color: inherit;
-$link-hover-color: inherit;
+
+//$base-font-size: .875rem;
+//$link-hover-decoration: none;
+//$focus-outline: false; //outline on focus
+//$link-color: inherit;
+//$link-hover-color: inherit;
+//$link-hover-decoration: underline;
 
 @import "utils/utils";
 @import "vendors/normalize";

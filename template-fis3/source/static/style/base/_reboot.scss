@@ -216,7 +216,7 @@ input,
 label,
 select,
 summary,
-textarea {
+textarea  {
   touch-action: manipulation;
 }
 
@@ -418,8 +418,8 @@ pre {
 
   margin-right: auto;
   margin-left: auto;
-  padding-right: $base-font-size * .9375;
-  padding-left: $base-font-size * .9375;
+  padding-right: $unit-rem * .9375;
+  padding-left: $unit-rem * .9375;
 }
 
 @if $legacy-ie {

@@ -4,6 +4,8 @@ $legacy-ie: true !default;
 
 $root-font-size: 16px !default;
 
+$unit-rem: if($legacy-ie, 16px, 1rem) !default;
+
 //for old ie should use 16px instead
 $base-font-size: if($legacy-ie, 16px, 1rem) !default;
 
@@ -17,7 +19,7 @@ $link-color: #0275d8 !default;
 $link-decoration: none !default;
 $link-hover-color: #014c8c !default;
 $link-hover-decoration: underline !default;
-$font-family-monospace: Menlo, Monaco, Consolas, Courier New, monospace !default;
+$font-family-monospace: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New", monospace !default;
 $focus-outline: true !default;
 
 // Grid breakpoints
