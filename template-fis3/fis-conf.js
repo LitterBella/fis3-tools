@@ -6,7 +6,7 @@ verion 0.9
 last update 2016.1.7
 */
 
-;(function($, undefined) {
+;(function($) {
   'use strict';
 
   var CONFIG = {
@@ -382,7 +382,7 @@ last update 2016.1.7
       plugins.push(plugin);
     });
 
-    return plugins.length === 1 ? plugins[0] : plugins;
+    return 1 === plugins.length ? plugins[0] : plugins;
   }
 
   function pluginToProperties(pluginNames) {
@@ -410,10 +410,10 @@ last update 2016.1.7
     } else {
       exts = toArray(ext);
     }
-    exts = exts.length === 1 ? exts : '{' + exts.join(',') + '}';
-    if (inline === true) {
+    exts = 1 === exts.length ? exts : '{' + exts.join(',') + '}';
+    if (true === inline) {
       prefix = '*.html:';
-    } else if (inline === false) {
+    } else if (false === inline) {
       prefix = '*.';
     } else {
       prefix = '{*.html:,*.}';
