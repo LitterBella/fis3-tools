@@ -5,9 +5,10 @@ by fisker Cheung <lionkay@gmail.com>
 verion 0.9
 last update 2016.1.7
 */
-'use strict';
+
 ;(function($, undefined) {
-  var s = Boolean($);
+  'use strict';
+
   var CONFIG = {
     LEGACY_IE: true, // IE < 9 支持
     LINT: {
@@ -33,7 +34,7 @@ last update 2016.1.7
       ],
     },
     USE_RELATIVE: true, // 使用相对路径
-    RELEASE_DIR: './release', //发布目录
+    RELEASE_DIR: './release', // 发布目录
     LIVERELOAD: {
       //PORT: 1988, // livereload 端口，留空自动查找
       HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
@@ -330,11 +331,18 @@ last update 2016.1.7
   }
 
   function parsePlugin(pluginName) {
-    var match = pluginName.match(new RegExp('^(?:fis|fis3)-(' + pluginTypes.join('|') + ')-(.*?)$'));
+    var reg = new RegExp([
+      '^',
+      '(?:fis|fis3)-',
+      '(' + pluginTypes.join('|') + ')-',
+      '(.*?)',
+      '$'
+    ].join(''));
+    var match = pluginName.match(reg);
     return match && match[2] && {
-      'name': match[0],
-      'type': match[1],
-      'short': match[2],
+      name: match[0],
+      type: match[1],
+      short: match[2],
     };
   }
 
@@ -412,8 +420,6 @@ last update 2016.1.7
     }
     return prefix + exts;
   }
-
-
 
   preProcessors.forEach(function(data) {
     var exts = toArray(data.ext);
@@ -499,6 +505,4 @@ last update 2016.1.7
     .match('**', {
       optimizer: null
     });
-
-
 })(fis);
