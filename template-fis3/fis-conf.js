@@ -7,6 +7,7 @@ last update 2016.1.7
 */
 'use strict';
 ;(function($, undefined) {
+  var s = Boolean($);
   var CONFIG = {
     LEGACY_IE: true, // IE < 9 支持
     LINT: {
