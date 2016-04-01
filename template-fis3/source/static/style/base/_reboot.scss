@@ -217,6 +217,17 @@ textarea {
   touch-action: manipulation;
 }
 
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  cursor: pointer;
+}
+
+[disabled] {
+  cursor: default;
+}
+
 table {
   // Reset for nesting within parents with `background-color`.
   background-color: transparent;
@@ -382,6 +393,7 @@ pre {
   line-height: 1.5;
   display: block;
   color: #373a3c;
+  overflow: auto;
 
   // Account for some code outputs that place code tags in pre tags
   code {
