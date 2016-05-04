@@ -7,6 +7,7 @@
   "requireSpacesInsideObjectBrackets": false,
   "disallowSpaceBeforePostfixUnaryOperators": false,
   "disallowSpaceAfterPrefixUnaryOperators": false,
+  "disallowYodaConditions": false,
   "maximumLineLength": {
     "value": 120,
     "allExcept": ["comments", "regex"]

@@ -8,6 +8,7 @@ last update 2016.1.7
 
 ;(function($) {
   'use strict';
+  /* eslint comma-dangle: 0 */
 
   var CONFIG = {
     LEGACY_IE: true, // IE < 9 支持
@@ -126,7 +127,7 @@ last update 2016.1.7
       },
     },
     'fis-optimizer-clean-css-2x': {
-      advanced: CONFIG.LEGACY_IE ? false : true,
+      advanced: !CONFIG.LEGACY_IE,
       compatibility: CONFIG.LEGACY_IE ? [
         '+properties.ieBangHack',
         '+properties.iePrefixHack',
@@ -308,7 +309,6 @@ last update 2016.1.7
       relative: CONFIG.USE_RELATIVE
     });
   }
-
 
   //help functions
   function toArray(s) {
@@ -506,9 +506,11 @@ last update 2016.1.7
       optimizer: null
     });
 
-
   // fis-lint-eslint requires Array.prototype.fill
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
+  /* eslint-disable */
+  /* jshint ignore:start */
+  /* jscs: disable */
   if (!Array.prototype.fill) {
     Array.prototype.fill = function(value) {
 
@@ -551,4 +553,7 @@ last update 2016.1.7
       return O;
     };
   }
+  /* jscs: enable */
+  /* jshint ignore:end */
+  /* eslint-enable */
 })(fis);
