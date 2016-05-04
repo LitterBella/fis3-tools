@@ -377,6 +377,6 @@
     // http://eslint.org/docs/rules/wrap-iife.html
     "wrap-iife": [2, "any"],
     // require or disallow Yoda conditions
-    "yoda": [1, "always", {"onlyEquality": true}]
+    "yoda": 0
   }
 }
