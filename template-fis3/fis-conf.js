@@ -17,8 +17,8 @@ last update 2016.1.7
       JS: true, // js 代码检查
     },
     OPTIMIZER: {
-      CSS: true, // css 代码压缩
-      JS: true, // js 代码压缩
+      CSS: false, // css 代码压缩
+      JS: false, // js 代码压缩
       HTML: false, // html 代码压缩
       PNG: {
         LOSSY: true, // 有损压缩PNG

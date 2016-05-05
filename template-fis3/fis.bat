@@ -8,7 +8,7 @@ set SERVER_PORT=1983
 set RELEASE_FOLDER=release
 set DIST_FOLDER=dist
 set DIST_FILETYPE=zip
-:: zip,tar.gz  tar.gz NOT support chinese filename
+:: zip,tar.gz  ; tar.gz do NOT support chinese filename
 set LOG_FILE=release.log
 set TEMP_RESOURCE_FOLDER=$$$TEMP_RESOURCE$$$
 
