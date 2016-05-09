@@ -14,9 +14,7 @@
     &::after {
       clear: both;
     }
-  }
-
-  @else {
+  } @else {
     &::after {
       content: "";
       display: block;
@@ -71,9 +69,7 @@
 
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-
-  @else {
+  } @else {
     display: -webkit-box;
     -webkit-line-clamp: $lines;
     -webkit-box-orient: vertical;
@@ -223,7 +219,8 @@
   }
 }
 
-@mixin tab-control($tab-count: 2,
+@mixin tab-control(
+  $tab-count: 2,
   $input-selector: "&-input",
   $tabs-selector: "&-tabs",
   $tab-selector: "&-tab",

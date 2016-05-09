@@ -288,14 +288,8 @@ button {
 }
 
 @if not $focus-outline {
-  button,
-  input,
-  select,
-  textarea,
-  a {
-    &:focus {
-      outline-width: 0;
-    }
+  :focus {
+    outline-width: 0;
   }
 }
 
