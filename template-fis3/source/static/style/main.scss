@@ -4,8 +4,8 @@
  * @require reboot
  */
 $legacy-ie: true;  // ie < 9 support
-$design-width: 720;
 
+//$design-width: 720;
 //$base-font-size: .875rem;
 //$link-hover-decoration: none;
 //$focus-outline: false; //outline on focus
@@ -16,8 +16,3 @@ $design-width: 720;
 @import "utils/utils";
 @import "vendors/normalize";
 @import "base/reboot";
-
-
-div {
-  font-size: pixel-rem(40px);
-}
