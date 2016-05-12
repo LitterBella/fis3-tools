@@ -4,6 +4,7 @@
  * @require reboot
  */
 $legacy-ie: true;  // ie < 9 support
+$design-width: 720;
 
 //$base-font-size: .875rem;
 //$link-hover-decoration: none;
@@ -15,3 +16,8 @@ $legacy-ie: true;  // ie < 9 support
 @import "utils/utils";
 @import "vendors/normalize";
 @import "base/reboot";
+
+
+div {
+  font-size: pixel-rem(40px);
+}

@@ -4,6 +4,8 @@ $legacy-ie: true !default;
 
 $root-font-size: 16px !default;
 
+$design-width: 720 !default;
+
 $unit-rem: if($legacy-ie, 16px, 1rem) !default;
 
 //for old ie should use 16px instead

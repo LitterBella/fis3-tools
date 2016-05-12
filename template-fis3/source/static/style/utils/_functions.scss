@@ -24,3 +24,33 @@
 
   @return $directions;
 }
+
+@function pixel-rem($values...) {
+  @return rem-convert(1, $values...);
+}
+
+@function design-rem($values...) {
+  $scale: 320 / $design-width;
+  @return rem-convert($scale, $values...);
+}
+
+@function rem-convert($scale:1, $values...) {
+  $result: ();
+  $separator: list-separator($values);
+
+  @each $value in $values {
+    $item: $value;
+    @if type-of($value) == "number" {
+      @if unitless($value) {
+        $value: $value * 1px;
+      }
+      @if unit($value) == "px" {
+        $item: $value / $root-font-size * $scale * 1rem;
+      }
+    } @else if type-of($value) == "list" {
+      $item: rem-convert($scale, $value...);
+    }
+    $result: append($result, $item, $separator);
+  }
+  @return $result;
+}
