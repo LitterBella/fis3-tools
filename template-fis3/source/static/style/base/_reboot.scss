@@ -283,8 +283,6 @@ button {
   border: 0;
   padding: 0;
   color: inherit;
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color;
 }
 
 @if not $focus-outline {
