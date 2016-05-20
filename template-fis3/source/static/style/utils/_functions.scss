@@ -25,6 +25,35 @@
   @return $directions;
 }
 
+@function pixel-px($values...) {
+  @return px-convert(1, $values...);
+}
+
+@function design-px($values...) {
+  @return px-convert(1, $values...);
+}
+
+@function px-convert($scale:1, $values...) {
+  $result: ();
+  $separator: list-separator($values);
+
+  @each $value in $values {
+    $item: $value;
+    @if type-of($value) == "number" {
+      @if unitless($value) {
+        $value: $value * 1px;
+      }
+      @if unit($value) == "px" {
+        $item: $value * $scale;
+      }
+    } @else if type-of($value) == "list" {
+      $item: px-convert($scale, $value...);
+    }
+    $result: append($result, $item, $separator);
+  }
+  @return $result;
+}
+
 @function pixel-rem($values...) {
   @return rem-convert(1, $values...);
 }
