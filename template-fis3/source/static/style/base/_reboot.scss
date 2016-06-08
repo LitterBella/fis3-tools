@@ -144,10 +144,25 @@ ul {
 ul {
   list-style: none;
   padding-left: 0;
+
+  @if $legacy-ie {
+    margin-left: 0;
+  }
+}
+
+@if $legacy-ie {
+  ol {
+    margin-left: 0;
+    padding-left: 40px;
+  }
 }
 
 dl {
   @extend %margin-bottom;
+
+  @if $legacy-ie {
+    *margin-left: 0;
+  }
 }
 
 dt {
@@ -166,17 +181,25 @@ blockquote {
 a {
   text-decoration: $link-decoration;
   color: $link-color;
+  @if $link-color == 'inherit' and $legacy-ie {
+    *color: $base-color;
+  }
 
   &:focus,
   &:hover {
     text-decoration: $link-hover-decoration;
     color: $link-hover-color;
+    @if $link-hover-color == 'inherit' and $legacy-ie {
+      *color: $base-color;
+    }
   }
 
-  &:focus {
-    outline: thin dotted;
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
+  @if $focus-outline {
+    &:focus {
+      outline: thin dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
   }
 }
 

@@ -228,7 +228,7 @@
   $content-selector: "&-content"
   ) {
   #{$input-selector}{
-    display: none;
+    @include hide-input();
   }
 
   #{$tab-selector}{
@@ -265,5 +265,14 @@
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+}
+
+@mixin hide-input() {
+  display: none;
+  @if $legacy-ie {
+    width: 0;
+    height: 0;
+    display: block\9;
   }
 }
