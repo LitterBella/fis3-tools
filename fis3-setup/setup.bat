@@ -1,7 +1,7 @@
 @echo off
 
 :: nodejs v4 v5 存在兼容性问题，请使用 v0.12.x
-set NODE_VERSION=v0.12.9
+set NODE_VERSION=v0.12.14
 
 
 :: init window
