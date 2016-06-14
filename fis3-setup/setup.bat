@@ -101,11 +101,11 @@ goto end
 :install-node
 echo .......................................................
 echo installing node.js
-set BIN_NODE_INSTALLER=node-%NODE_VERSION%-x64.msi
+set BIN_NODE_INSTALLER=set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/x64/node-%NODE_VERSION%-x64.msi
 if "%PROCESSOR_ARCHITECTURE%"=="x86" (
-    set BIN_NODE_INSTALLER=node-%NODE_VERSION%-x86.msi
+    set BIN_NODE_INSTALLER=set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/node-%NODE_VERSION%-x86.msi
 )
-call bin\%BIN_NODE_INSTALLER%
+start %BIN_NODE_INSTALLER%
 echo ..................................................done.
 goto main
 
