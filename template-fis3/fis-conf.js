@@ -37,8 +37,8 @@ last update 2016.1.7
     USE_RELATIVE: true, // 使用相对路径
     RELEASE_DIR: './release', // 发布目录
     LIVERELOAD: {
-      //PORT: 1988, // livereload 端口，留空自动查找
-      HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
+      // PORT: 1988, // livereload 端口，留空自动查找
+      // HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
     },
     TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$',
     //忽略文件
