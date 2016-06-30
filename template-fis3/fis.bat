@@ -148,7 +148,8 @@ echo.
 :: start server
 echo ...............................................................................
 echo start server
-call fis3 server start --type %SERVER_TYPE% --qrcode
+call fis3 server start --type %SERVER_TYPE%
+REM start cmd /C "color 37 & fis3 server start --type %SERVER_TYPE% --qrcode & ping -n 60 127.0.0.1 > nul"
 REM call fis3 server start --port %SERVER_PORT% --type %SERVER_TYPE%
 if errorlevel 1 ( pause )
 echo ..........................................................................done.
