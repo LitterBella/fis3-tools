@@ -1,7 +1,7 @@
 @echo off
 
 :: nodejs v4 v5 存在兼容性问题，请使用 v0.12.x
-set NODE_VERSION=v0.12.14
+set NODE_VERSION=v0.12.15
 
 
 :: init window
@@ -103,7 +103,7 @@ echo .......................................................
 echo installing node.js
 set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/x64/node-%NODE_VERSION%-x64.msi
 if "%PROCESSOR_ARCHITECTURE%"=="x86" (
-    set BIN_NODE_INSTALLER=set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/node-%NODE_VERSION%-x86.msi
+    set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/node-%NODE_VERSION%-x86.msi
 )
 start %BIN_NODE_INSTALLER%
 echo ..................................................done.
