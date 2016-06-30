@@ -7,27 +7,27 @@ set NODE_VERSION=v0.12.15
 :: init window
 title fis3 安装脚本
 color 37
-mode con cols=56
+mode con cols=80 lines=25
 
-echo ========================================================
-echo                     fis3 安装脚本
-echo                 see http://fis.baidu.com
-echo             fisker Cheung lionkay@gmail.com
-echo ========================================================
+echo ================================================================================
+echo                                 fis3 安装脚本
+echo                             see http://fis.baidu.com
+echo                         fisker Cheung lionkay@gmail.com
+echo ================================================================================
 
 goto main
 
 
 :main
-echo .......................................................
+echo ................................................................................
 echo 检查 node.js
 call node -v
 if errorlevel 1 goto install-node
-echo ........................................node.js 已安装.
+echo .................................................................node.js 已安装.
 echo.
 
 :: 检查 npm
-echo .......................................................
+echo ................................................................................
 echo 检查 npm
 call npm -v
 if errorlevel 1 goto install-npm
@@ -36,24 +36,26 @@ echo .......................................npm 可以正常使用.
 echo.
 
 echo 检查 fis3
-echo .......................................................
+echo ................................................................................
 call fis3 -v
 if errorlevel 1 goto install-fis3
-echo ...........................................fis3 已安装.
+echo ....................................................................fis3 已安装.
 echo.
 
 
 echo fis3 已安装
-echo .......................................................
+echo ................................................................................
 echo 安装常用插件
 call npm i -g tar.gz
 call npm i -g winzip
 call npm i -g node-wget
+call npm i -g node-gyp
+call npm i -g node-sass
 call npm i -g fis3-server-php
-call npm i -g fis3-server-node
-call npm i -g fis-optimizer-uglify-js
+REM call npm i -g fis3-server-node
+REM call npm i -g fis-optimizer-uglify-js
 call npm i -g fis-optimizer-clean-css-2x
-call npm i -g fis-optimizer-png-compressor
+REM call npm i -g fis-optimizer-png-compressor
 call npm i -g fis-optimizer-jpeg-compressor
 call npm i -g fis-postprocessor-autoprefixer
 call npm i -g fis3-hook-relative
@@ -73,7 +75,7 @@ call npm i -g fis-lint-eslint
 call npm i -g fis-preprocessor-cssgrace
 REM call npm i -g fis-postpackager-replace
 REM call npm i -g fis-packager-autopack 
-call npm i -g fis-spriter-csssprites
+REM call npm i -g fis-spriter-csssprites
 REM call npm i -g fis-postpackager-loader
 REM call npm i -g fi3-deploy-replace
 REM call npm i -g fi3-deploy-tar
@@ -81,15 +83,15 @@ REM call npm i -g fi3-deploy-zip
 REM call npm i -g fis-parser-jade
 call npm i -g fis-parser-jade-to-html
 call npm i -g fi3-deploy-local-deliver
-echo ..................................................done.
+echo ...........................................................................done.
 goto end
 
 
 :install-fis3
-echo .......................................................
+echo ................................................................................
 echo installing fis3
 call npm install -g fis3
-echo ..................................................done.
+echo ...........................................................................done.
 goto main
 
 :: 安装 npm 一般不需要
@@ -99,14 +101,14 @@ goto end
 
 :: 安装 node
 :install-node
-echo .......................................................
+echo ................................................................................
 echo installing node.js
 set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/x64/node-%NODE_VERSION%-x64.msi
 if "%PROCESSOR_ARCHITECTURE%"=="x86" (
     set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/node-%NODE_VERSION%-x86.msi
 )
 start %BIN_NODE_INSTALLER%
-echo ..................................................done.
+echo ...........................................................................done.
 goto main
 
 :end
