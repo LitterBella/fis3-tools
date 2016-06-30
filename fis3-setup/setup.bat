@@ -50,7 +50,7 @@ call npm i -g tar.gz
 call npm i -g winzip
 call npm i -g node-wget
 call npm i -g node-gyp
-call npm i -g node-sass
+REM call npm i -g node-sass
 call npm i -g fis3-server-php
 REM call npm i -g fis3-server-node
 REM call npm i -g fis-optimizer-uglify-js
