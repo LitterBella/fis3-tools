@@ -23,7 +23,7 @@ echo.
 echo ===============================================================================
 echo                        fis3 debug ^& distribute script
 echo                             see http://fis.baidu.com
-echo                         fisker Cheung lionkay@gmail.com
+echo                       by fisker Cheung lionkay@gmail.com
 echo ===============================================================================
 echo.
 echo.
