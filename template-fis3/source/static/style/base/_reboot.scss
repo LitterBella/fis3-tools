@@ -307,9 +307,6 @@ button {
   }
 }
 
-input[type="number"] {
-  width: auto; /* Firefox 36+ */
-}
 
 input,
 button,
@@ -334,6 +331,14 @@ textarea {
     font-family: $base-font-family;
     font-size: $base-font-size;
   }
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+input[type="number"] {
+  width: auto; /* Firefox 36+ */
 }
 
 input[type="radio"],
@@ -406,6 +411,10 @@ input[type="search"] {
   // be added to `.form-control` as it's not specific enough. For details, see
   // https://github.com/twbs/bootstrap/issues/11586.
   -webkit-appearance: none;
+
+  @if $legacy-ie {
+    box-sizing: content-box;
+  }
 }
 
 output {
