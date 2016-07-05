@@ -190,7 +190,7 @@ last update 2016.1.7
       pretty: true,
     },
     'fis3-lint-htmlhint': {
-      rules: readConfig('.htmlhintrcx'),
+      rules: readConfig('.htmlhintrc'),
     }
   };
 
@@ -563,8 +563,28 @@ last update 2016.1.7
   /* eslint-enable */
 
   function readConfig(file) {
-    try {
-      return JSON.parse(require('fs').readFileSync(file));
-    }catch(_){}
+    var fs = require('fs');
+    var path = require("path");
+    var currentFolder = process.cwd();
+    var filename = path.normalize(path.join(currentFolder, file));
+    var parentFolder;
+
+    while(true) {
+      filename = path.normalize(path.join(currentFolder, file));
+      if (fs.existsSync(filename)) {
+        try {
+          return JSON.parse(require('fs').readFileSync(file, 'utf8'));
+        }catch(_){
+          return null;
+        }
+      }
+
+      parentFolder = path.resolve(currentFolder, '../');
+      if (parentFolder === currentFolder) {
+        return null;
+      }
+      currentFolder = parentFolder;
+    }
   }
+
 })(fis);
