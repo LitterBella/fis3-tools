@@ -12,6 +12,10 @@ set DIST_FILETYPE=zip
 set LOG_FILE=release.log
 set TEMP_RESOURCE_FOLDER=$$$TEMP_RESOURCE$$$
 
+
+:: reset config file if another config files exists in sourcefolder
+if exist "%SOURCE_FOLDER%\fis-conf.js" ( set CONFIG_FILE=%SOURCE_FOLDER%\fis-conf.js )
+
 :: init window
 REM chcp 65001
 title fis3 debug ^& distribute script
@@ -42,10 +46,6 @@ echo.
 echo.
 echo.
 echo.
-
-
-:: reset config file if another config files exists in sourcefolder
-if exist %SOURCE_FOLDER%\fis-conf.js ( set CONFIG_FILE=%SOURCE_FOLDER%\fis-conf.js )
 
 :: chose operation
 set /p choice=input your choice and press ENTER:

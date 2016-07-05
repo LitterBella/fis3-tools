@@ -1,9 +1,10 @@
 #!/bin/sh
+export PS1="\[\e[37;44m\]"
 
 # const
 CONFIG_FILE=fis-conf.js
 SOURCE_FOLDER=source
-SERVER_TYPE=php # java,php,node,jello...
+SERVER_TYPE=node # java,php,node,jello...
 SERVER_PORT=1983
 RELEASE_FOLDER=release
 DIST_FOLDER=dist
@@ -176,7 +177,6 @@ function end() {
   sleep 5
   exit
 }
-
 
 # reset config file if another config files exists in sourcefolder
 if [ -f $SOURCE_FOLDER\fis-conf.js ]; then
