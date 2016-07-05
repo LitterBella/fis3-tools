@@ -13,6 +13,7 @@ last update 2016.1.7
   var CONFIG = {
     LEGACY_IE: true, // IE < 9 支持
     LINT: {
+      HTML: true, // html 代码检查
       CSS: true, // css 代码检查
       JS: true, // js 代码检查
     },
@@ -188,6 +189,9 @@ last update 2016.1.7
     'fis-parser-jade-to-html': {
       pretty: true,
     },
+    'fis3-lint-htmlhint': {
+      rules: readConfig('.htmlhintrcx'),
+    }
   };
 
   var pluginTypes = [
@@ -253,7 +257,7 @@ last update 2016.1.7
     },
     {
       type: 'js',
-      // fis-lint-jscs bug
+      // fis-lint-jscs has a bug can't use
       lint: CONFIG.LINT.JS ? ['fis-lint-jshint', 'fis-lint-eslint'] : null,
       optimizer: CONFIG.OPTIMIZER.JS ? 'fis-optimizer-uglify-js' : null,
     },
@@ -267,6 +271,7 @@ last update 2016.1.7
     },
     {
       type: 'html',
+      lint: CONFIG.LINT.HTML ? 'fis3-lint-htmlhint' : null,
       optimizer: CONFIG.OPTIMIZER.HTML ? 'fis-optimizer-htmlmin' : null,
     }
   ];
@@ -556,4 +561,10 @@ last update 2016.1.7
   /* jscs: enable */
   /* jshint ignore:end */
   /* eslint-enable */
+
+  function readConfig(file) {
+    try {
+      return JSON.parse(require('fs').readFileSync(file));
+    }catch(_){}
+  }
 })(fis);

@@ -170,7 +170,8 @@ echo                                 error occurred
 echo ...............................................................................
 echo.
 type ".\%LOG_FILE%"
-start ".\%LOG_FILE%"
+:: don't quote filename here
+start .\%LOG_FILE% 
 pause
 goto end
 
