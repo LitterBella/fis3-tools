@@ -566,7 +566,7 @@ last update 2016.1.7
     var fs = require('fs');
     var path = require("path");
     var currentFolder = process.cwd();
-    var filename = path.normalize(path.join(currentFolder, file));
+    var filename;
     var parentFolder;
 
     while(true) {
