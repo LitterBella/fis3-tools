@@ -573,7 +573,7 @@ last update 2016.1.7
       filename = path.normalize(path.join(currentFolder, file));
       if (fs.existsSync(filename)) {
         try {
-          return JSON.parse(require('fs').readFileSync(file, 'utf8'));
+          return JSON.parse(require('fs').readFileSync(filename, 'utf8'));
         }catch(_){
           return;
         }
