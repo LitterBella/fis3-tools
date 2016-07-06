@@ -10,7 +10,7 @@ RELEASE_FOLDER=release
 DIST_FOLDER=dist
 DIST_FILETYPE=zip # zip,tar.gz  ; tar.gz do NOT support chinese filename
 LOG_FILE=release.log
-TEMP_RESOURCE_FOLDER=$$$TEMP_RESOURCE$$$
+TEMP_RESOURCE_FOLDER=\$\$\$TEMP_RESOURCE\$\$\$
 
 function main() {
   echo "==============================================================================="

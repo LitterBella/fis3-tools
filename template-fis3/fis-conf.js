@@ -501,6 +501,11 @@ last update 2016.1.7
     relative: '/',
   });
 
+  // _*.html should not lint
+  $.match('_' + getExtsReg('html', false), {
+    lint: null,
+  });
+
   $.match('::package', pluginToProperties('fis-spriter-csssprites'));
 
   prod
