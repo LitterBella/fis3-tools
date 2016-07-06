@@ -575,13 +575,13 @@ last update 2016.1.7
         try {
           return JSON.parse(require('fs').readFileSync(file, 'utf8'));
         }catch(_){
-          return null;
+          return;
         }
       }
 
       parentFolder = path.resolve(currentFolder, '../');
       if (parentFolder === currentFolder) {
-        return null;
+        return;
       }
       currentFolder = parentFolder;
     }
