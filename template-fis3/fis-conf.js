@@ -189,9 +189,7 @@ last update 2016.1.7
     'fis-parser-jade-to-html': {
       pretty: true,
     },
-    'fis3-lint-htmlhint': {
-      rules: readConfig('.htmlhintrc'),
-    }
+    'fis3-lint-htmlhint': {}
   };
 
   var pluginTypes = [
@@ -567,29 +565,29 @@ last update 2016.1.7
   /* jshint ignore:end */
   /* eslint-enable */
 
-  function readConfig(file) {
-    var fs = require('fs');
-    var path = require("path");
-    var currentFolder = process.cwd();
-    var filename;
-    var parentFolder;
+  // function readConfig(file) {
+  //   var fs = require('fs');
+  //   var path = require("path");
+  //   var currentFolder = process.cwd();
+  //   var filename;
+  //   var parentFolder;
 
-    while(true) {
-      filename = path.normalize(path.join(currentFolder, file));
-      if (fs.existsSync(filename)) {
-        try {
-          return JSON.parse(require('fs').readFileSync(filename, 'utf8'));
-        }catch(_){
-          return;
-        }
-      }
+  //   while(true) {
+  //     filename = path.normalize(path.join(currentFolder, file));
+  //     if (fs.existsSync(filename)) {
+  //       try {
+  //         return JSON.parse(require('fs').readFileSync(filename, 'utf8'));
+  //       }catch(_){
+  //         return;
+  //       }
+  //     }
 
-      parentFolder = path.resolve(currentFolder, '../');
-      if (parentFolder === currentFolder) {
-        return;
-      }
-      currentFolder = parentFolder;
-    }
-  }
+  //     parentFolder = path.resolve(currentFolder, '../');
+  //     if (parentFolder === currentFolder) {
+  //       return;
+  //     }
+  //     currentFolder = parentFolder;
+  //   }
+  // }
 
 })(fis);
