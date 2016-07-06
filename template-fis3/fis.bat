@@ -14,7 +14,7 @@ set TEMP_RESOURCE_FOLDER=$$$TEMP_RESOURCE$$$
 
 
 :: reset config file if another config files exists in sourcefolder
-if exist "%SOURCE_FOLDER%\fis-conf.js" ( set CONFIG_FILE=%SOURCE_FOLDER%\fis-conf.js )
+if exist ".\%SOURCE_FOLDER%\fis-conf.js" (set CONFIG_FILE=%SOURCE_FOLDER%\fis-conf.js)
 
 :: init window
 REM chcp 65001
@@ -171,7 +171,7 @@ echo ...........................................................................
 echo.
 type ".\%LOG_FILE%"
 :: don't quote filename here
-start .\%LOG_FILE% 
+start .\%LOG_FILE%
 pause
 goto end
 

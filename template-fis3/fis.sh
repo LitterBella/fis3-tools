@@ -180,7 +180,7 @@ function end() {
 
 # reset config file if another config files exists in sourcefolder
 if [ -f ".\\$SOURCE_FOLDER\\fis-conf.js" ]; then
-  CONFIG_FILE=$SOURCE_FOLDER\fis-conf.js
+  CONFIG_FILE=$SOURCE_FOLDER\\fis-conf.js
 fi
 
 main
