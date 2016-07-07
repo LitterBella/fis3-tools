@@ -9,6 +9,5 @@
   "src-not-empty": true,
   "attr-no-duplication": true,
   "title-require": true,
-  "doctype-html5": true,
-  "tag-self-close": true
+  "doctype-html5": true
 }
