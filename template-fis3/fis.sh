@@ -157,7 +157,7 @@ function debug() {
 }
 
 function pause() {
-  echo "paused."
+  echo "press any key to continue."
   read -n 1
 }
 

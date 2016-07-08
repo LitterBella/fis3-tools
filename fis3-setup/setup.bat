@@ -69,13 +69,14 @@ call npm i -g fis-parser-babel-5.x
 call npm i -g fis-parser-babel-6.x
 call npm i -g fis3-parser-typescript
 call npm i -g fis3-lint-htmlhint
+call npm i -g fis3-lint-eslint-noisy
 call npm i -g fis-lint-csslint
 call npm i -g fis-lint-jshint
 call npm i -g fis-lint-jscs
 call npm i -g fis-lint-eslint
 call npm i -g fis-preprocessor-cssgrace
 REM call npm i -g fis-postpackager-replace
-REM call npm i -g fis-packager-autopack 
+REM call npm i -g fis-packager-autopack
 REM call npm i -g fis-spriter-csssprites
 REM call npm i -g fis-postpackager-loader
 REM call npm i -g fi3-deploy-replace
