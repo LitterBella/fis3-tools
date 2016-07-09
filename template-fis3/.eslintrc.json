@@ -265,7 +265,7 @@
     "no-unused-vars": 1,
 
     // Disallow Early Use
-    "no-use-before-define": 1,
+    "no-use-before-define": 0,
 
     // TODO: section Node.js and CommonJS is not reviewed
 
@@ -276,7 +276,7 @@
     "block-spacing": 2,
 
     // Require Brace Style
-    "brace-style": 2,
+    "brace-style": 1,
 
     // Require Camelcase
     "camelcase": 2,
@@ -444,7 +444,9 @@
     "object-curly-spacing": 2,
 
     // enforce placing object properties on separate lines
-    "object-property-newline": 2,
+    "object-property-newline": [2, {
+      "allowMultiplePropertiesPerLine": true
+    }],
 
     // Require or Disallow One Variable Declaration per Scope
     "one-var": [2, "never"],
@@ -456,10 +458,14 @@
     "operator-assignment": 0,
 
     // Operator Linebreak
-    "operator-linebreak": 2,
+    "operator-linebreak": [2, "after", {
+      "overrides": {
+        "?": "after"
+      }
+    }],
 
     // Enforce padding within blocks
-    "padded-blocks": [2, "never"],
+    "padded-blocks": 0,
 
     // Quoting Style for Property Names
     "quote-props": 0,
