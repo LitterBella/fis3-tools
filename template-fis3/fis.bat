@@ -140,7 +140,7 @@ echo.
 :: release
 echo ...............................................................................
 echo release files
-call fis3 release dev --root ".\%SOURCE_FOLDER%" --lint --verbose --no-color > ".\%LOG_FILE%"
+call fis3 release dev --root ".\%SOURCE_FOLDER%" --verbose --no-color > ".\%LOG_FILE%"
 if errorlevel 1 ( goto error )
 del /Q "%LOG_FILE%"
 echo ..........................................................................done.
@@ -159,7 +159,7 @@ echo.
 :: start livereload
 echo ...............................................................................
 echo watching files
-call fis3 release dev --root ".\%SOURCE_FOLDER%" --lint --watch --live --verbose --no-color
+call fis3 release dev --root ".\%SOURCE_FOLDER%" --watch --live --verbose
 pause
 
 :: error

@@ -1,4 +1,3 @@
-/* global fis:true */
 /*!
 fis-conf.js
 by fisker Cheung <lionkay@gmail.com>
@@ -16,6 +15,11 @@ last update 2016.1.7
       HTML: true, // html 代码检查
       CSS: true, // css 代码检查
       JS: true, // js 代码检查
+    },
+    FIX: {
+      HTML: false, // 暂无插件修复
+      CSS: false, // 暂无插件修复
+      JS: true, // js 编码风格修复
     },
     OPTIMIZER: {
       CSS: false, // css 代码压缩
@@ -191,6 +195,7 @@ last update 2016.1.7
     },
     'fis3-lint-htmlhint': {},
     'fis3-lint-eslint-noisy': {
+      fix: CONFIG.FIX.JS,
       useEslintrc: true
     }
   };
@@ -517,4 +522,4 @@ last update 2016.1.7
       optimizer: null
     });
 
-})(fis);
+})(global.fis);

@@ -137,7 +137,7 @@ function debug() {
   # release
   echo "..............................................................................."
   echo "release files"
-  fis3 release dev --root ".\\$SOURCE_FOLDER" --lint --verbose --no-color > ".\\$LOG_FILE" || error
+  fis3 release dev --root ".\\$SOURCE_FOLDER" --verbose --no-color > ".\\$LOG_FILE" || error
   rm ".\\$LOG_FILE"
   echo "..........................................................................done."
   echo -e "\n"
@@ -152,7 +152,7 @@ function debug() {
   # start livereload
   echo "..............................................................................."
   echo "watching files"
-  fis3 release dev --root ".\\$SOURCE_FOLDER" --lint --watch --live --verbose --no-color
+  fis3 release dev --root ".\\$SOURCE_FOLDER" --watch --live --verbose
   pause
 }
 
