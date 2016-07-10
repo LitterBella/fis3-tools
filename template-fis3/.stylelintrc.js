@@ -44,7 +44,7 @@ module.exports = {
     "length-zero-no-unit": true,
 
     // Time
-    "time-no-imperceptible": true,
+    // "time-no-imperceptible": true,
 
     // Unit
     // "unit-blacklist": ,
@@ -53,15 +53,15 @@ module.exports = {
     // "unit-whitelist": ,
 
     // Value
-    "value-keyword-case": ["lower", {
-      ignoreKeywords: ["/(document|widow)\..*/"]
-    }],
+    // "value-keyword-case": ["lower", {
+    //   "ignoreKeywords": ["/(document|widow)\..*/"]
+    // }],
     // "value-no-vendor-prefix": ,
 
     // Value list
     // "value-list-comma-newline-after": "always-multi-line",
     // "value-list-comma-newline-before": "always-multi-line",
-    "value-list-comma-space-after": "always-single-line",
+    // "value-list-comma-space-after": "always-single-line",
     "value-list-comma-space-before": "never",
 
     // Custom property
@@ -69,7 +69,7 @@ module.exports = {
     // "custom-property-pattern":
 
     // Shorthand property
-    "shorthand-property-no-redundant-values": true,
+    // "shorthand-property-no-redundant-values": true,
 
     // Property
     // "property-blacklist": ,
@@ -84,7 +84,7 @@ module.exports = {
     "declaration-bang-space-after": "never",
     "declaration-bang-space-before": "always",
     "declaration-colon-newline-after": "always-multi-line",
-    "declaration-colon-space-after": "always",
+    "declaration-colon-space-after": "always-single-line",
     "declaration-colon-space-before": "never",
     "declaration-no-important": true,
     // "declaration-property-unit-blacklist": ,
@@ -96,7 +96,7 @@ module.exports = {
     "declaration-block-no-duplicate-properties": [true, {
       "ignore": ["consecutive-duplicates"]
     }],
-    "declaration-block-no-ignored-properties": true,
+    // "declaration-block-no-ignored-properties": true,
     "declaration-block-no-shorthand-property-overrides": true,
     // "declaration-block-properties-order": ,
     "declaration-block-semicolon-newline-after": "always-multi-line",
@@ -114,8 +114,8 @@ module.exports = {
     // "block-no-empty": true,
     "block-no-single-line": true,
     "block-opening-brace-newline-after": "always",
-    "block-opening-brace-newline-before": "never",
-    "block-opening-brace-space-after": "always-single-line",
+    // "block-opening-brace-newline-before": "never-multi-line",
+    // "block-opening-brace-space-after": "always-single-line",
     "block-opening-brace-space-before": "always",
 
     // Selector
@@ -145,22 +145,24 @@ module.exports = {
     "selector-pseudo-element-case": "lower",
     "selector-pseudo-element-colon-notation": "double",
     "selector-pseudo-element-no-unknown": true,
-    "selector-root-no-composition": true,
+    // "selector-root-no-composition": true,
     "selector-type-case": "lower",
     "selector-type-no-unknown": true,
 
 
     // Selector list
     "selector-list-comma-newline-after": "always",
-    "selector-list-comma-newline-before": "never",
-    "selector-list-comma-space-after": "always-single-line",
-    "selector-list-comma-space-before": "never",
+    "selector-list-comma-newline-before": "never-multi-line",
+    // "selector-list-comma-space-after": "always-single-line",
+    // "selector-list-comma-space-before": "never",
 
     // Root rule
     "root-no-standard-properties": true,
 
     // Rule
-    "rule-nested-empty-line-before": "never",
+    "rule-nested-empty-line-before": ["always", {
+      "except": ["first-nested"],
+    }],
     "rule-non-nested-empty-line-before": "always",
 
     // Media feature
@@ -209,24 +211,28 @@ module.exports = {
     // "comment-word-blacklist": ,
 
     // General / Sheet
-    "indentation": [2, {
-      "indentInsideParens": "once"
-    }],
-    "max-empty-lines": 1,
-    "max-line-length": 80,
+    // "indentation": [2, {
+    //   "indentInsideParens": "once"
+    // }],
+    "max-empty-lines": 2,
+    // "max-line-length": 80,
     "max-nesting-depth": [5, {
       "ignore": ["at-rules-without-declaration-blocks"]
     }],
-    "no-browser-hacks": [true, "last 100 versions"],
+    "no-browser-hacks": [true, {
+      "browsers": "last 100 versions"
+    }],
     // "no-descending-specificity": ,
-    "no-duplicate-selectors": true,
+    // "no-duplicate-selectors": true,
     "no-empty-source": true,
     "no-eol-whitespace": true,
     "no-extra-semicolons": true,
-    "no-indistinguishable-colors": true,
+    // "no-indistinguishable-colors": true,
     "no-invalid-double-slash-comments": true,
     "no-missing-eof-newline": true,
-    "no-unknown-animations": true,
-    "no-unsupported-browser-features": [true, "last 100 versions"]
+    // "no-unknown-animations": true,
+    // "no-unsupported-browser-features": [true, {
+    //   "ignore": ["at-rules-without-declaration-blocks"]
+    // }]
   }
 }

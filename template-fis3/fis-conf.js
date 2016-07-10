@@ -18,8 +18,8 @@ last update 2016.1.7
     },
     FIX: {
       HTML: false, // 暂无插件修复
-      CSS: false, // 暂无插件修复
-      JS: true, // js 编码风格修复
+      CSS: true, // stylelint 时使用 stylefmt 自动修复
+      JS: true, // eslint 自动修复
     },
     OPTIMIZER: {
       CSS: false, // css 代码压缩
@@ -45,34 +45,39 @@ last update 2016.1.7
       // PORT: 1988, // livereload 端口，留空自动查找
       // HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
     },
-    TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$',
+    TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$', // 需要和 fis.bat/fis.sh 里面相同设置
     //忽略文件
-    IGNORE: [
-      '.**',
-      '.{git,svn,hg,CVS,idea,sass-cache}/**',
-      '{node_modules,bower_components}/**',
-      '*.{bat,cmd,sh,tmp,bak}',
-      'test/**',
-      'Thumbs.db',
-      'fis-conf.js',
-    ],
-    RELEASE_IGNORE: [
-      '_**',
-    ],
-    LINT_IGNORE: [
-      '*{.,-}min.**',
-      'lib/**',
-      'thirdparty/**',
-      'third{_,-}party/**',
-      'vendors/**',
-    ],
-    OPTIMIZER_IGNORE: [
-      '*{.,-}min.**',
-      //'lib/**',
-      //'thirdparty/**',
-      //'third{_,-}party/**',
-      //'vendors/**',
-    ],
+    IGNORE: {
+      global: [
+        '.**',
+        '.{git,svn,hg,CVS,idea,sass-cache}/**',
+        '{node_modules,bower_components}/**',
+        '*.{bat,cmd,sh,tmp,bak}',
+        'test/**',
+        'Thumbs.db',
+        'fis-conf.js',
+      ],
+      release: [
+        '_**',
+      ],
+      lint: [
+        '*{.,-}min.**',
+        'lib/**',
+        'thirdparty/**',
+        'third{_,-}party/**',
+        'vendors/**',
+      ],
+      optimizer: [
+        '*{.,-}min.**',
+        //'lib/**',
+        //'thirdparty/**',
+        //'third{_,-}party/**',
+        //'vendors/**',
+      ],
+      postprocessor: [
+        '*{.,-}min.**',
+      ],
+    },
   };
 
   var PLUGINS_CONFIG = {
@@ -198,7 +203,9 @@ last update 2016.1.7
       fix: CONFIG.FIX.JS,
       useEslintrc: true
     },
-    'fis3-lint-stylelint': {},
+    'fis3-lint-stylelint': {
+      fix: CONFIG.FIX.CSS,
+    },
   };
 
   var pluginTypes = [
@@ -219,11 +226,13 @@ last update 2016.1.7
     {
       ext: 'less',
       type: 'css',
+      lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
       parser: 'fis-parser-less-2.x',
     },
     {
       ext: ['sass', 'scss'],
       type: 'css',
+      lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
       parser: 'fis-parser-node-sass',
     },
     {
@@ -257,7 +266,7 @@ last update 2016.1.7
     {
       type: 'css',
       lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
-      preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
+      // preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
       optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
       postprocessor: 'fis-postprocessor-autoprefixer',
       useSprite: true
@@ -289,15 +298,9 @@ last update 2016.1.7
   var hasOwn = fileExts.hasOwnProperty;
   var slice = pluginTypes.slice;
 
-  if (CONFIG.IGNORE) {
-    $.set('project.ignore', CONFIG.IGNORE);
+  if (CONFIG.IGNORE.global) {
+    $.set('project.ignore', CONFIG.IGNORE.global);
   }
-
-  CONFIG.RELEASE_IGNORE.forEach(function(preg) {
-    $.match(preg, {
-      release: false
-    });
-  });
 
   if (CONFIG.LIVERELOAD.PORT) {
     $.set('livereload.port', CONFIG.LIVERELOAD.PORT);
@@ -460,7 +463,6 @@ last update 2016.1.7
     var processor = {};
 
     // lint can't used on preProcessor
-    // and we only lint for prodution
     if (data.lint) {
       $.match(getExtsReg(toArray(data.type)), {
         lint: getPlugin(data.lint)
@@ -483,21 +485,12 @@ last update 2016.1.7
     $.match(getExtsReg(data.type), processor);
   });
 
-  CONFIG.LINT_IGNORE.forEach(function(reg) {
-    $.match(reg, {
-      lint: null
-    });
-  });
 
-  CONFIG.OPTIMIZER_IGNORE.forEach(function(reg) {
-    $.match(reg, {
-      optimizer: null
-    });
-  });
-
-  CONFIG.RELEASE_IGNORE.forEach(function(reg) {
-    $.match(reg, {
-      release: false
+  pluginTypes.foreach(function(type) {
+    (CONFIG.IGNORE[type] || []).forEach(function(reg) {
+      var settings = {};
+      settings[type] = null;
+      $.match(reg, settings);
     });
   });
 

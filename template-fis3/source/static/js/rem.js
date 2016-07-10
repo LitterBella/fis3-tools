@@ -1,4 +1,4 @@
-;(function(win, docEl) {
+(function(win, docEl) {
   'use strict';
   var timer;
   function calcRem() {
