@@ -70,6 +70,7 @@ call npm i -g fis-parser-babel-6.x
 call npm i -g fis3-parser-typescript
 call npm i -g fis3-lint-htmlhint
 call npm i -g fis3-lint-eslint-noisy
+call npm i -g fis3-lint-stylelint
 call npm i -g fis-lint-csslint
 call npm i -g fis-lint-jshint
 call npm i -g fis-lint-jscs

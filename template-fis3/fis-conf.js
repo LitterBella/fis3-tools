@@ -197,7 +197,8 @@ last update 2016.1.7
     'fis3-lint-eslint-noisy': {
       fix: CONFIG.FIX.JS,
       useEslintrc: true
-    }
+    },
+    'fis3-lint-stylelint': {},
   };
 
   var pluginTypes = [
@@ -255,7 +256,7 @@ last update 2016.1.7
   var standardProcessors = [
     {
       type: 'css',
-      lint: CONFIG.LINT.CSS ? 'fis-lint-csslint' : null,
+      lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
       preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
       optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
       postprocessor: 'fis-postprocessor-autoprefixer',

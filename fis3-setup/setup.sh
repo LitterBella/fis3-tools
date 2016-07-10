@@ -93,6 +93,7 @@ function installplugins() {
   npm i -g fis3-parser-typescript
   npm i -g fis3-lint-htmlhint
   npm i -g fis3-lint-eslint-noisy
+  npm i -g fis3-lint-stylelint
   npm i -g fis-lint-csslint
   npm i -g fis-lint-jshint
   npm i -g fis-lint-jscs
