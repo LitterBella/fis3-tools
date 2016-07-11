@@ -18,8 +18,8 @@ last update 2016.1.7
     },
     FIX: {
       HTML: false, // 暂无插件修复
-      CSS: true, // stylelint 时使用 stylefmt 自动修复
-      JS: true, // eslint 自动修复
+      CSS: false, // stylelint 时使用 stylefmt 自动修复
+      JS: false, // eslint 自动修复
     },
     OPTIMIZER: {
       CSS: false, // css 代码压缩
@@ -73,9 +73,6 @@ last update 2016.1.7
         //'thirdparty/**',
         //'third{_,-}party/**',
         //'vendors/**',
-      ],
-      postprocessor: [
-        '*{.,-}min.**',
       ],
     },
   };
@@ -226,13 +223,13 @@ last update 2016.1.7
     {
       ext: 'less',
       type: 'css',
-      lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
+      // lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
       parser: 'fis-parser-less-2.x',
     },
     {
       ext: ['sass', 'scss'],
       type: 'css',
-      lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
+      // lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
       parser: 'fis-parser-node-sass',
     },
     {
@@ -266,7 +263,7 @@ last update 2016.1.7
     {
       type: 'css',
       lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
-      // preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
+      preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
       optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
       postprocessor: 'fis-postprocessor-autoprefixer',
       useSprite: true
@@ -301,6 +298,12 @@ last update 2016.1.7
   if (CONFIG.IGNORE.global) {
     $.set('project.ignore', CONFIG.IGNORE.global);
   }
+
+  CONFIG.IGNORE.release.forEach(function(preg) {
+    $.match(preg, {
+      release: false
+    });
+  });
 
   if (CONFIG.LIVERELOAD.PORT) {
     $.set('livereload.port', CONFIG.LIVERELOAD.PORT);
@@ -463,6 +466,7 @@ last update 2016.1.7
     var processor = {};
 
     // lint can't used on preProcessor
+    // and we only lint for prodution
     if (data.lint) {
       $.match(getExtsReg(toArray(data.type)), {
         lint: getPlugin(data.lint)
@@ -486,7 +490,7 @@ last update 2016.1.7
   });
 
 
-  pluginTypes.foreach(function(type) {
+  ['optimizer', 'lint'].forEach(function(type) {
     (CONFIG.IGNORE[type] || []).forEach(function(reg) {
       var settings = {};
       settings[type] = null;
