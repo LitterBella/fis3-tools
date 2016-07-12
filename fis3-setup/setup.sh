@@ -1,8 +1,7 @@
 #!/bin/sh
 export PS1="\[\e[37;44m\]"
 
-# nodejs v4 v5 存在兼容性问题，请使用 v0.12.x
-NODE_VERSION=v0.12.15
+NODE_VERSION=v6.3.0
 
 echo "================================================================================"
 echo "                                fis3 安装脚本"
@@ -78,8 +77,7 @@ function installplugins() {
   # npm i -g fis3-server-node
   # npm i -g fis-optimizer-uglify-js
   npm i -g fis-optimizer-clean-css-2x
-  # npm i -g fis-optimizer-png-compressor
-  npm i -g fis-optimizer-jpeg-compressor
+  npm i -g fis3-optimizer-imagemin
   npm i -g fis-postprocessor-autoprefixer
   npm i -g fis3-hook-relative
   npm i -g fis-parser-less-2.x

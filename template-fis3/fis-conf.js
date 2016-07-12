@@ -203,6 +203,7 @@ last update 2016.1.7
     'fis3-lint-stylelint': {
       fix: CONFIG.FIX.CSS,
     },
+    'fis3-optimizer-imagemin': {}
   };
 
   var pluginTypes = [
@@ -275,11 +276,19 @@ last update 2016.1.7
     },
     {
       type: 'png',
-      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis-optimizer-png-compressor' : null,
+      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'jpg',
-      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis-optimizer-jpeg-compressor' : null,
+      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis3-optimizer-imagemin' : null,
+    },
+    {
+      type: 'gif',
+      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis3-optimizer-imagemin' : null,
+    },
+    {
+      type: 'svg',
+      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'html',

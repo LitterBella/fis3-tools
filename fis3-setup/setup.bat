@@ -1,7 +1,6 @@
 @echo off
 
-:: nodejs v4 v5 存在兼容性问题，请使用 v0.12.x
-set NODE_VERSION=v0.12.15
+set NODE_VERSION=v6.3.0
 
 
 :: init window
@@ -55,8 +54,8 @@ call npm i -g fis3-server-php
 REM call npm i -g fis3-server-node
 REM call npm i -g fis-optimizer-uglify-js
 call npm i -g fis-optimizer-clean-css-2x
-REM call npm i -g fis-optimizer-png-compressor
-call npm i -g fis-optimizer-jpeg-compressor
+REM call npm i -g fis-optimizer-jpeg-compressor
+call npm i -g fis3-optimizer-imagemin
 call npm i -g fis-postprocessor-autoprefixer
 call npm i -g fis3-hook-relative
 call npm i -g fis-parser-less-2.x
