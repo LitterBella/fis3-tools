@@ -276,7 +276,8 @@ last update 2016.1.7
     },
     {
       type: 'png',
-      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis-optimizer-png-compressor' : null,
+      //optimizer: CONFIG.OPTIMIZER.PNG ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'jpg',
