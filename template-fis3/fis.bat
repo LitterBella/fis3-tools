@@ -14,7 +14,7 @@ set TEMP_RESOURCE_FOLDER=$$$TEMP_RESOURCE$$$
 
 
 :: reset config file if another config files exists in sourcefolder
-if exist ".\%SOURCE_FOLDER%\fis-conf.js" (set CONFIG_FILE=%SOURCE_FOLDER%\fis-conf.js)
+if exist "./%SOURCE_FOLDER%/fis-conf.js" (set CONFIG_FILE=%SOURCE_FOLDER%/fis-conf.js)
 
 :: init window
 REM chcp 65001
@@ -59,7 +59,7 @@ goto debug
 :archive
 
 :: make distribute folder ready
-if not exist ".\%DIST_FOLDER%" md ".\%DIST_FOLDER%"
+if not exist "./%DIST_FOLDER%" md "./%DIST_FOLDER%"
 
 :: set distribute file name
 for /f "delims=" %%i in ("%cd%") do set FOLDER=%%~ni
@@ -70,7 +70,7 @@ set DIST_FILENAME=%FOLDER%.%date:~2,2%%date:~5,2%%date:~8,2%-%hour%%time:~3,2%%t
 :: archive files to distribute folder
 echo ...............................................................................
 echo packing files
-if "%DIST_FILETYPE%"=="tar.gz" ( call targz -l 9 -m 9 -c ".\%RELEASE_FOLDER%" ".\%DIST_FOLDER%\%DIST_FILENAME%.tar.gz" ) else ( call winzip zip ".\%RELEASE_FOLDER%" ".\%DIST_FOLDER%\%DIST_FILENAME%" )
+if "%DIST_FILETYPE%"=="tar.gz" ( call targz -l 9 -m 9 -c "./%RELEASE_FOLDER%" "./%DIST_FOLDER%/%DIST_FILENAME%.tar.gz" ) else ( call winzip zip "./%RELEASE_FOLDER%" "./%DIST_FOLDER%/%DIST_FILENAME%" )
 if errorlevel 1 ( pause )
 echo ..........................................................................done.
 echo.
@@ -85,17 +85,17 @@ cls
 :: remove release file and log file
 echo ...............................................................................
 echo clean release folder
-if exist ".\%RELEASE_FOLDER%" rd /S /Q ".\%RELEASE_FOLDER%"
-if exist ".\%LOG_FILE%" del /Q ".\%LOG_FILE%"
+if exist "./%RELEASE_FOLDER%" rd /S /Q "./%RELEASE_FOLDER%"
+if exist "./%LOG_FILE%" del /Q "./%LOG_FILE%"
 echo ..........................................................................done.
 echo.
 
 :: release file
 echo ...............................................................................
 echo releasing files
-call fis3 release prod --dest release --lint --unique --root ".\%SOURCE_FOLDER%" --file ".\%CONFIG_FILE%" --verbose --no-color > ".\%LOG_FILE%"
+call fis3 release prod --dest release --lint --unique --root "./%SOURCE_FOLDER%" --file "./%CONFIG_FILE%" --verbose --no-color > "./%LOG_FILE%"
 if errorlevel 1 ( goto error )
-if exist ".\%RELEASE_FOLDER%\%TEMP_RESOURCE_FOLDER%" rd /S /Q ".\%RELEASE_FOLDER%\%TEMP_RESOURCE_FOLDER%"
+if exist "./%RELEASE_FOLDER%/%TEMP_RESOURCE_FOLDER%" rd /S /Q "./%RELEASE_FOLDER%/%TEMP_RESOURCE_FOLDER%"
 echo ..........................................................................done.
 echo.
 
@@ -140,7 +140,7 @@ echo.
 :: release
 echo ...............................................................................
 echo release files
-call fis3 release dev --root ".\%SOURCE_FOLDER%" --verbose --no-color > ".\%LOG_FILE%"
+call fis3 release dev --root "./%SOURCE_FOLDER%" --verbose --no-color > "./%LOG_FILE%"
 if errorlevel 1 ( goto error )
 del /Q "%LOG_FILE%"
 echo ..........................................................................done.
@@ -159,7 +159,7 @@ echo.
 :: start livereload
 echo ...............................................................................
 echo watching files
-call fis3 release dev --root ".\%SOURCE_FOLDER%" --watch --live --verbose
+call fis3 release dev --root "./%SOURCE_FOLDER%" --watch --live --verbose
 pause
 
 :: error
@@ -169,9 +169,9 @@ echo ...........................................................................
 echo                                 error occurred
 echo ...............................................................................
 echo.
-type ".\%LOG_FILE%"
+type "./%LOG_FILE%"
 :: don't quote filename here
-start .\%LOG_FILE%
+start ./%LOG_FILE%
 pause
 goto end
 
