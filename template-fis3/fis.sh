@@ -44,20 +44,20 @@ function release() {
   clear
 
   # remove release file and log file
-  if [ -d ".\\$RELEASE_FOLDER" ]; then
-    rm -r ".\\$RELEASE_FOLDER"
+  if [ -d "./$RELEASE_FOLDER" ]; then
+    rm -r "./$RELEASE_FOLDER"
   fi
-  if [ -f ".\\$LOG_FILE" ]; then
-    rm ".\\$LOG_FILE"
+  if [ -f "./$LOG_FILE" ]; then
+    rm "./$LOG_FILE"
   fi
 
   # release file
   echo "..............................................................................."
   echo "releasing files"
-  fis3 release prod --dest release --lint --unique --root ".\\$SOURCE_FOLDER" --file ".\\$CONFIG_FILE" --verbose --no-color > ".\\$LOG_FILE" || error
+  fis3 release prod --dest release --lint --unique --root "./$SOURCE_FOLDER" --file "./$CONFIG_FILE" --verbose --no-color > "./$LOG_FILE" || error
 
-  if [ -d ".\\$RELEASE_FOLDER\\$TEMP_RESOURCE_FOLDER" ]; then
-    rm -r ".\\$RELEASE_FOLDER\\$TEMP_RESOURCE_FOLDER"
+  if [ -d "./$RELEASE_FOLDER/$TEMP_RESOURCE_FOLDER" ]; then
+    rm -r "./$RELEASE_FOLDER/$TEMP_RESOURCE_FOLDER"
   fi
 
   echo "..........................................................................done."
@@ -74,8 +74,8 @@ function release() {
 function archive() {
       echo "archive"
   # make distribute folder ready
-  if [ ! -d ".\\$DIST_FOLDER" ]; then
-    mkdir ".\\$DIST_FOLDER"
+  if [ ! -d "./$DIST_FOLDER" ]; then
+    mkdir "./$DIST_FOLDER"
   fi
 
   # set distribute file name
@@ -87,9 +87,9 @@ function archive() {
   echo "..............................................................................."
   echo "packing files"
   if [ "$DIST_FILETYPE" = "tar.gz" ]; then
-    targz -l 9 -m 9 -c ".\\$RELEASE_FOLDER" "$DIST_FOLDER\\$DIST_FILENAME.tar.gz" || pause
+    targz -l 9 -m 9 -c "./$RELEASE_FOLDER" "./$DIST_FOLDER/$DIST_FILENAME.tar.gz" || pause
   else
-    winzip zip ".\\$RELEASE_FOLDER" "$DIST_FOLDER\\$DIST_FILENAME" || pause
+    winzip zip "./$RELEASE_FOLDER" "./$DIST_FOLDER/$DIST_FILENAME" || pause
   fi
 
   echo "..........................................................................done."
@@ -137,8 +137,8 @@ function debug() {
   # release
   echo "..............................................................................."
   echo "release files"
-  fis3 release dev --root ".\\$SOURCE_FOLDER" --verbose --no-color > ".\\$LOG_FILE" || error
-  rm ".\\$LOG_FILE"
+  fis3 release dev --root "./$SOURCE_FOLDER" --verbose --no-color > "./$LOG_FILE" || error
+  rm "./$LOG_FILE"
   echo "..........................................................................done."
   echo -e "\n"
 
@@ -152,7 +152,7 @@ function debug() {
   # start livereload
   echo "..............................................................................."
   echo "watching files"
-  fis3 release dev --root ".\\$SOURCE_FOLDER" --watch --live --verbose
+  fis3 release dev --root "./$SOURCE_FOLDER" --watch --live --verbose
   pause
 }
 
@@ -166,8 +166,8 @@ function error() {
   echo "                                error occurred"
   echo "..............................................................................."
   echo -e "\n"
-  cat ".\\$LOG_FILE"
-  start ".\\$LOG_FILE"
+  cat "./$LOG_FILE"
+  # open "./$LOG_FILE"
   pause
   end
 }
@@ -179,8 +179,9 @@ function end() {
 }
 
 # reset config file if another config files exists in sourcefolder
-if [ -f ".\\$SOURCE_FOLDER\\fis-conf.js" ]; then
-  CONFIG_FILE=$SOURCE_FOLDER\\fis-conf.js
+if [ -f "./$SOURCE_FOLDER/fis-conf.js" ]; then
+  CONFIG_FILE=$SOURCE_FOLDER/fis-conf.js
 fi
 
 main
+
