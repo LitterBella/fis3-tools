@@ -185,6 +185,9 @@ a {
   @if $link-color == 'inherit' and $legacy-ie {
     *color: $base-color;
   }
+  @if $legacy-ie {
+    *cursor: pointer;
+  }
 
   &:focus,
   &:hover {
