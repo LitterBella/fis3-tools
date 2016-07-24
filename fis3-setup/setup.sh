@@ -44,6 +44,17 @@ function checknpm() {
   echo "................................................................................"
   command -v npm >/dev/null 2>&1 || installnpm;
   npm config set registry https://registry.npm.taobao.org
+  npm config set NVM_NODEJS_ORG_MIRROR http://npm.taobao.org/mirrors/node
+  npm config set NVM_IOJS_ORG_MIRROR http://npm.taobao.org/mirrors/iojs
+  npm config set NVMW_NODEJS_ORG_MIRROR http://npm.taobao.org/mirrors/node
+  npm config set NVMW_IOJS_ORG_MIRROR http://npm.taobao.org/mirrors/iojs
+  npm config set NVMW_NPM_MIRROR http://npm.taobao.org/mirrors/npm
+  npm config set PHANTOMJS_CDNURL http://npm.taobao.org/mirrors/phantomjs
+  npm config set CHROMEDRIVER_CDNURL http://npm.taobao.org/mirrors/chromedriver
+  npm config set OPERADRIVER_CDNURL http://npm.taobao.org/mirrors/operadriver
+  npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
+  npm config set SASS_BINARY_SITE http://npm.taobao.org/mirrors/node-sass
+  npm config set SQLITE3_BINARY_SITE http://npm.taobao.org/mirrors/sqlite3
   echo ".......................................npm 可以正常使用."
 }
 

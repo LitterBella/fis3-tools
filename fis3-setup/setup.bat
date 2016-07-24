@@ -31,6 +31,17 @@ echo 检查 npm
 call npm -v
 if errorlevel 1 goto install-npm
 call npm config set registry https://registry.npm.taobao.org
+call npm config set NVM_NODEJS_ORG_MIRROR http://npm.taobao.org/mirrors/node
+call npm config set NVM_IOJS_ORG_MIRROR http://npm.taobao.org/mirrors/iojs
+call npm config set NVMW_NODEJS_ORG_MIRROR http://npm.taobao.org/mirrors/node
+call npm config set NVMW_IOJS_ORG_MIRROR http://npm.taobao.org/mirrors/iojs
+call npm config set NVMW_NPM_MIRROR http://npm.taobao.org/mirrors/npm
+call npm config set PHANTOMJS_CDNURL http://npm.taobao.org/mirrors/phantomjs
+call npm config set CHROMEDRIVER_CDNURL http://npm.taobao.org/mirrors/chromedriver
+call npm config set OPERADRIVER_CDNURL http://npm.taobao.org/mirrors/operadriver
+call npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
+call npm config set SASS_BINARY_SITE http://npm.taobao.org/mirrors/node-sass
+call npm config set SQLITE3_BINARY_SITE http://npm.taobao.org/mirrors/sqlite3
 echo .......................................npm 可以正常使用.
 echo.
 
