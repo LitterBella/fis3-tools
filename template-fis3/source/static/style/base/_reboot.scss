@@ -158,6 +158,14 @@ ul {
   }
 }
 
+nav {
+  ol,
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
 dl {
   @extend %margin-bottom;
 
@@ -193,6 +201,7 @@ a {
   &:hover {
     text-decoration: $link-hover-decoration;
     color: $link-hover-color;
+
     @if $link-hover-color == 'inherit' and $legacy-ie {
       *color: $base-color;
     }

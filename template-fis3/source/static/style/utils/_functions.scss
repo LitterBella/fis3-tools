@@ -3,9 +3,7 @@
 @function valueOf($x) {
   @if unitless($x) {
     @return $x;
-  }
-
-  @else {
+  } @else {
     @return $x / (1 + unit($x));
   }
 }
