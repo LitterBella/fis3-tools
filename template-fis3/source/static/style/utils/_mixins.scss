@@ -289,3 +289,11 @@
   opacity: 0;
   cursor: pointer;
 }
+
+@mixin justify-fix() {
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+  }
+}
