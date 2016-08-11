@@ -1,0 +1,28 @@
+// _config.scss
+
+$mobile-only: false;
+
+
+// $legacy-ie: true;
+$use-border-box: true;
+
+$legacy-ie: true;
+$use-border-box: true;
+
+
+$design-width: 720; // psd width
+
+$base-font-size: 87.5%; // 14px;
+$base-color: #373a3c;
+$base-background-color: #fff;
+
+$link-color: #0275d8;
+$link-decoration: none;
+$link-hover-color: #014c8c;
+$link-hover-decoration: underline;
+$focus-outline: true; //outline on focus
+
+$container-min-width: 1000px;
+$container-max-width: 1200px;
+
+@import "utils/utils";
