@@ -549,7 +549,3 @@ hr {
     *width: $container-min-width;
   }
 }
-
-.clearfix {
-  @include clearfix();
-}
