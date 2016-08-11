@@ -4,8 +4,8 @@
  * and suitcss https://github.com/suitcss/base
  * @module: reboot
  * @author: fisker Cheung <lionkay@gmail.com>
- * @date: 2016-01-26Z16:27:20+0800
- * @version: 1.1
+ * @date: 2016-08-11Z15:28:00+0800
+ * @version: 2.0
  */
 
 // Make viewport responsive
@@ -30,13 +30,20 @@
   }
 }
 
+*,
+::before,
+::after {
+  @if $use-border-box {
+    box-sizing: inherit;
+  }
+
+  // specify the core styles of all elements
+  background-repeat: no-repeat;
+}
+
 html {
   // Sets a specific default `font-size` for user with `rem` type scales.
   font-size: $root-font-size;
-
-  @if $use-border-box {
-    box-sizing: border-box;
-  }
 
   // As a side-effect of setting the @viewport above,
   // IE11 & Edge make the scrollbar overlap the content and automatically hide itself when not in use.
@@ -49,17 +56,20 @@ html {
   // Changes the default tap highlight to be completely transparent in iOS.
   -webkit-tap-highlight-color: transparent;
   text-rendering: optimizelegibility;
-}
 
-*,
-::before,
-::after {
+
   @if $use-border-box {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
 
-  // specify the core styles of all elements
-  background-repeat: no-repeat;
+  @if ($mobile-only) {
+    @include center-block();
+    max-width: 720px;
+  }
+
+  min-width: if($mobile-only, 320px, $container-min-width);
+
+  height: 100%;
 }
 
 body {
@@ -67,11 +77,16 @@ body {
   font-size: $base-font-size;
   line-height: $base-line-height;
 
+  @if ($use-border-box) {
+    height: 100%;
+    position: relative;
+  }
+
   // Go easy on the eyes and use something other than `#000` for text
   color: $base-color;
 
   // By default, `<body>` has no `background-color` so we set one as a best practice.
-  background-color: #fff;
+  background-color: $base-background-color;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "liga";
@@ -89,12 +104,12 @@ body {
 
 %margin-bottom {
   margin-top: 0;
-  margin-bottom: $base-font-size;
+  margin-bottom: $root-font-size;
 }
 
 %margin-bottom-half {
   margin-top: 0;
-  margin-bottom: $base-font-size * .5;
+  margin-bottom: $root-font-size * .5;
 }
 
 // Remove top margins from headings
@@ -127,9 +142,8 @@ abbr[data-original-title] {
 }
 
 address {
-  margin-bottom: $base-font-size;
+  margin-bottom: $root-font-size;
   font-style: normal;
-  line-height: inherit;
 }
 
 ol,
@@ -180,11 +194,15 @@ dt {
 
 dd {
   margin-left: 0; // Undo browser default
-  margin-bottom: $base-font-size * .5;
+  margin-bottom: $root-font-size * .5;
 }
 
 blockquote {
-  margin: 0 0 $base-font-size;
+  margin: 0 0 $root-font-size;
+}
+
+iframe {
+  border: 0;
 }
 
 a {
@@ -216,10 +234,14 @@ a {
   }
 }
 
+//
+// Figures
+//
+
 figure {
   // Normalize adds `margin` to `figure`s as browsers apply it inconsistently.
   // We reset that to create a better flow in-page.
-  margin: 0 0 $base-font-size;
+  margin: 0 0 $root-font-size;
 }
 
 img {
@@ -248,6 +270,7 @@ img {
 a,
 area,
 button,
+[role="button"],
 input,
 label,
 select,
@@ -256,8 +279,15 @@ textarea  {
   touch-action: manipulation;
 }
 
+
+// iOS "clickable elements" fix for role="button"
+//
+// Fixes "clickability" issue (and more generally, the firing of events such as focus as well)
+// for traditionally non-focusable elements with role="button"
+// see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile
 label,
 button,
+[role="button"]
 [type="button"],
 [type="reset"],
 [type="submit"],
@@ -279,31 +309,24 @@ table {
   // Reset for nesting within parents with `background-color`.
   background-color: transparent;
 
-  // normalize will remove this in v4
+  // No longer part of Normalize since v4
   // https://github.com/necolas/normalize.css/issues/506
   border-collapse: collapse;
-  border-spacing: 0;
+  // border-spacing: 0;
 }
 
 caption {
-  padding-top: $base-font-size * .75;
-  padding-bottom: $base-font-size * .75;
+  padding-top: $root-font-size * .75;
+  padding-bottom: $root-font-size * .75;
   color: #818a91;
   text-align: left;
   caption-side: bottom;
 }
 
-// normalize will remove this in v4
-// https://github.com/necolas/normalize.css/issues/506
-td,
-th {
-  padding: 0;
-}
-
 label {
   // Allow labels to use `margin` for spacing.
   display: inline-block;
-  margin-bottom: $base-font-size * .5;
+  margin-bottom: $root-font-size * .5;
 }
 
 
@@ -322,18 +345,16 @@ button {
 
 input,
 button,
+optgroup,
 select,
 textarea {
   // https://github.com/10up/sanitize.css/blob/master/dist/sanitize.css
   background-color: transparent;
 
-  // Remove all `margin`s so our classes don't have to do it themselves.
-  //
-  // margin: 0;
-
   // Normalize includes `font: inherit;`, so `font-family`. `font-size`, etc are
   // properly inherited. However, `line-height` isn't addressed there. Using this
   // ensures we don't need to unnecessarily redeclare the global font stack.
+  font-family: inherit;
   line-height: inherit;
 
   // iOS adds rounded borders by default
@@ -341,20 +362,19 @@ textarea {
 
   @if $legacy-ie {
     font-family: $base-font-family;
-    font-size: $base-font-size;
   }
 }
 
-input::-ms-clear {
+::-ms-clear {
   display: none;
 }
 
-input[type="number"] {
+[type="number"] {
   width: auto; /* Firefox 36+ */
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+[type="radio"],
+[type="checkbox"] {
   // Apply a disabled cursor for radios and checkboxes.
   //
   // Note: Neither radios nor checkboxes can be readonly.
@@ -363,10 +383,10 @@ input[type="checkbox"] {
   }
 }
 
-input[type="date"],
-input[type="time"],
-input[type="datetime-local"],
-input[type="month"] {
+[type="date"],
+[type="time"],
+[type="datetime-local"],
+[type="month"] {
   // Remove the default appearance of temporal inputs to avoid a Mobile Safari
   // bug where setting a custom line-height prevents text from being vertically
   // centered within the input.
@@ -392,10 +412,6 @@ fieldset {
   border: 0;
 }
 
-iframe {
-  border: 0;
-}
-
 /**
  * https://github.com/necolas/normalize.css/blob/v1/normalize.css
  * 1. Correct color not being inherited in IE 6/7/8/9.
@@ -407,24 +423,24 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: $base-font-size * .5;
-  font-size: $base-font-size * 1.5;
-  line-height: inherit;
+  margin-bottom: $root-font-size * .5;
+  font-size: 150%;
   border: 0; /* 1 */
   //white-space: normal; /* 2 */
+
   @if $legacy-ie {
     *margin-left: -7px; /* 3 */
   }
 }
 
-input[type="search"] {
+[type="search"] {
   // This overrides the extra rounded corners on search inputs in iOS so that our
   // `.form-control` class can properly style them. Note that this cannot simply
   // be added to `.form-control` as it's not specific enough. For details, see
   // https://github.com/twbs/bootstrap/issues/11586.
   -webkit-appearance: none;
 
-  @if $legacy-ie {
+  @if $legacy-ie and not $use-border-box {
     box-sizing: content-box;
   }
 }
@@ -434,7 +450,7 @@ output {
 }
 
 mark {
-  padding: $base-font-size * .2;
+  padding: $root-font-size * .2;
   background-color: #fcf8e3;
 }
 
@@ -448,17 +464,17 @@ samp {
 
 code {
   font-size: 90%;
-  padding: ($base-font-size * .2) ($base-font-size * .4);
+  padding: ($root-font-size * .2) ($root-font-size * .4);
   color: #bd4147;
-  border-radius: $base-font-size * .25;
+  border-radius: $root-font-size * .25;
   background-color: #f7f7f9;
 }
 
 kbd {
   font-size: 90%;
-  padding: ($base-font-size * .2) ($base-font-size * .4);
+  padding: ($root-font-size * .2) ($root-font-size * .4);
   color: #fff;
-  border-radius: $base-font-size * .25;
+  border-radius: $root-font-size * .25;
   background-color: #333;
 
   kbd {
@@ -468,73 +484,53 @@ kbd {
   }
 }
 
+//
+// Code
+//
 pre {
   // Remove browser default top margin
   // Reset browser default of `1em` to use `rem`s
   @extend %margin-bottom;
-
-  font-size: 90%;
-  line-height: 1.5;
-  display: block;
-  color: #373a3c;
   overflow: auto;
 
   // Account for some code outputs that place code tags in pre tags
   code {
-    font-size: inherit;
     padding: 0;
-    color: inherit;
     border-radius: 0;
     background-color: transparent;
   }
 }
 
-.container-fluid {
-  @include clearfix();
-
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: $unit-rem * .9375;
-  padding-left: $unit-rem * .9375;
-}
-
 @if $legacy-ie {
   .container {
-    @extend .container-fluid;
-
-    max-width: 1140px;
-    _width: expression((document.documentElement.clientWidth || document.body.clientWidth) > 1200 ? "1140px" : "auto");
-
-    @each $breakpoint, $width in $container-max-widths {
-      @include breakpoint($breakpoint) {
-        max-width: $width;
-      }
-    }
+    @include center-block();
+    max-width: $container-max-width;
+    *width: $container-min-width;
   }
 }
 
 h1 {
-  font-size: $base-font-size * 2.5;
+  font-size: $root-font-size * 2.5;
 }
 
 h2 {
-  font-size: $base-font-size * 2;
+  font-size: $root-font-size * 2;
 }
 
 h3 {
-  font-size: $base-font-size * 1.75;
+  font-size: $root-font-size * 1.75;
 }
 
 h4 {
-  font-size: $base-font-size * 1.5;
+  font-size: $root-font-size * 1.5;
 }
 
 h5 {
-  font-size: $base-font-size * 1.25;
+  font-size: $root-font-size * 1.25;
 }
 
 h6 {
-  font-size: $base-font-size * 1;
+  font-size: $root-font-size * 1;
 }
 
 //
@@ -542,8 +538,8 @@ h6 {
 //
 
 hr {
-  margin-top: $base-font-size * 1;
-  margin-bottom: $base-font-size * 1;
+  margin-top: $root-font-size * 1;
+  margin-bottom: $root-font-size * 1;
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, .1);
 }

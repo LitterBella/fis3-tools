@@ -1,19 +1,6 @@
-/**
- * @fileName: main.scss
- * @require normalize
- * @require reboot
- */
-$legacy-ie: true;  // ie < 9 support
+@import "config";
 
-//$design-width: 720;
-//$base-font-size: .875rem;
-//$link-hover-decoration: none;
-//$focus-outline: false; //outline on focus
-//$link-color: inherit;
-//$link-hover-color: inherit;
-//$link-hover-decoration: underline;
-
-@import "utils/utils";
+// normalize && reboot
 @import "vendors/normalize";
 @import "base/reboot";
 

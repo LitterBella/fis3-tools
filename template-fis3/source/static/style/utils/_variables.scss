@@ -1,28 +1,31 @@
 // variables
+$mobile-only: false !default;
+$legacy-ie: if($mobile-only, false, true) !default; // ie < 9 support
 
-$legacy-ie: true !default;
+$use-border-box: true !default;
 
 $root-font-size: 16px !default;
 
-$design-width: 720 !default;
-
-$unit-rem: if($legacy-ie, 16px, 1rem) !default;
-
-//for old ie should use 16px instead
-$base-font-size: if($legacy-ie, 16px, 1rem) !default;
-
-$use-border-box: if($legacy-ie, false, true) !default;
-
+$base-font-size: 87.5% !default;
 $base-color: #373a3c !default;
+$base-background-color: #fff !default;
 $base-line-height: 1.5 !default;
-$base-font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Lantinghei SC", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans-serif !default;
+$base-font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Lantinghei SC", "Microsoft Sans Serif", "WenQuanYi Micro Hei" !default;
+$base-font-family: $base-font-family, sans-serif;
 
 $link-color: #0275d8 !default;
 $link-decoration: none !default;
 $link-hover-color: #014c8c !default;
 $link-hover-decoration: underline !default;
-$font-family-monospace: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New", monospace !default;
+
+$design-width: 720 !default;
+
+$font-family-monospace: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New" !default;
+$font-family-monospace: $font-family-monospace, monospace;
 $focus-outline: true !default;
+
+$container-min-width: 1000px !default;
+$container-max-width: 1200px !default;
 
 // Grid breakpoints
 //
@@ -41,15 +44,3 @@ $grid-breakpoints: (
   // Extra large screen / wide desktop
   xl: 1200px
 ) !default;
-
-// Grid containers
-//
-// Define the maximum width of `.container` for different screen sizes.
-
-$container-max-widths: (
-  sm: 576px,
-  md: 720px,
-  lg: 940px,
-  xl: 1140px,
-) !default;
-
