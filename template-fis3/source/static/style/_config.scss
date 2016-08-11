@@ -17,7 +17,10 @@ $link-hover-color: #014c8c;
 $link-hover-decoration: underline;
 $focus-outline: true; //outline on focus
 
+// only if not $mobile-only
+// and only padding if $use-border-box
 $container-min-width: 1000px;
 $container-max-width: 1200px;
+$container-padding: 15px;
 
 @import "utils/utils";

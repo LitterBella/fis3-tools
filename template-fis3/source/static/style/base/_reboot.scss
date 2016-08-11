@@ -501,14 +501,6 @@ pre {
   }
 }
 
-@if $legacy-ie {
-  .container {
-    @include center-block();
-    max-width: $container-max-width;
-    *width: $container-min-width;
-  }
-}
-
 h1 {
   font-size: $root-font-size * 2.5;
 }
@@ -542,4 +534,22 @@ hr {
   margin-bottom: $root-font-size * 1;
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+@if not $mobile-only {
+  .container {
+    @include center-block();
+
+    @if $use-border-box and valueOf($container-padding) > 0 {
+      padding-left: $container-padding;
+      padding-right: $container-padding;
+    }
+
+    max-width: $container-max-width;
+    *width: $container-min-width;
+  }
+}
+
+.clearfix {
+  @include clearfix();
 }
