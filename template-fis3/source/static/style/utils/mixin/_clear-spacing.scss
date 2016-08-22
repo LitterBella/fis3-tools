@@ -1,0 +1,10 @@
+// http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%e5%8e%bb%e9%99%a4%e9%97%b4%e8%b7%9d/
+@mixin clear-spacing($child-selector: "> *") {
+  width: 100%;
+  display: table;
+  word-spacing: -.43em;
+
+  #{$child-selector} {
+    word-spacing: normal;
+  }
+}

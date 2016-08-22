@@ -1,0 +1,23 @@
+@mixin progress-color($color-value, $color-bg: #ccc) {
+  background-color: $color-bg;
+  color: $color-value; // ie 10
+
+  // ie6-ie9
+  i {
+    display: block;
+    height: 100%;
+    background: $color-value;
+  }
+
+  &::-moz-progress-bar {
+    background: $color-value;
+  }
+
+  &::-webkit-progress-value  {
+    background: $color-value;
+  }
+
+  &::-webkit-progress-bar {
+    background: $color-bg;
+  }
+}

@@ -1,0 +1,13 @@
+@mixin font-face($font-name, $font-file: "../font/#{$font-name}") {
+  @font-face {
+    font-family: $font-name;
+
+    @if $legacy-ie {
+      src: url(#{$font-file}.eot);
+    }
+
+    src: url(#{$font-file}.eot?#iefix) format("embedded-opentype"), url(#{$font-file}.woff) format("woff"), url(#{$font-file}.ttf) format("truetype"), url(#{$font-file}.svg) format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+}

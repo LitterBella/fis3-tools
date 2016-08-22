@@ -1,102 +1,21 @@
 // mixins
 
-// http://cssmojo.com/the-very-latest-clearfix-reloaded/
-@mixin clearfix {
-  @if $legacy-ie {
-    *zoom: 1;
+@import "mixin/clearfix";
+@import "mixin/size";
+@import "mixin/center-block";
+@import "mixin/hide-text";
+@import "mixin/sr-only";
+@import "mixin/scrollable";
+@import "mixin/ellipsis";
+@import "mixin/clear-spacing";
+@import "mixin/font-face";
+@import "mixin/justify-box";
+@import "mixin/textfield-number";
+@import "mixin/hide-input";
+@import "mixin/hide-file";
+@import "mixin/progress-color";
+@import "mixin/tab-control";
 
-    &::before,
-    &::after {
-      content: "";
-      display: table;
-    }
-
-    &::after {
-      clear: both;
-    }
-  } @else {
-    &::after {
-      content: "";
-      display: block;
-      clear: both;
-    }
-  }
-}
-
-@mixin size($width, $height: $width) {
-  width: if(unitless($width), 1px * $width, $width);
-  height: if(unitless($height), 1px * $height, $height);
-}
-
-@mixin center-block {
-  // display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-// https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
-@mixin hide-text {
-  font: 0/0 a;
-  color: transparent;
-  text-shadow: none;
-  background-color: transparent;
-  border: 0;
-}
-
-@mixin sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-@mixin scrollable {
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-@mixin ellipsis($lines: 1, $line-height: 0) {
-  overflow: hidden;
-
-  @if $lines == 1 {
-    @if $legacy-ie {
-      word-wrap: normal; //for ie
-    }
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  } @else {
-    display: -webkit-box;
-    -webkit-line-clamp: $lines;
-    -webkit-box-orient: vertical;
-
-    $line-height: if(unitless($line-height), 1em * $line-height, $line-height);
-
-    @if value-of($line-height) != 0 {
-      line-height: $line-height;
-      max-height: $line-height * $lines;
-
-      // &:after {
-      //   content: " ...";
-      // }
-    }
-  }
-}
-
-// http://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%e5%8e%bb%e9%99%a4%e9%97%b4%e8%b7%9d/
-@mixin clear-spacing($child-selector: "> *") {
-  width: 100%;
-  display: table;
-  word-spacing: -.43em;
-
-  #{$child-selector} {
-    word-spacing: normal;
-  }
-}
 
 // Responsive Breakpoints
 @mixin breakpoint($point) {
@@ -187,137 +106,6 @@
   }
 }
 
-@mixin font-face($font-name, $font-file: "../font/#{$font-name}") {
 
-  @font-face {
-    font-family: $font-name;
 
-    @if $legacy-ie {
-      src: url(#{$font-file}.eot);
-    }
 
-    src: url(#{$font-file}.eot?#iefix) format("embedded-opentype"), url(#{$font-file}.woff) format("woff"), url(#{$font-file}.ttf) format("truetype"), url(#{$font-file}.svg) format("svg");
-    font-weight: normal;
-    font-style: normal;
-  }
-}
-
-@mixin justify-box($children-selector: "> *", $shim-selector: if($legacy-ie, ".shim", "&::after")) {
-  text-align: justify;
-
-  #{$shim-selector} {
-
-    @if not $legacy-ie {
-      content: "";
-    }
-
-    width: 100%;
-  }
-
-  #{$children-selector},
-  #{$shim-selector} {
-    display: inline-block;
-  }
-}
-
-@mixin tab-control(
-  $tab-count: 2,
-  $input-selector: "&-input",
-  $tabs-selector: "&-tabs",
-  $tab-selector: "&-tab",
-  $contents-selector: "&-contents",
-  $content-selector: "&-content"
-  ) {
-  #{$input-selector}{
-    @include hide-input();
-  }
-
-  #{$tab-selector}{
-    cursor: pointer;
-  }
-
-  #{$content-selector} {
-    display: none;
-  }
-
-  $current-tab-selectors: ();
-  $current-content-selectors: ();
-  @for $index from 1 through $tab-count {
-    $current-tab-selector: "#{$input-selector}:nth-of-type(#{$index}):checked ~ #{$tabs-selector} > #{$tab-selector}:nth-child(#{$index})";
-    $current-content-selector: "#{$input-selector}:nth-of-type(#{$index}):checked ~ #{$contents-selector} > #{$content-selector}:nth-child(#{$index})";
-    $current-tab-selectors: append($current-tab-selectors, $current-tab-selector, comma);
-    $current-content-selectors: append($current-content-selectors, $current-content-selector, comma);
-  }
-
-  #{$current-tab-selectors} {
-    /* current tab style */
-  }
-
-  #{$current-content-selectors} {
-    display: block;
-  }
-
-}
-
-@mixin textfield-number() {
-  -moz-appearance: textfield;
-
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-}
-
-@mixin hide-input() {
-  display: none;
-
-  @if $legacy-ie {
-    width: 0;
-    height: 0;
-    display: block\9;
-    position: absolute;
-    clip: rect(0, 0, 0, 0);
-  }
-}
-
-@mixin hide-file() {
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 999px;
-  opacity: 0;
-  cursor: pointer;
-}
-
-@mixin justify-fix() {
-  &::after {
-    content: "";
-    display: inline-block;
-    width: 100%;
-  }
-}
-
-@mixin progress-color($color-value, $color-bg: #ccc) {
-  background-color: $color-bg;
-  color: $color-value; // ie 10
-
-  // ie6-ie9
-  i {
-    display: block;
-    height: 100%;
-    background: $color-value;
-  }
-
-  &::-moz-progress-bar {
-    background: $color-value;
-  }
-
-  &::-webkit-progress-value  {
-    background: $color-value;
-  }
-
-  &::-webkit-progress-bar {
-    background: $color-bg;
-  }
-}
