@@ -2,6 +2,12 @@
   background-color: $color-bg;
   color: $color-value; // ie 10
 
+  // for ie
+  // both progress color & ::-ms-fill color works
+  // ::-ms-fill {
+  //   background: $color-value;
+  // }
+
   // ie6-ie9
   i {
     display: block;
