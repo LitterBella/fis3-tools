@@ -355,11 +355,10 @@ label {
   margin-bottom: $root-font-size * .5;
 }
 
-button {
+button,
+input {
   padding: 0;
-  color: inherit;
 }
-
 
 @if $focus-outline {
   // Work around a Firefox/IE bug where the transparent `button` background
@@ -393,18 +392,22 @@ textarea {
   // https://github.com/10up/sanitize.css/blob/master/dist/sanitize.css
   background-color: transparent;
 
+  border: 1px solid #a9a9a9;
+
+  @if $legacy-ie {
+    font-family: $base-font-family;
+    color: $base-color;
+    line-height: $base-line-height;
+  }
+
   // Normalize includes `font: inherit;`, so `font-family`. `font-size`, etc are
   // properly inherited. However, `line-height` isn't addressed there. Using this
   // ensures we don't need to unnecessarily redeclare the global font stack.
   font-family: inherit;
   line-height: inherit;
-
+  color: inherit;
   // iOS adds rounded borders by default
   border-radius: 0;
-
-  @if $legacy-ie {
-    font-family: $base-font-family;
-  }
 }
 
 [type="number"] {
