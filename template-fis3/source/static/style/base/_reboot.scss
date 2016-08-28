@@ -583,7 +583,7 @@ hr {
   .container {
     @include center-block();
 
-    @if $use-border-box and valueOf($container-padding) > 0 {
+    @if $use-border-box and value-of($container-padding) > 0 {
       padding-left: $container-padding;
       padding-right: $container-padding;
     }

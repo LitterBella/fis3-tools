@@ -18,8 +18,10 @@
     <![endif]-->
     <link href="static/style/main.scss" rel="stylesheet">
     <style type="text/x-scss">
-      $legacy-ie: false;
+      $legacy-ie: true;
       @import "static/style/utils/utils";
+      @include font-face(FZLBJW, false, static/font/FZLBJW, 400);
+
       .container {
         padding-top: 15px;
         padding-right: 15px;
@@ -66,7 +68,8 @@
       }
 
       .ellipsis {
-        @include ellipsis(2, 1.5rem);
+        width: 200px;
+        @include ellipsis(2, 1.5);
       }
 
       .btn-font {
@@ -78,6 +81,31 @@
           color: #fff;
           font-size: 2px;
         }
+      }
+
+      .clear-spacing {
+        @include clear-spacing('div,span');
+
+        div,
+        span {
+          display: inline-block;
+          width: 100px;
+          height: 50px;
+          background: #f1c;
+          border: 1px solid #000;
+
+          &:nth-child(2n) {
+            background: #1cd;
+          }
+        }
+
+        img {
+          max-width: none;
+        }
+      }
+
+      .font-face {
+        font-family: FZLBJW;
       }
     </style>
   </head>
@@ -123,6 +151,31 @@
       <button type="button">测试按钮ABC</button>
     </div>
 
+    <div class="clear-spacing">
+      <div><img src="http://placeholder.qiniudn.com/800x600"></div>
+      <span>1</span>
+      <div>1</div>
+      <span>1</span>
+      <span>1</span>
+      <div>1</div>
+      <div>1</div>
+      <div>1</div>
+      <span>1</span>
+      <div>1</div>
+      <span>1</span>
+      <span>1</span>
+      <div>1</div>
+      <div>1</div>
+      <div>1</div>
+      <span>1</span>
+      <div>1</div>
+      <span>1</span>
+      <span>1</span>
+      <div>1</div>
+      <div>1</div>
+    </div>
+
+    <div class="font-face">隶书哈</div>
 
     <!--[if IE 6]>
     <script src="static/js/vendors/dd_belatedpng.min.js"></script>

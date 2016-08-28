@@ -1,6 +1,6 @@
 // functions
 
-@function valueOf($x) {
+@function value-of($x) {
   @if unitless($x) {
     @return $x;
   } @else {
