@@ -1,11 +1,6 @@
 // functions
-
-@function value-of($x) {
-  @if unitless($x) {
-    @return $x;
-  } @else {
-    @return $x / (1 + unit($x));
-  }
+@function value-of($value) {
+  @return $value / ($value * 0 + 1);
 }
 
 @function get-direction($direction) {
