@@ -108,8 +108,10 @@ html {
     max-width: 720px;
   } @else {
     min-width: $container-min-width * 1px;
-    *width: expression(this.offsetWidth < #{$container-min-width} ? "#{$container-min-width * 1px}" : "auto");
-    *overflow: hidden;
+    @if $legacy-ie {
+      *width: expression(this.offsetWidth < #{$container-min-width} ? "#{$container-min-width * 1px}" : "auto");
+      *overflow: hidden;
+    }
   }
 
   height: 100%;
@@ -590,7 +592,10 @@ hr {
     }
 
     max-width: $container-max-width * 1px;
-    *width: expression(this.offsetWidth > #{$container-max-width} ? "#{$container-max-width * 1px}" : "auto");
-    *overflow: hidden;
+
+    @if $legacy-ie {
+      *width: expression(this.offsetWidth > #{$container-max-width} ? "#{$container-max-width * 1px}" : "auto");
+      *overflow: hidden;
+    }
   }
 }
