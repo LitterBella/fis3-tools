@@ -107,7 +107,9 @@ html {
     min-width: 320px;
     max-width: 720px;
   } @else {
-    min-width: $container-min-width;
+    min-width: $container-min-width * 1px;
+    *width: expression(this.offsetWidth < #{$container-min-width} ? "#{$container-min-width * 1px}" : "auto");
+    *overflow: hidden;
   }
 
   height: 100%;
@@ -398,10 +400,10 @@ textarea {
   color: inherit;
 
   @if $legacy-ie {
+    // font-style, line-height seems inherited in ie7
     *font-family: expression(this.parentNode.currentStyle.fontFamily);
     *font-size: expression(this.parentNode.currentStyle.fontSize);
     *font-weight: expression(this.parentNode.currentStyle.fontWeight);
-    // font-style, lineheight seems inherited in ie7
     *color: expression(this.parentNode.currentStyle.color);
   }
 
@@ -587,7 +589,8 @@ hr {
       padding-right: $container-padding;
     }
 
-    max-width: $container-max-width;
-    *width: $container-min-width;
+    max-width: $container-max-width * 1px;
+    *width: expression(this.offsetWidth > #{$container-max-width} ? "#{$container-max-width * 1px}" : "auto");
+    *overflow: hidden;
   }
 }
