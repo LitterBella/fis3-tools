@@ -248,7 +248,7 @@ a {
   @if $legacy-ie {
     *cursor: pointer;
     @if $link-color == 'inherit' {
-      *color: $base-color;
+      *color: expression(this.parentNode.currentStyle.color);
     }
   }
 
@@ -258,7 +258,7 @@ a {
     color: $link-hover-color;
 
     @if $link-hover-color == 'inherit' and $legacy-ie {
-      *color: $base-color;
+      *color: expression(this.parentNode.currentStyle.color);
     }
   }
 }
@@ -394,18 +394,17 @@ textarea {
 
   border: 1px solid #a9a9a9;
 
+  font: inherit;
+  color: inherit;
+
   @if $legacy-ie {
-    font-family: $base-font-family;
-    color: $base-color;
-    line-height: $base-line-height;
+    *font-family: expression(this.parentNode.currentStyle.fontFamily);
+    *font-size: expression(this.parentNode.currentStyle.fontSize);
+    *font-weight: expression(this.parentNode.currentStyle.fontWeight);
+    // font-style, lineheight seems inherited in ie7
+    *color: expression(this.parentNode.currentStyle.color);
   }
 
-  // Normalize includes `font: inherit;`, so `font-family`. `font-size`, etc are
-  // properly inherited. However, `line-height` isn't addressed there. Using this
-  // ensures we don't need to unnecessarily redeclare the global font stack.
-  font-family: inherit;
-  line-height: inherit;
-  color: inherit;
   // iOS adds rounded borders by default
   border-radius: 0;
 }
