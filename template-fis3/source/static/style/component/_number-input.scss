@@ -1,0 +1,45 @@
+.u-number-input {
+  display: inline-block;
+
+  input {
+    display: block;
+    width: 100%;
+  }
+
+  &.is-inited {
+    position: relative;
+    padding: 0 2em;
+
+    input {
+      @include textfield-number();
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    button {
+      position: absolute;
+      top: 0;
+      width: 1.5em;
+      box-sizing: content-box;
+
+      &:nth-of-type(1) {
+        left: 0;
+      }
+
+      &:nth-of-type(2) {
+        right: 0;
+      }
+    }
+  }
+
+  @if $legacy-ie {
+    .u-number-input-decrease-btn {
+      left: 0;
+    }
+
+    .u-number-input-increase-btn {
+      right: 0;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.u-file {
+  position: relative;
+
+  &.is-button {
+    text-align: center;
+    border: 1px solid $input-border-color;
+  }
+
+  // avoid .u-file overflow: hidden cause vertical-align problem
+  .u-file-input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+  input[type="file"] {
+    @include hide-file();
+  }
+}

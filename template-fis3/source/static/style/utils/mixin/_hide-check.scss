@@ -1,4 +1,4 @@
-@mixin hide-input() {
+@mixin hide-check() {
   display: none;
 
   @if $legacy-ie {

@@ -1,0 +1,66 @@
+.u-check,
+.u-checkbox,
+.u-radio {
+  // line-height: 1;
+
+  .u-indicate {
+    display: inline-block;
+    width: 1.15em;
+    height: 1.15em;
+    border: 1px solid $input-border-color;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    box-sizing: content-box;
+
+    &::before {
+      position: absolute;
+      border-style: solid;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+}
+
+.u-check input[type="checkbox"],
+.u-check input[type="radio"],
+.u-checkbox input[type="checkbox"],
+.u-radio input[type="radio"] {
+  @include hide-check();
+
+  &:disabled + .u-indicate {
+    @include input-disabled();
+  }
+}
+
+.u-check,
+.u-checkbox {
+  input[type="checkbox"]:checked + .u-indicate::before {
+    content: "";
+    height: .375em;
+    width: .75em;
+    border-width: 0 0 1px 1px;
+    transform: translateY(-30%) rotate(-45deg);
+  }
+}
+
+
+.u-check,
+.u-radio {
+  input[type="radio"] + .u-indicate {
+    border-radius: 50%;
+  }
+
+  input[type="radio"]:checked + .u-indicate::before {
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
+    border-width: .375em;
+    border-width: .375em;
+    border-radius: 50%;
+  }
+}

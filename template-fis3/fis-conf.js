@@ -115,12 +115,12 @@ last update 2016.1.7
         'bb >= 7',
         'chrome >= 4',
         'edge >= 12',
-        'firefox >= 2', //>=16: -moz-animation
+        'firefox >= 16', // >=16: -moz-animation // 2
         'ie_mob >= 10',
         'ios_saf >= 3.2',
         'op_mini >= 5',
         'op_mob >= 10',
-        'opera >= 9', //>=12.1 ? -o-animation
+        'opera >= 12.1', // >=12.1 ? -o-animation // 9
         'safari >= 3.1',
       ]),
     },

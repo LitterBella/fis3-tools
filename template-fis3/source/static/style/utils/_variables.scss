@@ -1,6 +1,6 @@
 // variables
-$mobile-only: false !default;
-$legacy-ie: if($mobile-only, false, true) !default; // ie < 9 support
+$device: responsive !default; // mobile, pc, responsive
+$legacy-ie: if($device == "mobile", false, true) !default; // ie < 9 support
 
 $use-border-box: true !default;
 
@@ -11,6 +11,9 @@ $base-color: #373a3c !default;
 $base-background-color: #fff !default;
 $base-line-height: 1.5 !default;
 $base-font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Lantinghei SC", "Microsoft Sans Serif", "WenQuanYi Micro Hei" !default;
+$input-border-color: #a9a9a9 !default;
+$input-bg-disabled: #ebebe4 !default;
+$input-color-disabled: #545454 !default;
 
 $link-color: #0275d8 !default;
 $link-decoration: none !default;

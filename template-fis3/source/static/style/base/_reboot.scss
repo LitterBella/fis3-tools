@@ -102,17 +102,26 @@ html {
 
   cursor: default; // 2
 
-  @if ($mobile-only) {
+  @if $device == "mobile" {
     @include center-block();
     min-width: 320px;
     max-width: 720px;
-  } @else {
+  }
+
+  @if $device == "resposive" {
+    min-width: 320px;
+  }
+
+  @if $device == "pc" {
     min-width: $container-min-width * 1px;
+
     @if $legacy-ie {
       *width: expression(this.offsetWidth < #{$container-min-width} ? "#{$container-min-width * 1px}" : "auto");
       *overflow: hidden;
     }
   }
+
+
 
   height: 100%;
 }
@@ -396,7 +405,7 @@ textarea {
   // https://github.com/10up/sanitize.css/blob/master/dist/sanitize.css
   background-color: transparent;
 
-  border: 1px solid #a9a9a9;
+  border: 1px solid $input-border-color;
 
   font: inherit;
   color: inherit;
@@ -411,6 +420,43 @@ textarea {
 
   // iOS adds rounded borders by default
   border-radius: 0;
+}
+
+@mixin input-disabled {
+  color: $input-color-disabled;
+  background: $input-bg-disabled;
+}
+
+%input-disabled {
+  @include input-disabled();
+}
+
+input,
+textarea {
+  @if $legacy-ie {
+    &[disabled],
+    &[readonly] {
+      @include input-disabled();
+    }
+  }
+
+  &:disabled,
+  &:read-only {
+    @include input-disabled();
+  }
+}
+
+button,
+select {
+  @if $legacy-ie {
+    &[disabled] {
+      @include input-disabled();
+    }
+  }
+
+  &:disabled{
+    @include input-disabled();
+  }
 }
 
 [type="number"] {
@@ -464,8 +510,8 @@ fieldset {
 
 legend {
   // Reset the entire legend element to match the `fieldset`
-  display: block;
-  width: 100%;
+  // display: block;
+  // width: 100%;
   padding: 0;
   margin-bottom: $root-font-size * .5;
   font-size: 150%;
@@ -582,7 +628,7 @@ hr {
   overflow: visible; // Add visible overflow in Edge and IE.
 }
 
-@if not $mobile-only {
+@if $device == "pc" {
   .container {
     @include center-block();
 
