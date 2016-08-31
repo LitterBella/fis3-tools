@@ -1,0 +1,114 @@
+.u-datepicker {
+  position: relative;
+
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="time"],
+  [type="week"] {
+
+    &::-webkit-clear-button,
+    &::-webkit-inner-spin-button,
+    &::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+  }
+
+  &-picker {
+    position: absolute;
+    z-index: 1;
+    border: 1px solid $input-border-color;
+    padding: 5px;
+    left: 0;
+    top: 100%;
+    margin-top: -1px;
+  }
+
+  &-header {
+    position: relative;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    padding: 0 40px;
+  }
+
+  &-prev,
+  &-next {
+    @include hide-text();
+    position: absolute;
+    border: 0;
+    height: 24px;
+    width: 24px;
+    text-align: center;
+    top: 0;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 10px;
+      height: 10px;
+      border: solid $base-color;
+      margin: 7px;
+      border-width: 0 0 1px 1px;
+    }
+  }
+
+  &-prev {
+    left: 0;
+
+    &::before {
+      transform: translateX(4px) rotate(45deg);
+    }
+  }
+
+  &-next {
+    right: 0;
+
+    &::before {
+      transform: translateX(-4px) rotate(-135deg);
+    }
+  }
+
+  &-year {
+    width: 70px;
+    border: 0;
+    height: 24px;
+    text-align: center;
+  }
+
+  &-month {
+    width: 75px;
+    border: 0;
+    height: 24px;
+  }
+
+  &-calendar {
+    th,
+    td {
+      text-align: center;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &-day {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 50%;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &.is-prev,
+    &.is-next {
+      color: rgba(#393939, .3);
+    }
+
+    &:hover {
+      background: #e6e6e6;
+    }
+  }
+}
