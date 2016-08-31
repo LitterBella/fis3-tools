@@ -23,7 +23,8 @@
 }
 
 @function design-px($values...) {
-  @return px-convert(1, $values...);
+  $scale: 320 / $design-width;
+  @return px-convert($scale, $values...);
 }
 
 @function px-convert($scale:1, $values...) {
