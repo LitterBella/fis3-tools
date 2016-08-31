@@ -516,7 +516,8 @@ last update 2016.1.7
   });
 
   // _*.html should not lint
-  $.match('_' + getExtsReg('html', false), {
+  // _*.js should not lint
+  $.match('_' + getExtsReg(['html', 'js'], false), {
     lint: null,
   });
 

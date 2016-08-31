@@ -63,7 +63,7 @@
             value="1"
             inputmode="numeric"
             x-inputmode="numeric"
-            pattern="^[-]?[0-9]*[.]?[0-9]*$"
+            pattern="^[-]?[0-9]+[.]?[0-9]*$"
             required
             >
         </div>
@@ -76,7 +76,7 @@
             value="1"
             inputmode="numeric"
             x-inputmode="numeric"
-            pattern="^[-]?[0-9]*[.]?[0-9]*$"
+            pattern="^[-]?[0-9]+[.]?[0-9]*$"
             required
             readonly
             >
@@ -90,7 +90,7 @@
             value="1"
             inputmode="numeric"
             x-inputmode="numeric"
-            pattern="^[-]?[0-9]*[.]?[0-9]*$"
+            pattern="^[-]?[0-9]+[.]?[0-9]*$"
             required
             disabled
             >
@@ -172,10 +172,18 @@
       <fieldset>
         <legend>.u-file (css)</legend>
         <label class="u-file is-button">
-          <span class="u-file-input"><input type="file"></span>
+          <span class="u-file-input">
+            <input type="file" accept="image/*">
+          </span>
           选择文件
         </label>
-        <button type="button">选择文件</button>123
+      </fieldset>
+
+      <fieldset>
+        <legend>[type="date"][placeholder] (css)</legend>
+        <input type="date" placeholder="placeholder">
+        <input type="date" placeholder="placeholder" value="2016-01-01">
+        <input type="date" value="2016-01-01">
       </fieldset>
     </form>
 

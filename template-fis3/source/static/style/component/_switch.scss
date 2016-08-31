@@ -40,6 +40,7 @@
 
   @mixin switch-checked() {
     filter: grayscale(0);
+
     @if $legacy-ie {
       color: inherit\9;
       background: #{$base-color}\9; // need a color here

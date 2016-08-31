@@ -25,9 +25,9 @@
       }
 
       if (!valueIncrese || newValue !== currentValue) {
-        var isMute = input.prop('disabled') || input.prop('readonly');
-        btnDecrease.prop('disabled', isMute || newValue <= min);
-        btnIncrease.prop('disabled', isMute || newValue >= max);
+        var isMuted = input.prop('disabled') || input.prop('readonly');
+        btnDecrease.prop('disabled', isMuted || newValue <= min);
+        btnIncrease.prop('disabled', isMuted || newValue >= max);
       }
     }
 
