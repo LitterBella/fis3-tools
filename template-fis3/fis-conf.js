@@ -53,7 +53,6 @@ last update 2016.1.7
         '.{git,svn,hg,CVS,idea,sass-cache}/**',
         '{node_modules,bower_components}/**',
         '*.{bat,cmd,sh,tmp,bak}',
-        'test/**',
         'Thumbs.db',
         'fis-conf.js',
       ],
