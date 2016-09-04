@@ -33,15 +33,20 @@
 }
 
 %icon-arrow {
-  @include arrow(right, 1em, 2px);
+  @include arrow(right, 1em, 1px);
 }
 
 %icon-plus {
-  @include plus(1em, 2px);
+  @include plus(1em, 1px);
 }
 
 %icon-close {
-  @include close(1em, 2px);
+  @include plus(1em, 1px);
+
+  &::before,
+  &::after {
+    transform: rotate(45deg);
+  }
 }
 
 %justify-box {

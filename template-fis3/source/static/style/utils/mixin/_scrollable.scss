@@ -1,4 +1,4 @@
-@mixin scrollable {
+@mixin scrollable() {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }

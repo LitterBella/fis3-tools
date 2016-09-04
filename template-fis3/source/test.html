@@ -38,13 +38,18 @@
         margin: 10px;
         height: 2.5rem;
       }
-      $icons: caret arrow plus close;
+      $icons: (
+        caret,
+        arrow,
+        plus,
+        close,
+      );
       @each $icon in $icons {
         .icon-#{$icon} {
           @extend %icon-#{$icon};
-          vertical-align: -.125rem;
         }
       }
+
 
 
       .box-sizing {
@@ -112,6 +117,9 @@
   <body>
     <div class="container-fluid">
       <div class="container icons">
+        <button class="icon"><i class="icon-arrow"></i> <span>三角</span></button>
+
+
         <button class="icon"><i class="icon-caret"></i> <span>三角</span></button>
         <button class="icon"><i class="icon-arrow"></i> <span>箭头</span></button>
         <button class="icon"><i class="icon-plus"></i> <span>加号</span></button>

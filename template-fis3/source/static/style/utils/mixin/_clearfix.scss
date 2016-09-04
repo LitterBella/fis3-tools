@@ -1,5 +1,5 @@
 // http://cssmojo.com/the-very-latest-clearfix-reloaded/
-@mixin clearfix {
+@mixin clearfix() {
   @if $legacy-ie {
     *zoom: 1;
 

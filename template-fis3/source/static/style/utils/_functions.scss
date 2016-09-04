@@ -3,10 +3,59 @@
   @return $value / ($value * 0 + 1);
 }
 
-@function get-direction($direction) {
+@function str-last-index($string, $substring) {
+  $index: 0;
+  $length: str-length($string);
+  $substring-length: str-length($substring);
+
+  @for $i from 1 through $length {
+    @if str-slice($string, $i, $i + $substring-length - 1) == $substring {
+      $index: $i;
+    }
+  }
+
+  @return if($index == 0, null, $index);
+}
+
+@function is-pseudo-element($selector) {
+  @if not is-pseudo-selector($selector) {
+    @return false;
+  } @else if str-index($selector, "::") {
+    @return true;
+  }
+
+  $last-index: str-last-index($selector, ":");
+  $selector: str-slice($selector, $last-index + 1);
+
+  // list of pseudo-elements pulled from MDN: https://developer.mozilla.org/en/docs/Web/CSS/Pseudo-elements
+  $pseudo-elements: (
+    before,
+    after,
+    first-line,
+    first-letter,
+    selection,
+    backdrop,
+    placeholder,
+    marker,
+    spelling-error,
+    grammar-error,
+  );
+  @return not not index($pseudo-elements, $selector);
+}
+
+@function is-pseudo-selector($selector) {
+  @return not not str-index($selector, ":");
+}
+
+@function get-directions($direction) {
   $direction: if($direction == up, top, $direction);
   $direction: if($direction == down, bottom, $direction);
-  $opposite-directions: (top: bottom, bottom: top, left: right, right: left);
+  $opposite-directions: (
+    top: bottom,
+    bottom: top,
+    left: right,
+    right: left,
+  );
 
   $ori-direction: $direction;
   $oppo-direction: map-get($opposite-directions, $direction);
