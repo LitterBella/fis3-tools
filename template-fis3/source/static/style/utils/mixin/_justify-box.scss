@@ -1,16 +1,19 @@
 @mixin justify-box($children-selector: "> *", $shim-selector: if($legacy-ie, ".shim", "&::after")) {
   text-align: justify;
+  line-height: 0;
 
   #{$shim-selector} {
-    @if not $legacy-ie {
+    @if is-pseudo-element($shim-selector) {
       content: "";
     }
 
     width: 100%;
+    vertical-align: bottom;
   }
 
   #{$children-selector},
   #{$shim-selector} {
     display: inline-block;
+    line-height: $base-line-height;
   }
 }
