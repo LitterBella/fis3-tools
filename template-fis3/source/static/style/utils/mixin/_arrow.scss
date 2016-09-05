@@ -7,7 +7,14 @@
     left: 45deg + 180deg,
     top: 45deg + 90deg + 180deg
   );
+  $translates: (
+    right: (-25%, 0),
+    bottom: (0, -25%),
+    left: (25%, 0),
+    top: (0, 25%),
+  );
   $deg: map-get($degs, $direction);
+  $translate: map-get($translates, $direction);
 
   @if is-pseudo-element(#{&}) {
     content: "";
@@ -19,5 +26,5 @@
   border: $border-width solid;
   border-left-color: transparent;
   border-bottom-color: transparent;
-  transform: translateX(-25%) rotate($deg);
+  transform: translate($translate) rotate($deg);
 }
