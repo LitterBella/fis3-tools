@@ -7,7 +7,7 @@
   $content-selector: "&-content"
   ) {
   #{$input-selector}{
-    @include hide-input();
+    @include hide-check();
   }
 
   #{$tab-selector}{
