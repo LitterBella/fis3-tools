@@ -330,7 +330,7 @@
     "linebreak-style": 1,
 
     // require empty lines around comments
-    "lines-around-comment": 2,
+    "lines-around-comment": 0,
 
     // enforce a maximum depth that blocks can be nested
     "max-depth": [1, 5],
