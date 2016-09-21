@@ -1,7 +1,11 @@
 // placeholders
 
 %clearfix {
-  @include clearfix();
+  @if $legacy-ie {
+    @include clearfix-legacy();
+  } @else {
+    @include clearfix-morden();
+  }
 }
 
 %center-block {

@@ -28,7 +28,8 @@
   }
 
   #{$current-tab-selectors} {
-    /* current tab style */
+    // current tab style
+    @content;
   }
 
   #{$current-content-selectors} {

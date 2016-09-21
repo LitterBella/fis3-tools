@@ -23,7 +23,7 @@ include jade/_funcs
   ];
 
   jsFiles = [
-    'static/js/vendors/jquery.min.js',
+    'static/js/vendors/jquery/jquery-1.12.4.min.js',
   ];
 
 
@@ -40,7 +40,7 @@ html(lang='zh-cmn-Hans')
     + meta('keywords', keywords)
     + meta('description', description)
     <!--[if lt IE 9]>
-    + js('static/js/vendors/html5.min.js')
+    + js('static/js/vendors/html5shiv/html5shiv-3.7.3.min.js')
     <![endif]-->
     - each headjsFile in headjsFiles
       + js(headjsFile)
@@ -48,7 +48,6 @@ html(lang='zh-cmn-Hans')
       + css(cssFile)
   body
     .container
-    .container-fluid
 
     <!--[if IE 6]>
     + js('static/js/vendors/dd_belatedpng.min.js')
