@@ -639,6 +639,7 @@ hr {
 @if $device == "pc" {
   .container {
     @include center-block();
+    @include clearfix();
 
     @if $use-border-box and value-of($container-padding) > 0 {
       padding-left: $container-padding;
