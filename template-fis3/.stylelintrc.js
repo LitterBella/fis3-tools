@@ -91,7 +91,7 @@ module.exports = {
     "declaration-colon-newline-after": "always-multi-line",
     "declaration-colon-space-after": "always-single-line",
     "declaration-colon-space-before": "never",
-    "declaration-empty-line-before": , // 7.1.0
+    // "declaration-empty-line-before": , // 7.1.0
     "declaration-no-important": true,
     // "declaration-property-unit-blacklist": ,
     // "declaration-property-unit-whitelist": ,
@@ -186,7 +186,7 @@ module.exports = {
     "media-feature-range-operator-space-after": "always",
     "media-feature-range-operator-space-before": "always",
     // "media-feature-name-no-vendor-prefix": ,
-    "media-feature-parentheses-space-inside": "never"， // add in 7.0.0
+    "media-feature-parentheses-space-inside": "never", // add in 7.0.0
     "media-feature-range-operator-space-after": "always", // add in 7.0.0
     "media-feature-range-operator-space-before": "always", // add in 7.0.0
 
