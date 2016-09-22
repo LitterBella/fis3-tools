@@ -20,7 +20,23 @@
     <style type="text/x-scss">
       $legacy-ie: true;
       @import "../static/style/utils/utils";
-      /* @include font-face(FZLBJW, false, ../static/font/FZLBJW, 400); */
+      @include font-face(FZLBJW);
+
+      .unit-test {
+        width: rem-px(2);
+        width: rem-px(2rem);
+        width: design-px(73);
+        width: design-px(72px);
+        width: px-rem(32);
+        width: px-rem(32px);
+        width: design-rem(72);
+        width: design-rem(72px);
+        color: luminance(#f1c);
+      }
+
+      .clearfix {
+        @include clearfix();
+      }
 
       .container {
         padding-top: 15px;
@@ -188,7 +204,7 @@
     <script src="../static/js/vendors/dd_belatedpng.min.js"></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <script src="../static/js/vendors/jquery.min.js"></script>
+    <script src="../static/js/vendors/jquery-1.12.4.min.js"></script>
     <!--a empty nav element to aviod uc brower font size adjust.-->
     <nav></nav>
 

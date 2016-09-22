@@ -34,7 +34,7 @@ include jade/_funcs
   ];
 
   jsFiles = [
-    'static/js/vendors/jquery.min.js',
+    'static/js/vendors/jquery/jquery-3.1.0.min.js',
   ];
 
 
@@ -54,7 +54,7 @@ html(lang='zh-cmn-Hans')
     - each cssFile in cssFiles
       + css(cssFile)
   body
-    .container-fluid
+    div
 
     - each jsFile in jsFiles
       + js(jsFile)

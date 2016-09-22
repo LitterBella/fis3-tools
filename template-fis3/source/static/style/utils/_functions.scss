@@ -1,128 +1,14 @@
 // functions
-@function value-of($value) {
-  @return $value / ($value * 0 + 1);
-}
+@import "function/type";
+@import "function/value-of";
+@import "function/add-unit";
+@import "function/str-replace";
+@import "function/str-last-index";
+@import "function/is-pseudo-element";
+@import "function/is-pseudo-selector";
+@import "function/get-directions";
+@import "function/px-convert";
+@import "function/rem-convert";
+@import "function/pow";
+@import "function/luminance";
 
-@function str-last-index($string, $substring) {
-  $index: 0;
-  $length: str-length($string);
-  $substring-length: str-length($substring);
-
-  @for $i from 1 through $length {
-    @if str-slice($string, $i, $i + $substring-length - 1) == $substring {
-      $index: $i;
-    }
-  }
-
-  @return if($index == 0, null, $index);
-}
-
-@function is-pseudo-element($selector) {
-  @if not is-pseudo-selector($selector) {
-    @return false;
-  } @else if str-index($selector, "::") {
-    @return true;
-  }
-
-  $last-index: str-last-index($selector, ":");
-  $selector: str-slice($selector, $last-index + 1);
-
-  // list of pseudo-elements pulled from MDN: https://developer.mozilla.org/en/docs/Web/CSS/Pseudo-elements
-  $pseudo-elements: (
-    before,
-    after,
-    first-line,
-    first-letter,
-    selection,
-    backdrop,
-    placeholder,
-    marker,
-    spelling-error,
-    grammar-error,
-  );
-  @return not not index($pseudo-elements, $selector);
-}
-
-@function is-pseudo-selector($selector) {
-  @return not not str-index($selector, ":");
-}
-
-@function get-directions($direction) {
-  $direction: if($direction == up, top, $direction);
-  $direction: if($direction == down, bottom, $direction);
-  $opposite-directions: (
-    top: bottom,
-    bottom: top,
-    left: right,
-    right: left,
-  );
-
-  $ori-direction: $direction;
-  $oppo-direction: map-get($opposite-directions, $direction);
-
-  $directions-rest: map-keys(map-remove($opposite-directions, $ori-direction, $oppo-direction));
-
-  $directions: $ori-direction, nth($directions-rest, 1), nth($directions-rest, 2), $oppo-direction;
-
-  @return $directions;
-}
-
-@function pixel-px($values...) {
-  @return px-convert(1, $values...);
-}
-
-@function design-px($values...) {
-  $scale: 320 / $design-width;
-  @return px-convert($scale, $values...);
-}
-
-@function px-convert($scale:1, $values...) {
-  $result: ();
-  $separator: list-separator($values);
-
-  @each $value in $values {
-    $item: $value;
-    @if type-of($value) == "number" {
-      @if unitless($value) {
-        $value: $value * 1px;
-      }
-      @if unit($value) == "px" {
-        $item: $value * $scale;
-      }
-    } @else if type-of($value) == "list" {
-      $item: px-convert($scale, $value...);
-    }
-    $result: append($result, $item, $separator);
-  }
-  @return $result;
-}
-
-@function pixel-rem($values...) {
-  @return rem-convert(1, $values...);
-}
-
-@function design-rem($values...) {
-  $scale: 320 / $design-width;
-  @return rem-convert($scale, $values...);
-}
-
-@function rem-convert($scale:1, $values...) {
-  $result: ();
-  $separator: list-separator($values);
-
-  @each $value in $values {
-    $item: $value;
-    @if type-of($value) == "number" {
-      @if unitless($value) {
-        $value: $value * 1px;
-      }
-      @if unit($value) == "px" {
-        $item: $value / $root-font-size * $scale * 1rem;
-      }
-    } @else if type-of($value) == "list" {
-      $item: rem-convert($scale, $value...);
-    }
-    $result: append($result, $item, $separator);
-  }
-  @return $result;
-}
