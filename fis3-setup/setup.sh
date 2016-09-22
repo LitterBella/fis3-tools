@@ -108,6 +108,7 @@ function installplugins() {
   npm i -g fis-lint-jscs
   npm i -g fis-lint-eslint
   npm i -g fis-preprocessor-cssgrace
+  npm i -g fis3-postprocessor-stylefmt
   # npm i -g fis-postpackager-replace
   # npm i -g fis-packager-autopack
   # npm i -g fis-spriter-csssprites

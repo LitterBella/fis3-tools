@@ -265,7 +265,7 @@ last update 2016.1.7
       lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
       preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
       optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
-      postprocessor: 'fis-postprocessor-autoprefixer',
+      postprocessor: CONFIG.OPTIMIZER.CSS ? 'fis-postprocessor-autoprefixer' : ['fis-postprocessor-autoprefixer', 'fis3-postprocessor-stylefmt'],
       useSprite: true
     },
     {
