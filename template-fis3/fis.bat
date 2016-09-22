@@ -11,7 +11,8 @@ set DIST_FILETYPE=zip
 :: zip,tar.gz  ; tar.gz do NOT support chinese filename
 set LOG_FILE=release.log
 set TEMP_RESOURCE_FOLDER=$$$TEMP_RESOURCE$$$
-
+:: default media
+set FIS_MEDIA=dev
 
 :: reset config file if another config files exists in sourcefolder
 if exist "./%SOURCE_FOLDER%/fis-conf.js" (set CONFIG_FILE=%SOURCE_FOLDER%/fis-conf.js)
@@ -50,8 +51,8 @@ echo.
 :: chose operation
 set /p choice=input your choice and press ENTER:
 if "%choice%"=="1" ( goto debug )
-if "%choice%"=="2" ( goto release )
-if "%choice%"=="3" ( goto release )
+if "%choice%"=="2" ( set FIS_MEDIA=prod && goto release )
+if "%choice%"=="3" ( set FIS_MEDIA=prod && goto release )
 if /i "%choice%"=="q" ( cls & goto end )
 goto debug
 
@@ -93,7 +94,7 @@ echo.
 :: release file
 echo ...............................................................................
 echo releasing files
-call fis3 release prod --dest release --lint --unique --root "./%SOURCE_FOLDER%" --file "./%CONFIG_FILE%" --verbose --no-color > "./%LOG_FILE%"
+call fis3 release %FIS_MEDIA% --dest release --lint --unique --root "./%SOURCE_FOLDER%" --file "./%CONFIG_FILE%" --verbose --no-color > "./%LOG_FILE%"
 if errorlevel 1 ( goto error )
 if exist "./%RELEASE_FOLDER%/%TEMP_RESOURCE_FOLDER%" rd /S /Q "./%RELEASE_FOLDER%/%TEMP_RESOURCE_FOLDER%"
 echo ..........................................................................done.
@@ -140,7 +141,7 @@ echo.
 :: release
 echo ...............................................................................
 echo release files
-call fis3 release dev --root "./%SOURCE_FOLDER%" --verbose --no-color > "./%LOG_FILE%"
+call fis3 release %FIS_MEDIA% --root "./%SOURCE_FOLDER%" --verbose --no-color > "./%LOG_FILE%"
 if errorlevel 1 ( goto error )
 del /Q "%LOG_FILE%"
 echo ..........................................................................done.
@@ -159,7 +160,7 @@ echo.
 :: start livereload
 echo ...............................................................................
 echo watching files
-call fis3 release dev --root "./%SOURCE_FOLDER%" --watch --live --verbose
+call fis3 release %FIS_MEDIA% --root "./%SOURCE_FOLDER%" --watch --live --verbose
 pause
 
 :: error

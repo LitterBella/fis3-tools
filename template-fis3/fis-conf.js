@@ -8,6 +8,12 @@ last update 2016.1.7
 ;(function($) {
   'use strict';
   /* eslint comma-dangle: 0 */
+  var ENV = {
+    FIS_MEDIA: process.env.FIS_MEDIA || $.project.currentMedia(),
+    NODE: process.version,
+    TEMP_RESOURCE_FOLDER: process.env.TEMP_RESOURCE_FOLDER || '$$$TEMP_RESOURCE$$$',
+    RELEASE_FOLDER: (process.env.RELEASE_FOLDER || 'release'),
+  };
 
   var CONFIG = {
     LEGACY_IE: true, // IE < 9 支持
@@ -40,12 +46,10 @@ last update 2016.1.7
       ],
     },
     USE_RELATIVE: true, // 使用相对路径
-    RELEASE_DIR: './release', // 发布目录
     LIVERELOAD: {
       // PORT: 1988, // livereload 端口，留空自动查找
       // HOSTNAME: 'localhost', // livereload IP地址，留空自动查找
     },
-    TEMP_RESOURCE_FOLDER: '$$$TEMP_RESOURCE$$$', // 需要和 fis.bat/fis.sh 里面相同设置
     //忽略文件
     IGNORE: {
       global: [
@@ -78,8 +82,6 @@ last update 2016.1.7
 
   var PLUGINS_CONFIG = {
     'fis-parser-node-sass': {
-      __sperate: true,
-      common: {
         includePaths: [],
         indentType: 'space',
         indentWidth: 2,
@@ -88,20 +90,11 @@ last update 2016.1.7
         //outFile: '',
         outputStyle: 'expanded', //nested, expanded, compact, compressed
         precision: 8, //default 5
-        sourceComments: true,
+        sourceComments: ENV.FIS_MEDIA === 'dev',
         sourceMap: false,
         sourceMapContents: true,
-        sourceMapEmbed: true,
+        sourceMapEmbed: ENV.FIS_MEDIA === 'dev',
         //sourceMapRoot: ''
-      },
-      dev: {
-        sourceComments: true,
-        sourceMapEmbed: true,
-      },
-      prod: {
-        sourceComments: false,
-        sourceMapEmbed: false,
-      },
     },
     'fis-parser-stylus2': {},
     'fis-parser-less-2.x': {},
@@ -155,38 +148,20 @@ last update 2016.1.7
       layout: 'linear', //'linear/matrix' default linear
     },
     'fis3-deploy-local-deliver': {
-      to: CONFIG.RELEASE_DIR,
+      to: './' + ENV.RELEASE_FOLDER,
     },
     'fis-parser-coffee-script': {
       //header: true,
     },
     'fis-parser-babel-5.x': {
-      __sperate: true,
-      common: {
-        blacklist: ['regenerator'],
-        optional: ['asyncToGenerator'],
-        sourceMaps: false,
-        stage: 3,
-      },
-      dev: {
-        sourceMaps: true,
-      },
-      prod: {
-        sourceMaps: false,
-      },
+      blacklist: ['regenerator'],
+      optional: ['asyncToGenerator'],
+      stage: 3,
+      sourceMaps: ENV.FIS_MEDIA === 'dev',
     },
     'fis-parser-babel-6.x': {
-      __sperate: true,
-      common: {
-        presets: 'react',
-        sourceMaps: false,
-      },
-      dev: {
-        sourceMaps: true,
-      },
-      prod: {
-        sourceMaps: false,
-      },
+      presets: 'react',
+      sourceMaps: ENV.FIS_MEDIA === 'dev',
     },
     'fis-parser-jade': {
       pretty: true,
@@ -265,7 +240,11 @@ last update 2016.1.7
       lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
       preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
       optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
-      postprocessor: CONFIG.OPTIMIZER.CSS ? 'fis-postprocessor-autoprefixer' : ['fis-postprocessor-autoprefixer', 'fis3-postprocessor-stylefmt'],
+      postprocessor: ['fis-postprocessor-autoprefixer'].concat(
+          (CONFIG.OPTIMIZER.CSS || ENV.FIS_MEDIA === 'dev') ?
+          [] :
+          ['fis3-postprocessor-stylefmt']
+        ),
       useSprite: true
     },
     {
@@ -297,9 +276,6 @@ last update 2016.1.7
     }
   ];
 
-  var prod = $.media('prod');
-  var dev = $.media('dev');
-
   var fileExts = {};
   var hasOwn = fileExts.hasOwnProperty;
   var slice = pluginTypes.slice;
@@ -321,13 +297,16 @@ last update 2016.1.7
     $.set('livereload.hostname', CONFIG.LIVERELOAD.HOSTNAME);
   }
 
-  prod.set('project.md5Length', CONFIG.HASH.LENGTH);
-  prod.set('project.md5Connector', CONFIG.HASH.CONNECTOR);
-  CONFIG.HASH.USE.forEach(function(reg) {
-    prod.match(reg, {
-      useHash: true
+  if (ENV.FIS_MEDIA === 'prod') {
+    $.set('project.md5Length', CONFIG.HASH.LENGTH);
+    $.set('project.md5Connector', CONFIG.HASH.CONNECTOR);
+    CONFIG.HASH.USE.forEach(function(reg) {
+      $.match(reg, {
+        useHash: true
+      });
     });
-  });
+  }
+
 
   if (CONFIG.USE_RELATIVE) {
     $.hook('relative');
@@ -372,18 +351,13 @@ last update 2016.1.7
     };
   }
 
-  function getPluginOptions(pluginName, media) {
+  function getPluginOptions(pluginName) {
     var shortPluginName = parsePlugin(pluginName).short;
     var options = PLUGINS_CONFIG[pluginName] || PLUGINS_CONFIG[shortPluginName] || {};
-
-    media = media || 'dev';
-
-    return options.__sperate ?
-      extend({}, options.common, options[media]) :
-      options;
+    return options;
   }
 
-  function getPlugin(pluginNames, media) {
+  function getPlugin(pluginNames) {
     var plugins = [];
 
     if (pluginNames.__plugin) {
@@ -403,7 +377,7 @@ last update 2016.1.7
         plugin = pluginName;
       } else {
         shortPluginName = parsePlugin(pluginName).short;
-        plugin = $.plugin(shortPluginName, getPluginOptions(pluginName, media));
+        plugin = $.plugin(shortPluginName, getPluginOptions(pluginName));
       }
       plugins.push(plugin);
     });
@@ -459,16 +433,13 @@ last update 2016.1.7
     fileExts[data.type] = fileExts[data.type].concat(exts);
     $.match(getExtsReg(exts), processor);
 
-    ['dev', 'prod'].forEach(function(media) {
-      var processor = {};
-      plugins.forEach(function(pluginType) {
-        if (data[pluginType]) {
-          processor[pluginType] = getPlugin(data[pluginType], media);
-        }
-      });
-
-      $.media(media).match(getExtsReg(exts), processor);
+    var processor = {};
+    plugins.forEach(function(pluginType) {
+      if (data[pluginType]) {
+        processor[pluginType] = getPlugin(data[pluginType]);
+      }
     });
+    $.match(getExtsReg(exts), processor);
   });
 
   standardProcessors.forEach(function(data) {
@@ -510,7 +481,7 @@ last update 2016.1.7
   // standrad files should release
   // for inline include
   $.match('_' + getExtsReg(['png', 'jpg', 'gif', 'css', 'js', 'html'], false), {
-    release: '/' + CONFIG.TEMP_RESOURCE_FOLDER + '/$0',
+    release: '/' + ENV.TEMP_RESOURCE_FOLDER + '/$0',
     relative: '/',
   });
 
@@ -522,12 +493,13 @@ last update 2016.1.7
 
   $.match('::package', pluginToProperties('fis-spriter-csssprites'));
 
-  prod
-    .match('**', pluginToProperties('fis3-deploy-local-deliver'));
+  if (ENV.FIS_MEDIA === 'prod') {
+    $.match('**', pluginToProperties('fis3-deploy-local-deliver'));
+  }
 
-  dev
-    .match('**', {
+  if (ENV.FIS_MEDIA === 'dev') {
+    $.match('**', {
       optimizer: null
     });
-
+  }
 })(global.fis);
