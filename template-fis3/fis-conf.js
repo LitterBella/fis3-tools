@@ -37,6 +37,8 @@ last update 2016.1.7
       JPEG: {
         PROGRESSIVE: true, // 渐进式 JPEG
       },
+      GIF: true,
+      SVG: true,
     },
     HASH: {
       LENGTH: 6, // md5戳长度
@@ -177,7 +179,19 @@ last update 2016.1.7
     'fis3-lint-stylelint': {
       fix: CONFIG.FIX.CSS,
     },
-    'fis3-optimizer-imagemin': {}
+    'fis3-optimizer-imagemin': {
+      '.png': CONFIG.OPTIMIZER.PNG && ! CONFIG.OPTIMIZER.PNG.LOSSY ?
+        {
+          pngcrush: {}
+        }
+        :
+        {
+          pngquant: {
+            quality: '65-80',
+            speed: 1,
+          },
+        }
+    }
   };
 
   var pluginTypes = [
@@ -254,8 +268,7 @@ last update 2016.1.7
     },
     {
       type: 'png',
-      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis-optimizer-png-compressor' : null,
-      //optimizer: CONFIG.OPTIMIZER.PNG ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'jpg',
@@ -263,11 +276,11 @@ last update 2016.1.7
     },
     {
       type: 'gif',
-      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.GIF ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'svg',
-      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.SVG ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'html',
