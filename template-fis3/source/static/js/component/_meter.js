@@ -1,10 +1,9 @@
   function initMeter() {
     var meter = $(this);
-    if (meter.data('inited')) {
-      return;
+    var meterBar = meter.find('.meter-bar');
+    if (!meterBar.length) {
+      $('<div class="meter-bar">').appendTo(meter);
     }
-    meter.data('inited', true);
-    $('<div class="meter-bar">').appendTo(meter);
     var value = +meter.val() || +meter.attr('value');
     console.log(value);
     setMeterValue(meter, value);
