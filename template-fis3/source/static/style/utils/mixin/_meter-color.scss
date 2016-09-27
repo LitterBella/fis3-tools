@@ -1,27 +1,14 @@
 @mixin meter-color(
-  $bg-color: null,
   $optimum-color: null,
   $sub-optimum-color: null,
-  $sub-sub-optimum-color: null
+  $sub-sub-optimum-color: null,
+  $bg-color: null
   ) {
-  display: inline-block;
-  width: 5em;
-  height: 1em;
-  background: $bg-color;
-
-  // polyfill
-  .meter-bar {
-    height: 100%;
-  }
-
-  // remove webkit default color
-  &::-webkit-meter-bar {
-    background: transparent;
-  }
+  background-color: $bg-color;
 
   // optimum
   .meter-bar.meter-optimum-value {
-    background: if($optimum-color, $optimum-color, #ad7);
+    background: $optimum-color;
   }
 
   &::-webkit-meter-optimum-value {
@@ -34,7 +21,7 @@
 
   // suboptimum
   .meter-bar.meter-sub-optimum-value {
-    background: if($sub-optimum-color, $sub-optimum-color, #fe7);
+    background: $sub-optimum-color;
   }
 
   &::-webkit-meter-suboptimum-value {
@@ -47,7 +34,7 @@
 
   // sub-sub-optimum
   .meter-bar.meter-sub-sub-optimum-value {
-    background: if($sub-sub-optimum-color, $sub-sub-optimum-color, #f77);
+    background: $sub-sub-optimum-color;
   }
 
   &::-webkit-meter-even-less-good-value {

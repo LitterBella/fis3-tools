@@ -1,5 +1,5 @@
 // variables
-$device: responsive !default; // mobile, pc, responsive
+$device: multi-device !default; // mobile, pc, multi-device
 $legacy-ie: if($device == "mobile", false, true) !default; // ie < 9 support
 
 $use-border-box: true !default;
@@ -26,8 +26,8 @@ $design-width: 720 !default;
 $font-family-monospace: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New" !default;
 $focus-outline: true !default;
 
-$container-min-width: 1000px !default;
-$container-max-width: 1200px !default;
+$container-min-width: 1000 !default;
+$container-max-width: 1200 !default;
 $container-padding: 15px !default;
 
 // Grid breakpoints

@@ -1,8 +1,9 @@
 @import "config";
+@import "utils/utils";
 
 // normalize && reboot
 @import "vendors/normalize";
-@import "base/reboot";
+@import "reboot/reboot";
 
 // components
 // @import "component/number-input";

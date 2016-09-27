@@ -1,6 +1,6 @@
 // _config.scss
 
-$device: responsive; // mobile, pc, responsive
+$device: multi-device; // mobile, pc, multi-device
 
 // $legacy-ie: true;
 $use-border-box: true;
@@ -22,5 +22,3 @@ $focus-outline: true; //outline on focus
 $container-min-width: 1000;
 $container-max-width: 1200;
 $container-padding: 15px;
-
-@import "utils/utils";

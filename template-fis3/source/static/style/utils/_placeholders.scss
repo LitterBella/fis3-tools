@@ -45,11 +45,14 @@
 }
 
 %icon-close {
-  @include plus(1em, 1px);
+  @include plus(1rem, 1px);
 
-  &::before,
+  &::before {
+    transform: translate(0, .5px) rotate(45deg);
+  }
+
   &::after {
-    transform: rotate(45deg);
+    transform:  translate(-0.5px, 0) rotate(45deg);
   }
 }
 
