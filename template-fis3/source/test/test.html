@@ -14,7 +14,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <!--[if lt IE 9]>
-    <script src="../static/js/vendors/html5.min.js"></script>
+    <script src="../static/js/vendors/html5shiv/html5shiv-3.7.3.min.js"></script>
     <![endif]-->
     <link href="../static/style/main.scss" rel="stylesheet">
     <style type="text/x-scss">
@@ -22,12 +22,12 @@
       @import "../static/style/utils/utils";
       @include font-face(FZLBJW);
 
-      .meter {
+      meter {
         @include meter-color(
-          gray,
+          #ddd,
           green,
-          red,
-          black
+          yellow,
+          red
           );
       }
 
@@ -208,12 +208,25 @@
     </div>
 
     <div class="font-face">隶书哈</div>
+    <div class="meter">
+      low better
+      <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+      <meter min="0" max="100" value="50" low="30" high="70" optimum="20"></meter>
+      <meter min="0" max="100" value="80" low="30" high="70" optimum="20"></meter>
+
+      high better
+      <meter min="0" max="100" value="20" low="30" high="70" optimum="80"></meter>
+      <meter min="0" max="100" value="50" low="30" high="70" optimum="80"></meter>
+      <meter min="0" max="100" value="80" low="30" high="70" optimum="80"></meter>
+
+    </div>
 
     <!--[if IE 6]>
-    <script src="../static/js/vendors/dd_belatedpng.min.js"></script>
+    <script src="../static/js/vendors/dd_belatedpng/dd_belatedpng_0.0.8a-min.js"></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <script src="../static/js/vendors/jquery-1.12.4.min.js"></script>
+    <script src="../static/js/vendors/jquery/jquery-1.12.4.min.js"></script>
+    <script src="../static/js/main.js"></script>
     <!--a empty nav element to aviod uc brower font size adjust.-->
     <nav></nav>
 

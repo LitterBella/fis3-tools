@@ -6,13 +6,11 @@
   ) {
   display: inline-block;
   width: 5em;
+  height: 1em;
   background: $bg-color;
 
   // polyfill
-  .meter-bar,
-  .meter-even-less-good-value,
-  .meter-suboptimum-value,
-  .meter-optimum-value {
+  .meter-bar {
     height: 100%;
   }
 
@@ -22,11 +20,11 @@
   }
 
   // optimum
-  .meter-optimum-value{
-    background: $optimum-color;
+  .meter-bar.meter-optimum-value {
+    background: if($optimum-color, $optimum-color, #ad7);
   }
 
-  &::-webkit-meter-optimum-value{
+  &::-webkit-meter-optimum-value {
     background: $optimum-color;
   }
 
@@ -35,8 +33,8 @@
   }
 
   // suboptimum
-  .meter-suboptimum-value{
-    background: $sub-optimum-color;
+  .meter-bar.meter-sub-optimum-value {
+    background: if($sub-optimum-color, $sub-optimum-color, #fe7);
   }
 
   &::-webkit-meter-suboptimum-value {
@@ -48,11 +46,11 @@
   }
 
   // sub-sub-optimum
-  .meter-even-less-good-value {
-    background: $sub-sub-optimum-color;
+  .meter-bar.meter-sub-sub-optimum-value {
+    background: if($sub-sub-optimum-color, $sub-sub-optimum-color, #f77);
   }
 
-  &::-webkit-meter-even-less-good-value{
+  &::-webkit-meter-even-less-good-value {
     background: $sub-sub-optimum-color;
   }
 
