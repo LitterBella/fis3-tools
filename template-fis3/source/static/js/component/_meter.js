@@ -1,17 +1,24 @@
+  var supportMeter = document.createElement('meter').max === 1;
+
   function initMeter() {
+    if (supportMeter) {
+      return;
+    }
     var meter = $(this);
     var meterBar = meter.find('.meter-bar');
     if (!meterBar.length) {
       $('<div class="meter-bar">').appendTo(meter);
     }
     var value = +meter.val() || +meter.attr('value');
-    console.log(value);
     setMeterValue(meter, value);
   }
 
   function setMeterValue(meter, value) {
     meter = $(meter).val(value);
-    var max = +meter.attr('max') || 100;
+    if (supportMeter) {
+      return;
+    }
+    var max = +meter.attr('max') || 1;
     var meterBar = meter.find('.meter-bar');
 
     var low = +meter.attr('low');
