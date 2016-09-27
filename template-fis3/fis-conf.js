@@ -5,6 +5,8 @@ verion 0.9
 last update 2016.1.7
 */
 
+
+
 ;(function($) {
   'use strict';
   /* eslint comma-dangle: 0 */
@@ -268,19 +270,20 @@ last update 2016.1.7
     },
     {
       type: 'png',
-      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.PNG ? 'fis-optimizer-png-compressor' : null,
+      // optimizer: CONFIG.OPTIMIZER.PNG ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'jpg',
-      optimizer: CONFIG.OPTIMIZER.JPEG ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.JPEG && ENV.NODE > 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'gif',
-      optimizer: CONFIG.OPTIMIZER.GIF ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.GIF && ENV.NODE > 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'svg',
-      optimizer: CONFIG.OPTIMIZER.SVG ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.SVG && ENV.NODE > 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'html',
