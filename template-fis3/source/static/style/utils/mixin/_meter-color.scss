@@ -1,0 +1,62 @@
+@mixin meter-color(
+  $bg-color: null,
+  $optimum-color: null,
+  $sub-optimum-color: null,
+  $sub-sub-optimum-color: null
+  ) {
+  display: inline-block;
+  width: 5em;
+  background: $bg-color;
+
+  // pllyfill
+  .meter-bar,
+  .meter-even-less-good-value,
+  .meter-suboptimum-value,
+  .meter-optimum-value {
+    height: 100%;
+  }
+
+  // remove webkit default color
+  &::-webkit-meter-bar {
+    background: transparent;
+  }
+
+  // optimum
+  .meter-optimum-value{
+    background: $optimum-color;
+  }
+
+  &::-webkit-meter-optimum-value{
+    background: $optimum-color;
+  }
+
+  &:-moz-meter-optimum::-moz-meter-bar {
+    background: $optimum-color;
+  }
+
+  // suboptimum
+  .meter-suboptimum-value{
+    background: $sub-optimum-color;
+  }
+
+  &::-webkit-meter-suboptimum-value {
+    background: $sub-optimum-color;
+  }
+
+  &:-moz-meter-sub-optimum::-moz-meter-bar {
+    background: $sub-optimum-color;
+  }
+
+  // sub-sub-optimum
+  .meter-even-less-good-value {
+    background: $sub-sub-optimum-color;
+  }
+
+  &::-webkit-meter-even-less-good-value{
+    background: $sub-sub-optimum-color;
+  }
+
+  &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+    background: $sub-sub-optimum-color;
+  }
+}
