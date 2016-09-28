@@ -44,6 +44,10 @@
       }
     }
 
+    if (value > max) {
+      value = max;
+    }
+
     meterBar.css('width', value / max * 100 + '%')[0].className = 'meter-bar ' + className;
   }
 

@@ -73,28 +73,34 @@ meter {
   display: inline-block;
   vertical-align: baseline;
   background-color: #ddd;
+  background-image: linear-gradient(#e6e6e6, #e6e6e6, #eeeeee 20%, #cccccc 45%, #cccccc 55%);
 
   // polyfill
   .meter-bar {
+    // -moz-meter-bar inline-block;
+    // -webkit-meter-optimum-value block;
     height: 100%;
 
     &.meter-optimum-value {
-      background: #ad7;
+      background-color: #ad7;
+      background-image: linear-gradient(#ad7, #ad7, #cea 20%, #7a3 45%, #7a3 55%);
     }
 
     &.meter-sub-optimum-value {
-      background: #fe7;
+      background-color: #fe7;
+      background-image: linear-gradient(#fe7, #fe7, #ffc 20%, #db3 45%, #db3 55%);
     }
 
     &.meter-sub-sub-optimum-value {
-      background: #f77;
+      background-color: #f77;
+      background-image: linear-gradient(#f77, #f77, #fcc 20%, #d44 45%, #d44 55%);
     }
   }
 }
 
 // remove webkit default color of meter
 ::-webkit-meter-bar {
-  background: none;
+  background-image: none;
 }
 
 progress {
