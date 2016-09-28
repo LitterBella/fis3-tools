@@ -1,8 +1,5 @@
 @echo off
 
-set NODE_VERSION=v6.7.0
-
-
 :: init window
 title fis3 °²×°½Å±¾
 color 37
@@ -119,10 +116,7 @@ goto end
 :install-node
 echo ................................................................................
 echo installing node.js
-set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/x64/node-%NODE_VERSION%-x64.msi
-if "%PROCESSOR_ARCHITECTURE%"=="x86" (
-    set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/%NODE_VERSION%/node-%NODE_VERSION%-x86.msi
-)
+set BIN_NODE_INSTALLER=https://npm.taobao.org/mirrors/node/
 start %BIN_NODE_INSTALLER%
 echo ...........................................................................done.
 goto main
