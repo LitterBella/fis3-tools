@@ -19,25 +19,39 @@
       return;
     }
     var max = +meter.attr('max') || 1;
+    var min = +meter.attr('max') || 0;
     var meterBar = meter.find('.meter-bar');
+    if (max <= min) {
+      min = 0;
+      max = 1;
+    }
 
-    var low = +meter.attr('low');
-    var high = +meter.attr('high');
-    var optimum = +meter.attr('optimum');
+    var low = +meter.attr('low') || min;
+    var high = +meter.attr('high') || max;
+    if (low < min) {
+      low = min;
+    }
+    if (high > max) {
+      high = max;
+    }
+    var optimum = +meter.attr('optimum') || 0;
+    if (optimum < min || optimum > max) {
+      optimum = max;
+    }
     var isHigerBetter = true;
-    if (optimum && optimum <= low) {
+    if (optimum < low) {
       isHigerBetter = false;
     }
 
     var className = 'meter-sub-optimum-value';
     if (isHigerBetter) {
-      if (value <= low) {
+      if (value < low) {
         className = 'meter-sub-sub-optimum-value';
       } else if (value >= high) {
         className = 'meter-optimum-value';
       }
     } else {
-      if (value >= high) {
+      if (value > high) {
         className = 'meter-sub-sub-optimum-value';
       } else if (value <= low) {
         className = 'meter-optimum-value';
@@ -47,8 +61,11 @@
     if (value > max) {
       value = max;
     }
+    if (value < min) {
+      value = min;
+    }
 
-    meterBar.css('width', value / max * 100 + '%')[0].className = 'meter-bar ' + className;
+    meterBar.css('width', value / (max - min) * 100 + '%')[0].className = 'meter-bar ' + className;
   }
 
   $.fn.meterValue = $.fn.meterVal = function(value) {
