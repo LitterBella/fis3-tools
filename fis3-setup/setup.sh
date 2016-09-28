@@ -1,7 +1,7 @@
 #!/bin/sh
 export PS1="\[\e[37;44m\]"
 
-NODE_VERSION=v6.3.0
+NODE_VERSION=v6.7.0
 
 echo "================================================================================"
 echo "                                fis3 安装脚本"
@@ -55,6 +55,8 @@ function checknpm() {
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
   npm config set SASS_BINARY_SITE http://npm.taobao.org/mirrors/node-sass
   npm config set SQLITE3_BINARY_SITE http://npm.taobao.org/mirrors/sqlite3
+  nvm node_mirror http://npm.taobao.org/mirrors/node/
+  nvm npm_mirror http://npm.taobao.org/mirrors/npm/
   echo ".......................................npm 可以正常使用."
 }
 

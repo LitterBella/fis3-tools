@@ -1,6 +1,6 @@
 @echo off
 
-set NODE_VERSION=v6.3.0
+set NODE_VERSION=v6.7.0
 
 
 :: init window
@@ -42,6 +42,8 @@ call npm config set OPERADRIVER_CDNURL http://npm.taobao.org/mirrors/operadriver
 call npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
 call npm config set SASS_BINARY_SITE http://npm.taobao.org/mirrors/node-sass
 call npm config set SQLITE3_BINARY_SITE http://npm.taobao.org/mirrors/sqlite3
+call nvm node_mirror http://npm.taobao.org/mirrors/node/
+call nvm npm_mirror http://npm.taobao.org/mirrors/npm/
 echo .......................................npm 可以正常使用.
 echo.
 
