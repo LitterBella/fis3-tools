@@ -194,7 +194,7 @@ module.exports = {
     // "custom-media-pattern": ,
 
     // Media query
-    "media-query-parentheses-space-inside": "never",
+    // "media-query-parentheses-space-inside": "never", //removed in 7
 
     // Media query list
     "media-query-list-comma-newline-after": "always-multi-line",
@@ -247,7 +247,7 @@ module.exports = {
     "no-extra-semicolons": true,
     // "no-indistinguishable-colors": true,
     "no-invalid-double-slash-comments": true,
-    "no-missing-eof-newline": true,
+    // "no-missing-eof-newline": true, // removed in 7
     "no-missing-end-of-source-newline": true, // 7.0.0
     // "no-unknown-animations": true,
     // "no-unsupported-browser-features": [true, {
