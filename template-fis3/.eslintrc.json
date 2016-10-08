@@ -389,7 +389,7 @@
     "no-inline-comments": 0,
 
     // disallow if statements as the only statement in else blocks
-    "no-lonely-if": 1,
+    "no-lonely-if": 0,
 
     // Disallow mixes of different operators
     "no-mixed-operators": 0,
