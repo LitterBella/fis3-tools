@@ -19,7 +19,7 @@
       reeturn;
     }
     var meterBar = meter.find('.meter-bar');
-    if (meterBar.length) {
+    if (!meterBar.length) {
       return meter.each(initMeter);
     }
     var max = +meter.attr('max') || 1;
