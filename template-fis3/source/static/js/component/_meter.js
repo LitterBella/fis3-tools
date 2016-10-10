@@ -14,13 +14,12 @@
   }
 
   function setMeterValue(meter, value) {
-    meter = $(meter).val(value);
-    if (supportMeter) {
-      return;
+    var meterBar = meter.find('.meter-bar');
+    if (meterBar.length) {
+      return meter.each(initMeter);
     }
     var max = +meter.attr('max') || 1;
-    var min = +meter.attr('max') || 0;
-    var meterBar = meter.find('.meter-bar');
+    var min = +meter.attr('min') || 0;
     if (max <= min) {
       min = 0;
       max = 1;
@@ -68,7 +67,7 @@
     meterBar.css('width', value / (max - min) * 100 + '%')[0].className = 'meter-bar ' + className;
   }
 
-  $.fn.meterValue = $.fn.meterVal = function(value) {
+  $.fn.meterValue = $.fn.meterVal = supportMeter ? $.fn.val : function(value) {
     return $(this).each(function() {
       setMeterValue(this, value);
     });
