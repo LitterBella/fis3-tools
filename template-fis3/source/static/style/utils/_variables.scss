@@ -2,7 +2,7 @@
 $device: multi-device !default; // mobile, pc, multi-device
 $legacy-ie: if($device == "mobile", false, true) !default; // ie < 9 support
 
-$use-border-box: true !default;
+$box-sizing: null !default;
 
 $root-font-size: 16px !default;
 

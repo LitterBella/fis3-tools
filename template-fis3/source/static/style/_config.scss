@@ -1,9 +1,8 @@
 // _config.scss
 
 $device: multi-device; // mobile, pc, multi-device
-
 // $legacy-ie: true;
-$use-border-box: true;
+$box-sizing: border-box; // set to null to disable box-sizing
 
 $design-width: 720; // psd width
 
@@ -22,3 +21,31 @@ $focus-outline: true; //outline on focus
 $container-min-width: 1000;
 $container-max-width: 1200;
 $container-padding: 15px;
+
+$reboot-mods: (
+  "::selection": true,
+  ul: true,
+  ol: true,
+  dl: true, // also dt dd
+  p: true,
+  table: true, // also caption
+  label: true,
+  hr: true,
+  // output: true,
+  // fieldset: true, // also legend
+  // figure: true,
+  // iframe: true,
+  // blockquote: true,
+  // nav: true,
+  // meter: true,
+  // progress: true,
+  // address: true,
+  // abbr: true,
+  // mark: true,
+  // code: true, // also pre & samp
+  // kbd: true,
+  );
+
+$z-index: (
+  pop,
+  );

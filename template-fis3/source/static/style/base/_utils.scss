@@ -1,0 +1,18 @@
+@if $device == "pc" {
+  .container {
+    @include center-block();
+    @include clearfix();
+
+    @if $use-border-box and value-of($container-padding) > 0 {
+      padding-left: $container-padding;
+      padding-right: $container-padding;
+    }
+
+    max-width: $container-max-width * 1px;
+
+    @if $legacy-ie and value-of($container-max-width) > 0 {
+      *width: expression(this.offsetWidth > #{$container-max-width} ? "#{$container-max-width * 1px}" : "auto");
+      *overflow: hidden;
+    }
+  }
+}
