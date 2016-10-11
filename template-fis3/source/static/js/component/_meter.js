@@ -16,11 +16,14 @@
   function setMeterValue(meter, value) {
     meter = $(meter).val(value);
     if (supportMeter) {
-      return;
+      reeturn;
+    }
+    var meterBar = meter.find('.meter-bar');
+    if (!meterBar.length) {
+      return meter.each(initMeter);
     }
     var max = +meter.attr('max') || 1;
-    var min = +meter.attr('max') || 0;
-    var meterBar = meter.find('.meter-bar');
+    var min = +meter.attr('min') || 0;
     if (max <= min) {
       min = 0;
       max = 1;
