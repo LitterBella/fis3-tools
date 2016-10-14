@@ -21,6 +21,7 @@ html {
   text-rendering: optimizelegibility;
   box-sizing: $box-sizing; // 5
   @include center-block();
+  width: 100%;
   height: 100%;
 
   @if $device == mobile {
@@ -118,9 +119,7 @@ select,
 textarea {
   // https://github.com/10up/sanitize.css/blob/master/dist/sanitize.css
   background-color: transparent;
-
   border: 1px solid $input-border-color;
-
   font: inherit;
   color: inherit;
 
@@ -556,5 +555,24 @@ $mono-space-selector: (
       border-radius: 0;
       background-color: transparent;
     }
+  }
+}
+
+// https://github.com/GoogleChrome/dialog-polyfill
+@include component(dialog) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: fit-content; // -moz-fit-content -webkit-fit-content
+  height: fit-content; // -moz-fit-content -webkit-fit-content
+  margin: auto;
+  border: solid;
+  padding: 1em;
+  background: white;
+  color: black;
+  display: none;
+
+  &[open] {
+    display: block;
   }
 }

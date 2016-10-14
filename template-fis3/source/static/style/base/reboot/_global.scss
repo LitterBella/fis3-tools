@@ -22,7 +22,7 @@
   }
 }
 
-// remove ms-clear
+// remove ms-clear (opinionated).
 ::-ms-clear {
   display: none;
 }
@@ -135,6 +135,3 @@ button,
     outline-width: 0;
   }
 }
-
-
-

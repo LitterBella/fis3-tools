@@ -7,41 +7,17 @@
   background: $bg-color;
 
   // optimum
-  .meter-bar.meter-optimum-value {
-    background: $optimum-color;
-  }
-
-  &::-webkit-meter-optimum-value {
-    background: $optimum-color;
-  }
-
-  &:-moz-meter-optimum::-moz-meter-bar {
+  @include pseudo(meter-optimum-value) {
     background: $optimum-color;
   }
 
   // suboptimum
-  .meter-bar.meter-sub-optimum-value {
-    background: $sub-optimum-color;
-  }
-
-  &::-webkit-meter-suboptimum-value {
-    background: $sub-optimum-color;
-  }
-
-  &:-moz-meter-sub-optimum::-moz-meter-bar {
-    background: $sub-optimum-color;
+  @include pseudo(meter-sub-optimum-value) {
+    background: $optimum-color;
   }
 
   // sub-sub-optimum
-  .meter-bar.meter-sub-sub-optimum-value {
-    background: $sub-sub-optimum-color;
-  }
-
-  &::-webkit-meter-even-less-good-value {
-    background: $sub-sub-optimum-color;
-  }
-
-  &:-moz-meter-sub-sub-optimum::-moz-meter-bar {
-    background: $sub-sub-optimum-color;
+  @include pseudo(meter-sub-sub-optimum-value) {
+    background: $optimum-color;
   }
 }

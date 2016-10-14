@@ -15,11 +15,14 @@
 
     @if value-of($line-height) == 0 {
       @error "line-height is required when clamp muti lines";
-    } @else {
-      $line-height: if(unitless($line-height), 1em * $line-height, $line-height);
-      line-height: $line-height;
-      max-height: $line-height * $lines;
     }
+
+    @if unitless($line-height) or unit($value) == "%" {
+      $line-height: value-of($line-height);
+    }
+
+    line-height: $line-height * 1em;
+    max-height: $line-height * $lines;
 
     // &:after {
     //   content: " ...";
