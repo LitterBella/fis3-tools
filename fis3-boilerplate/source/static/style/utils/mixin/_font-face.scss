@@ -22,7 +22,7 @@
   // sass bug
   // posiable lost url hash
   $font-src-map: (
-    embedded-opentype: if($legacy-ie, "#{$font-file}.eot?#iefix", ""),
+    embedded-opentype: if($legacy-ie <= 8, "#{$font-file}.eot?#iefix", ""),
     woff: if($font-inline, "", "#{$font-file}.woff"),
     truetype: if($font-inline, "#{$font-file}.ttf" + $inline-mark, "#{$font-file}.ttf"),
     svg: "#{$font-file}.svg##{$font-family}",
@@ -42,7 +42,7 @@
     font-weight: $font-weight;
     font-style: $font-style;
 
-    @if $legacy-ie {
+    @if $legacy-ie <= 8 {
       src: url("#{$font-file}.eot");
     }
 

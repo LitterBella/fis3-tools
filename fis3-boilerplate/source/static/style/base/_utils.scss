@@ -10,7 +10,7 @@
 
     max-width: $container-max-width * 1px;
 
-    @if $legacy-ie and value-of($container-max-width) > 0 {
+    @if $legacy-ie <= 7 and value-of($container-max-width) > 0 {
       *width: expression(this.offsetWidth > #{$container-max-width} ? "#{$container-max-width * 1px}" : "auto");
       *overflow: hidden;
     }

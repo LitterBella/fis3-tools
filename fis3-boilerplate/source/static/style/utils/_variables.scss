@@ -1,6 +1,6 @@
 // variables
 $device: multi-device !default; // mobile, pc, multi-device
-$legacy-ie: if($device == "mobile", false, true) !default; // ie < 9 support
+$legacy-ie: if($device == "mobile", 9, 8) !default; // ie supoorted version
 
 $box-sizing: null !default;
 

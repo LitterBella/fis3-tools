@@ -1,5 +1,5 @@
 @mixin hide-check() {
-  @if $legacy-ie {
+  @if $legacy-ie <= 8 {
     position: absolute;
     width: 1px;
     height: 1px;

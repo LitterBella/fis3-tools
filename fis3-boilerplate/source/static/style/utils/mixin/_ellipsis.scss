@@ -2,7 +2,7 @@
   overflow: hidden;
 
   @if $lines == 1 {
-    @if $legacy-ie {
+    @if $legacy-ie <= 8 {
       word-wrap: normal; //for ie
     }
 

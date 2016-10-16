@@ -1,0 +1,32 @@
+doctype html
+include _env/_env
+include jade/_funcs
+include jade/_snippets
+
+-
+  title = 'title';
+
+  keywords = [
+  ];
+
+  description = '';
+
+  cssFiles = [
+    'static/style/main.scss',
+  ];
+
++htmlStartTag(env)
+head
+  +header(env)
+  title= title
+  + meta('keywords', keywords)
+  + meta('description', description)
+  - each cssFile in cssFiles
+    + css(cssFile)
+body
+  .container
+
+  +polyfill(env)
+  +jquery(env)
+
++htmlEndTag(env)

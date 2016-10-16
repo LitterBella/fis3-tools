@@ -1,7 +1,8 @@
 // _config.scss
+@import "../../_env/env";
 
-$device: multi-device; // mobile, pc, multi-device
-// $legacy-ie: true;
+$device: $env-device;
+$legacy-ie: $env-legacy-ie;
 $box-sizing: border-box; // set to null to disable box-sizing
 
 $design-width: 720; // psd width

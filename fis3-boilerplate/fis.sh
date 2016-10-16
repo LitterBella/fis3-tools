@@ -2,16 +2,16 @@
 export PS1="\[\e[37;44m\]"
 
 # const
-CONFIG_FILE=fis-conf.js
-SOURCE_FOLDER=source
-SERVER_TYPE=node # java,php,node,jello...
-SERVER_PORT=1983
-RELEASE_FOLDER=release
-DIST_FOLDER=dist
-DIST_FILETYPE=zip # zip,tar.gz  ; tar.gz do NOT support chinese filename
-LOG_FILE=release.log
-TEMP_RESOURCE_FOLDER=\$\$\$TEMP_RESOURCE\$\$\$
-FIS_MEDIA=dev
+export CONFIG_FILE=fis-conf.js
+export SOURCE_FOLDER=source
+export SERVER_TYPE=node # java,php,node,jello...
+export SERVER_PORT=1983
+export RELEASE_FOLDER=release
+export DIST_FOLDER=dist
+export DIST_FILETYPE=zip # zip,tar.gz  ; tar.gz do NOT support chinese filename
+export LOG_FILE=release.log
+export TEMP_RESOURCE_FOLDER=\$\$\$TEMP_RESOURCE\$\$\$
+export FIS_MEDIA=dev
 
 function main() {
   echo "==============================================================================="

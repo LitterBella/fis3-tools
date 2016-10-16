@@ -13,6 +13,9 @@
     "node": true,
     "es6": true
   },
+  "globals": {
+    "__inline": true
+  },
   // eslint:recommended see http://eslint.org/docs/rules/
   "extends": "eslint:recommended",
   "rules": {

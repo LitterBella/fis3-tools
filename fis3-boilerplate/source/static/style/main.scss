@@ -1,4 +1,4 @@
-@import "config";
+@import "global";
 @import "utils/utils";
 
 // normalize && reboot
@@ -11,4 +11,8 @@
 // @import "component/switch";
 // @import "component/file";
 // @import "component/data-placeholder";
-@import "component/dialog";
+// @import "component/dialog";
+
+.test {
+
+}

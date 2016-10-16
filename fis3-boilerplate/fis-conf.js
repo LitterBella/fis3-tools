@@ -5,20 +5,37 @@ verion 0.9
 last update 2016.1.7
 */
 
-
-
 ;(function($) {
   'use strict';
+  var fs = require('fs');
+  var path = require('path');
+  var EDITOR_CONFIG_CHARSET = 'utf-8';
+  var EDITOR_CONFIG_EOL = '\n';
+  var EDITOR_CONFIG_INSERT_FINAL_NEWLINE = true;
+  var EDITOR_CONFIG_INDENT_STYLE = 'space';
+  var EDITOR_CONFIG_INDENT_SIZE = 2;
+  var INDENT = Array(EDITOR_CONFIG_INDENT_SIZE + 1).join(EDITOR_CONFIG_INDENT_STYLE === 'tab' ? '\9' : ' ');
+
   /* eslint comma-dangle: 0 */
   var ENV = {
     FIS_MEDIA: process.env.FIS_MEDIA || $.project.currentMedia(),
-    NODE: process.version,
+    ENGINE: process.version, // node 版本
     TEMP_RESOURCE_FOLDER: process.env.TEMP_RESOURCE_FOLDER || '$$$TEMP_RESOURCE$$$',
+    SOURCE_FOLDER: (process.env.SOURCE_FOLDER || 'source'),
     RELEASE_FOLDER: (process.env.RELEASE_FOLDER || 'release'),
   };
 
   var CONFIG = {
-    LEGACY_IE: true, // IE < 9 支持
+    DEVICE: 'multi-device', // [multi-device, mobile, pc]
+    LEGACY_IE: 6, // IE 支持最低版本, 仅非 'mobile' 生效
+    ENV_LANG: [
+      'json',
+      'scss',
+      'pug',
+      'jade',
+      'js',
+      'css',
+    ],
     LINT: {
       HTML: true, // html 代码检查
       CSS: true, // css 代码检查
@@ -66,6 +83,7 @@ last update 2016.1.7
       ],
       release: [
         '_**',
+        '_*/*'
       ],
       lint: [
         '*{.,-}min.**',
@@ -83,6 +101,14 @@ last update 2016.1.7
       ],
     },
   };
+
+  if (CONFIG.DEVICE === 'mobile') {
+    CONFIG.LEGACY_IE = 9;
+  }
+
+
+  // output crossLangConfig
+  cacheConfig();
 
   var PLUGINS_CONFIG = {
     'fis-parser-node-sass': {
@@ -177,9 +203,11 @@ last update 2016.1.7
     },
     'fis-parser-jade': {
       pretty: true,
+      doctype: 'html',
     },
     'fis-parser-jade-to-html': {
       pretty: true,
+      doctype: 'html',
     },
     'fis3-lint-htmlhint': {},
     'fis3-lint-eslint-noisy': {
@@ -252,7 +280,7 @@ last update 2016.1.7
       parser: 'fis3-parser-typescript',
     },
     {
-      ext: 'jade',
+      ext: ['jade', 'pug'],
       type: 'html',
       parser: 'fis-parser-jade',
     },
@@ -283,15 +311,15 @@ last update 2016.1.7
     },
     {
       type: 'jpg',
-      optimizer: CONFIG.OPTIMIZER.JPEG && ENV.NODE > 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.JPEG && ENV.ENGINE >= 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'gif',
-      optimizer: CONFIG.OPTIMIZER.GIF && ENV.NODE > 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.GIF && ENV.ENGINE >= 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'svg',
-      optimizer: CONFIG.OPTIMIZER.SVG && ENV.NODE > 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
+      optimizer: CONFIG.OPTIMIZER.SVG && ENV.ENGINE >= 'v4.0.0' ? 'fis3-optimizer-imagemin' : null,
     },
     {
       type: 'html',
@@ -339,7 +367,120 @@ last update 2016.1.7
     });
   }
 
-  //help functions
+  // help functions
+  function type(obj) {
+    return Object.prototype.toString.call(obj).toLowerCase().match(/\[object (.+)\]/)[1];
+  }
+
+  function cacheConfig() {
+    var config = {
+      device: CONFIG.DEVICE,
+      legacyIe: CONFIG.LEGACY_IE
+    };
+
+    var crossLangParser = {
+      json: JSON.stringify,
+      scss: jsonToScss,
+      pug: function(config) {
+        return '-\n  env = ' + JSON.stringify(config) + ';\n';
+      },
+      jade: function(config) {
+        return '-\n  env = ' + JSON.stringify(config) + ';\n';
+      },
+      js: function(config) {
+        return 'var env = ' + JSON.stringify(config) + ';\n';
+      },
+      css: jsonToCss,
+    };
+
+    var changed = true;
+
+    try {
+      var oldConfig = JSON.parse(fs.readFileSync(ENV.SOURCE_FOLDER + '/_env/_env.json', EDITOR_CONFIG_CHARSET));
+      changed = !oldConfig || JSON.stringify(oldConfig) !== JSON.stringify(config);
+    } catch(_) {}
+
+    each(CONFIG.ENV_LANG, function(lang) {
+      var configFile = ENV.SOURCE_FOLDER + '/_env/_env.' + lang;
+      var parser = crossLangParser[lang] || JSON.stringify;
+      if (changed || !fs.existsSync(configFile)) {
+        writeFileSync(configFile, parser(config));
+      }
+    });
+  }
+
+  function each(obj, fn) {
+    if (type(obj) === 'array') {
+      obj.forEach(fn);
+    } else {
+      for (var key in obj) {
+        if(obj.hasOwnProperty(key)) {
+          fn(key, obj[key], obj);
+        }
+      }
+    }
+  }
+
+  function writeFileSync(file, context) {
+    if (mkdirsSync(file)) {
+      fs.writeFileSync(file, context, EDITOR_CONFIG_CHARSET);
+    } else {
+      console.error('write file ' + file + 'failed.');
+      process.exit(1);
+    }
+  }
+
+  function mkdirsSync(dirpath, mode) {
+    dirpath = path.normalize(dirpath);
+    if (dirpath.slice(-1) !== path.sep) {
+      dirpath = dirpath.slice(0, dirpath.lastIndexOf(path.sep) + 1);
+    }
+    if (!fs.existsSync(dirpath)) {
+      var pathtmp;
+      dirpath.split(path.sep).forEach(function(dirname) {
+        if (pathtmp) {
+          pathtmp = path.join(pathtmp, dirname);
+        } else {
+          pathtmp = dirname;
+        }
+        if (!fs.existsSync(pathtmp)) {
+          fs.mkdirSync(pathtmp, mode)
+        }
+      });
+    }
+    return fs.existsSync(dirpath);
+  }
+
+  function jsonToCss(obj) {
+    var css = [];
+    var EOL = EDITOR_CONFIG_EOL;
+    for(var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        var cssKey = INDENT + '--' + key.replace(/[A-Z]/g, function(s) {return '-' + s.toLowerCase()});
+        css.push(cssKey + ': ' + obj[key] + ';');
+      }
+    }
+
+    if (!css.length) {
+      return '';
+    }
+
+    return ':root {' + EOL + css.join(EOL) + EOL + '}' + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+  }
+
+  function jsonToScss(obj) {
+    var scss = [];
+    var EOL = EDITOR_CONFIG_EOL;
+    for(var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        var scssKey = '$env-' + key.replace(/[A-Z]/g, function(s) {return '-' + s.toLowerCase()});
+        scss.push(scssKey + ': ' + obj[key] + ';');
+      }
+    }
+
+    return scss.join(EOL) + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+  }
+
   function toArray(s) {
     return s.split ? s.split(',') : slice.call(s);
   }
@@ -504,7 +645,7 @@ last update 2016.1.7
 
   // standrad files should release
   // for inline include
-  $.match('_' + getExtsReg(['png', 'jpg', 'gif', 'css', 'js', 'html'], false), {
+  $.match('_' + getExtsReg(['png', 'jpg', 'gif', 'css', 'js', 'html', 'pug', 'jade'], false), {
     release: '/' + ENV.TEMP_RESOURCE_FOLDER + '/$0',
     relative: '/',
   });

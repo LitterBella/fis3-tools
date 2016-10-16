@@ -31,7 +31,7 @@ html {
   @if $device == pc {
     @if value-of($container-min-width) > 0 {
       min-width: $container-min-width * 1px;
-      @if $legacy-ie {
+      @if $legacy-ie <= 7 {
         *width: expression(this.offsetWidth < #{$container-min-width} ? "#{$container-min-width * 1px}" : "auto");
         *overflow: hidden;
       }
@@ -75,7 +75,7 @@ a {
   text-decoration: $link-decoration;
   color: $link-color;
 
-  @if $legacy-ie {
+  @if $legacy-ie <= 7 {
     *cursor: pointer;
 
     @if $link-color == "inherit" {
@@ -88,7 +88,7 @@ a {
     text-decoration: $link-hover-decoration;
     color: $link-hover-color;
 
-    @if $link-hover-color == "inherit" and $legacy-ie {
+    @if $link-hover-color == "inherit" and $legacy-ie <= 7 {
       *color: expression(this.parentNode.currentStyle.color);
     }
   }
@@ -123,7 +123,7 @@ textarea {
   font: inherit;
   color: inherit;
 
-  @if $legacy-ie {
+  @if $legacy-ie <= 7 {
     // font-style, line-height seems inherited in ie7
     *font-family: expression(this.parentNode.currentStyle.fontFamily);
     *font-size: expression(this.parentNode.currentStyle.fontSize);
@@ -139,7 +139,7 @@ textarea {
 
 input,
 textarea {
-  @if $legacy-ie {
+  @if $legacy-ie <= 8 {
     &[disabled],
     &[readonly] {
       @include input-disabled();
@@ -154,7 +154,7 @@ textarea {
 
 button,
 select {
-  @if $legacy-ie {
+  @if $legacy-ie <= 7 {
     &[disabled] {
       @include input-disabled();
     }
@@ -212,7 +212,7 @@ textarea {
   // https://github.com/twbs/bootstrap/issues/11586.
   -webkit-appearance: none;
 
-  @if $legacy-ie and $box-sizing != border-box {
+  @if $box-sizing != border-box {
     box-sizing: content-box;
   }
 }
@@ -235,7 +235,7 @@ h6 {
  * Address font sizes within `section` and `article` in Firefox 4+, Safari 5,
  * and Chrome.
  */
-@if $legacy-ie {
+@if $legacy-ie <= 7 {
   // normalize.css has this
   // h1 {
   //   font-size: 2em;
@@ -303,13 +303,13 @@ hr {
   list-style: none;
   padding-left: 0;
 
-  @if $legacy-ie {
+  @if $legacy-ie <= 7 {
     margin-left: 0;
   }
 }
 
 @include component(ol) {
-  @if $legacy-ie {
+  @if $legacy-ie <= 7 {
     margin-left: 0;
     padding-left: 40px;
   }
@@ -319,7 +319,7 @@ hr {
   dl {
     @extend %margin-bottom;
 
-    @if $legacy-ie {
+    @if $legacy-ie <= 7 {
       *margin-left: 0;
     }
   }
@@ -488,7 +488,7 @@ hr {
     border: 0; // 1
     //white-space: normal; // 2
 
-    @if $legacy-ie {
+    @if $legacy-ie <= 7 {
       *margin-left: -7px; // 3
     }
   }

@@ -1,6 +1,6 @@
 // http://cssmojo.com/the-very-latest-clearfix-reloaded/
 @mixin clearfix() {
-  @if $legacy-ie {
+  @if $legacy-ie <= 8 {
     @extend %clearfix;
   } @else {
     @include clearfix-morden();

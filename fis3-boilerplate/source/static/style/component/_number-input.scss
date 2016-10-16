@@ -33,7 +33,7 @@
     }
   }
 
-  @if $legacy-ie {
+  @if $legacy-ie <= 8 {
     .u-number-input-decrease-btn {
       left: 0;
     }
