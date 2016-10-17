@@ -12,9 +12,7 @@ last update 2016.1.7
   var EDITOR_CONFIG_CHARSET = 'utf-8';
   var EDITOR_CONFIG_EOL = '\n';
   var EDITOR_CONFIG_INSERT_FINAL_NEWLINE = true;
-  var EDITOR_CONFIG_INDENT_STYLE = 'space';
-  var EDITOR_CONFIG_INDENT_SIZE = 2;
-  var INDENT = Array(EDITOR_CONFIG_INDENT_SIZE + 1).join(EDITOR_CONFIG_INDENT_STYLE === 'tab' ? '\9' : ' ');
+  var INDENT = ' ';
 
   /* eslint comma-dangle: 0 */
   var ENV = {
