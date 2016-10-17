@@ -39,6 +39,12 @@ html {
   } @else {
     min-width: 320px;
   }
+
+  @if $legacy-ie <= 6 {
+    _background-attachment: fixed;
+    _background-image: url(about:blank);
+    _filter: expression(document.execCommand("BackgroundImageCache", false, true));
+  }
 }
 
 /* Sections

@@ -108,7 +108,10 @@ last update 2016.1.7
 
 
   // output crossLangConfig
-  cacheConfig();
+  cacheConfig({
+    device: CONFIG.DEVICE,
+    legacyIe: CONFIG.LEGACY_IE
+  });
 
   var PLUGINS_CONFIG = {
     'fis-parser-node-sass': {
@@ -229,7 +232,21 @@ last update 2016.1.7
             speed: 1,
           },
         }
-    }
+    },
+    'fis3-postprocessor-html': {
+      "brace_style": "collapse", // [collapse|expand|end-expand|none] Put braces on the same line as control statements (default), or put braces on own line (Allman / ANSI style), or just put end braces on own line, or attempt to keep them where they are
+      "end_with_newline": true, // End output with newline
+      "indent_char": " ", // Indentation character
+      "indent_handlebars": false, // e.g. {{#foo}}, {{/foo}}
+      "indent_inner_html": true, // Indent <head> and <body> sections
+      "indent_scripts": "normal", // [keep|separate|normal]
+      "indent_size": 2, // Indentation size
+      "max_preserve_newlines": 0, // Maximum number of line breaks to be preserved in one chunk (0 disables)
+      "preserve_newlines": true, // Whether existing line breaks before elements should be preserved (only works before elements, not inside tags or for text)
+      "unformatted": ["a", "span", "img", "code", "pre", "sub", "sup", "em", "strong", "b", "i", "u", "strike", "big", "small", "pre", "h1", "h2", "h3", "h4", "h5", "h6"], // List of tags that should not be reformatted
+      "extra_liners": [],
+      "wrap_line_length": 0 // Lines should wrap at next opportunity after this number of characters (0 disables)
+    },
   };
 
   var pluginTypes = [
@@ -325,6 +342,7 @@ last update 2016.1.7
       type: 'html',
       lint: CONFIG.LINT.HTML ? 'fis3-lint-htmlhint' : null,
       optimizer: CONFIG.OPTIMIZER.HTML ? 'fis-optimizer-htmlmin' : null,
+      postprocessor: CONFIG.OPTIMIZER.HTML ? null : 'fis3-postprocessor-html',
     }
   ];
 
@@ -372,11 +390,7 @@ last update 2016.1.7
     return Object.prototype.toString.call(obj).toLowerCase().match(/\[object (.+)\]/)[1];
   }
 
-  function cacheConfig() {
-    var config = {
-      device: CONFIG.DEVICE,
-      legacyIe: CONFIG.LEGACY_IE
-    };
+  function cacheConfig(config) {
 
     var crossLangParser = {
       json: JSON.stringify,
@@ -652,8 +666,9 @@ last update 2016.1.7
 
   // _*.html should not lint
   // _*.js should not lint
-  $.match('_' + getExtsReg(['html', 'js'], false), {
+  $.match('_*', {
     lint: null,
+    postprocessor: null,
   });
 
   $.match('::package', pluginToProperties('fis-spriter-csssprites'));

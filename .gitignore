@@ -1,4 +1,4 @@
-/template-fis3/release
-/template-fis3/release.log
-/template-fis3/dist
 /fis3-boilerplate/release
+/fis3-boilerplate/release.log
+/fis3-boilerplate/dist
+/fis3-boilerplate/source/_env/_*
