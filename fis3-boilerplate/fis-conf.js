@@ -12,7 +12,7 @@ last update 2016.1.7
   var EDITOR_CONFIG_CHARSET = 'utf-8';
   var EDITOR_CONFIG_EOL = '\n';
   var EDITOR_CONFIG_INSERT_FINAL_NEWLINE = true;
-  var INDENT = ' ';
+  var INDENT = '  ';
 
   /* eslint comma-dangle: 0 */
   var ENV = {
@@ -397,13 +397,13 @@ last update 2016.1.7
       scss: jsonToScss,
       less: jsonToLess,
       pug: function(config) {
-        return '-\n  env = ' + JSON.stringify(config) + ';\n';
+        return '-\n' + INDENT + 'env = ' + JSON.stringify(config) + ';' + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
       },
       jade: function(config) {
-        return '-\n  env = ' + JSON.stringify(config) + ';\n';
+        return '-\n' + INDENT + 'env = ' + JSON.stringify(config) + ';' + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
       },
       js: function(config) {
-        return 'var env = ' + JSON.stringify(config) + ';\n';
+        return 'var env = ' + JSON.stringify(config) + ';' + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
       },
     };
 
