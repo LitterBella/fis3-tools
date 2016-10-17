@@ -470,7 +470,7 @@ last update 2016.1.7
     var EOL = EDITOR_CONFIG_EOL;
     for(var key in obj) {
       if (obj.hasOwnProperty(key)) {
-        var cssKey = INDENT + '--' + key.replace(/[A-Z]/g, function(s) {return '-' + s.toLowerCase()});
+        var cssKey = INDENT + '--env-' + key.replace(/[A-Z]/g, function(s) {return '-' + s.toLowerCase()});
         css.push(cssKey + ': ' + obj[key] + ';');
       }
     }
