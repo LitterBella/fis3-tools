@@ -9,9 +9,9 @@ last update 2016.1.7
   'use strict';
   var fs = require('fs');
   var path = require('path');
-  var EDITOR_CONFIG_CHARSET = 'utf-8';
-  var EDITOR_CONFIG_EOL = '\n';
-  var EDITOR_CONFIG_INSERT_FINAL_NEWLINE = true;
+  var CHARSET = 'utf-8';
+  var EOL = '\n';
+  var INSERT_FINAL_NEWLINE = true;
   var INDENT = '  ';
 
   /* eslint comma-dangle: 0 */
@@ -397,20 +397,20 @@ last update 2016.1.7
       scss: jsonToScss,
       less: jsonToLess,
       pug: function(config) {
-        return '-\n' + INDENT + 'env = ' + JSON.stringify(config) + ';' + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+        return '-\n' + INDENT + 'env = ' + JSON.stringify(config) + ';' + (INSERT_FINAL_NEWLINE ? EOL : '');
       },
       jade: function(config) {
-        return '-\n' + INDENT + 'env = ' + JSON.stringify(config) + ';' + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+        return '-\n' + INDENT + 'env = ' + JSON.stringify(config) + ';' + (INSERT_FINAL_NEWLINE ? EOL : '');
       },
       js: function(config) {
-        return 'var env = ' + JSON.stringify(config) + ';' + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+        return 'var env = ' + JSON.stringify(config) + ';' + (INSERT_FINAL_NEWLINE ? EOL : '');
       },
     };
 
     var changed = true;
 
     try {
-      var oldConfig = JSON.parse(fs.readFileSync(ENV.SOURCE_FOLDER + '/_env/_env.json', EDITOR_CONFIG_CHARSET));
+      var oldConfig = JSON.parse(fs.readFileSync(ENV.SOURCE_FOLDER + '/_env/_env.json', CHARSET));
       changed = !oldConfig || JSON.stringify(oldConfig) !== JSON.stringify(config);
     } catch(_) {}
 
@@ -437,7 +437,7 @@ last update 2016.1.7
 
   function writeFileSync(file, context) {
     if (mkdirsSync(file)) {
-      fs.writeFileSync(file, context, EDITOR_CONFIG_CHARSET);
+      fs.writeFileSync(file, context, CHARSET);
     } else {
       console.error('write file ' + file + 'failed.');
       process.exit(1);
@@ -467,7 +467,6 @@ last update 2016.1.7
 
   function jsonToCss(obj) {
     var css = [];
-    var EOL = EDITOR_CONFIG_EOL;
     for(var key in obj) {
       if (obj.hasOwnProperty(key)) {
         var cssKey = INDENT + '--env-' + key.replace(/[A-Z]/g, function(s) {return '-' + s.toLowerCase()});
@@ -479,12 +478,11 @@ last update 2016.1.7
       return '';
     }
 
-    return ':root {' + EOL + css.join(EOL) + EOL + '}' + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+    return ':root {' + EOL + css.join(EOL) + EOL + '}' + (INSERT_FINAL_NEWLINE ? EOL : '');
   }
 
   function jsonToScss(obj) {
     var scss = [];
-    var EOL = EDITOR_CONFIG_EOL;
     for(var key in obj) {
       if (obj.hasOwnProperty(key)) {
         var scssKey = '$env-' + key.replace(/[A-Z]/g, function(s) {return '-' + s.toLowerCase()});
@@ -492,12 +490,11 @@ last update 2016.1.7
       }
     }
 
-    return scss.join(EOL) + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+    return scss.join(EOL) + (INSERT_FINAL_NEWLINE ? EOL : '');
   }
 
   function jsonToLess(obj) {
     var less = [];
-    var EOL = EDITOR_CONFIG_EOL;
     for(var key in obj) {
       if (obj.hasOwnProperty(key)) {
         var lessKey = '@env-' + key.replace(/[A-Z]/g, function(s) {return '-' + s.toLowerCase()});
@@ -505,7 +502,7 @@ last update 2016.1.7
       }
     }
 
-    return less.join(EOL) + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+    return less.join(EOL) + (INSERT_FINAL_NEWLINE ? EOL : '');
   }
 
   function toArray(s) {
