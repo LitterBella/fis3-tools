@@ -33,6 +33,7 @@ last update 2016.1.7
       'jade',
       'js',
       'css',
+      'less',
     ],
     LINT: {
       HTML: true, // html 代码检查
@@ -392,7 +393,9 @@ last update 2016.1.7
 
     var crossLangParser = {
       json: JSON.stringify,
+      css: jsonToCss,
       scss: jsonToScss,
+      less: jsonToLess,
       pug: function(config) {
         return '-\n  env = ' + JSON.stringify(config) + ';\n';
       },
@@ -402,7 +405,6 @@ last update 2016.1.7
       js: function(config) {
         return 'var env = ' + JSON.stringify(config) + ';\n';
       },
-      css: jsonToCss,
     };
 
     var changed = true;
@@ -491,6 +493,19 @@ last update 2016.1.7
     }
 
     return scss.join(EOL) + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
+  }
+
+  function jsonToLess(obj) {
+    var less = [];
+    var EOL = EDITOR_CONFIG_EOL;
+    for(var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        var lessKey = '@env-' + key.replace(/[A-Z]/g, function(s) {return '-' + s.toLowerCase()});
+        less.push(lessKey + ': ' + obj[key] + ';');
+      }
+    }
+
+    return less.join(EOL) + (EDITOR_CONFIG_INSERT_FINAL_NEWLINE ? EOL : '');
   }
 
   function toArray(s) {
