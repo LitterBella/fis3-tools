@@ -25,8 +25,7 @@
     var max = +meter.attr('max') || 1;
     var min = +meter.attr('min') || 0;
     if (max <= min) {
-      min = 0;
-      max = 1;
+      max = min;
     }
 
     var low = +meter.attr('low') || min;
@@ -64,7 +63,8 @@
       }
     }
 
-    meterBar.css('width', (value - min) / (max - min) * 100 + '%')[0].className = 'meter-bar ' + className;
+    var width = min === max ? 0 : (value - min) / (max - min) * 100 + '%';
+    meterBar.css('width', width)[0].className = 'meter-bar ' + className;
   }
 
   $.fn.meterValue = $.fn.meterVal = function(value) {
