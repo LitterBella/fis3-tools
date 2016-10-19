@@ -39,7 +39,7 @@
     }
     var optimum = +meter.attr('optimum') || 0;
     if (optimum < min || optimum > max) {
-      optimum = 0.5;
+      optimum = min + (max - min) / 2;
     }
 
     if (value > max) {
@@ -64,7 +64,7 @@
       }
     }
 
-    meterBar.css('width', value / (max - min) * 100 + '%')[0].className = 'meter-bar ' + className;
+    meterBar.css('width', (value - min) / (max - min) * 100 + '%')[0].className = 'meter-bar ' + className;
   }
 
   $.fn.meterValue = $.fn.meterVal = function(value) {
