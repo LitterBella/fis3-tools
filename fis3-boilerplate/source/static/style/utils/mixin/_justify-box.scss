@@ -1,4 +1,4 @@
-@mixin justify-box($children-selector: "> *", $shim-selector: if($legacy-ie <= 7, ".shim", "&::after")) {
+@mixin justify-box($children-selector: "& > *", $shim-selector: if($legacy-ie <= 7, "& .shim", "&::after")) {
   text-align: justify;
   font-size: 0;
 
