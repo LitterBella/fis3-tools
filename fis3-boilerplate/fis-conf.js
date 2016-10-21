@@ -30,7 +30,6 @@ last update 2016.1.7
       'json',
       'scss',
       'pug',
-      'jade',
       'js',
       'css',
       'less',
@@ -203,12 +202,8 @@ last update 2016.1.7
       presets: 'react',
       sourceMaps: ENV.FIS_MEDIA === 'dev',
     },
-    'fis-parser-jade': {
-      pretty: true,
-      doctype: 'html',
-    },
-    'fis-parser-jade-to-html': {
-      pretty: true,
+    'fis3-parser-pug': {
+      pretty: '  ',
       doctype: 'html',
     },
     'fis3-lint-htmlhint': {},
@@ -296,9 +291,9 @@ last update 2016.1.7
       parser: 'fis3-parser-typescript',
     },
     {
-      ext: ['jade', 'pug'],
+      ext: 'pug',
       type: 'html',
-      parser: 'fis-parser-jade',
+      parser: 'fis3-parser-pug',
     },
   ];
 
@@ -397,9 +392,6 @@ last update 2016.1.7
       scss: jsonToScss,
       less: jsonToLess,
       pug: function(config) {
-        return '-\n' + INDENT + 'env = ' + JSON.stringify(config) + ';' + (INSERT_FINAL_NEWLINE ? EOL : '');
-      },
-      jade: function(config) {
         return '-\n' + INDENT + 'env = ' + JSON.stringify(config) + ';' + (INSERT_FINAL_NEWLINE ? EOL : '');
       },
       js: function(config) {
@@ -669,7 +661,7 @@ last update 2016.1.7
 
   // standrad files should release
   // for inline include
-  $.match('_' + getExtsReg(['png', 'jpg', 'gif', 'css', 'js', 'html', 'pug', 'jade'], false), {
+  $.match('_' + getExtsReg(['png', 'jpg', 'gif', 'css', 'js', 'html', 'pug'], false), {
     release: '/' + ENV.TEMP_RESOURCE_FOLDER + '/$0',
     relative: '/',
   });

@@ -1,7 +1,7 @@
 doctype html
 include _env/_env
-include jade/_funcs
-include jade/_snippets
+include pug/_funcs
+include pug/_snippets
 
 -
   title = 'title';
@@ -21,7 +21,7 @@ head
   title= title
   + meta('keywords', keywords)
   + meta('description', description)
-  - each cssFile in cssFiles
+  each cssFile in cssFiles
     + css(cssFile)
 body
   .container hello world!
