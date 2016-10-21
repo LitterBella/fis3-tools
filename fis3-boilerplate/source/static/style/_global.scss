@@ -1,8 +1,12 @@
-// _config.scss
+// env
 @import "../../_env/env";
 
 $device: $env-device;
 $legacy-ie: $env-legacy-ie;
+$use-rem: $env-use-rem;
+$color-primary: $env-brand;
+
+// variables
 $box-sizing: border-box; // set to null to disable box-sizing
 
 $design-width: 720; // psd width

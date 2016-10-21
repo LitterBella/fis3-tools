@@ -26,6 +26,8 @@ last update 2016.10.21
   var CONFIG = {
     DEVICE: 'multi-device', // [multi-device, mobile, pc]
     LEGACY_IE: 6, // IE 支持最低版本, 仅非 'mobile' 生效
+    USE_REM: !false, // REM
+    BRAND_COLOR: '', // 主色调，用于浏览器标题栏等
     ENV_LANG: [
       'json',
       'scss',
@@ -104,10 +106,16 @@ last update 2016.10.21
     CONFIG.LEGACY_IE = 9;
   }
 
+  if (CONFIG.LEGACY_IE < 9 && CONFIG.USE_REM) {
+    console.warn('[33m[WARNI][39m rem unit might not work with ie < 9.');
+  }
+
   // output crossLangConfig
   cacheConfig({
     device: CONFIG.DEVICE,
-    legacyIe: CONFIG.LEGACY_IE
+    legacyIe: CONFIG.LEGACY_IE,
+    useRem: CONFIG.USE_REM,
+    brand: CONFIG.BRAND_COLOR || null,
   });
 
   var PLUGINS_CONFIG = {
@@ -231,12 +239,12 @@ last update 2016.10.21
       "end_with_newline": true, // End output with newline
       "indent_char": " ", // Indentation character
       "indent_handlebars": false, // e.g. {{#foo}}, {{/foo}}
-      "indent_inner_html": true, // Indent <head> and <body> sections
+      "indent_inner_html": false, // Indent <head> and <body> sections
       "indent_scripts": "normal", // [keep|separate|normal]
       "indent_size": 2, // Indentation size
       "max_preserve_newlines": 0, // Maximum number of line breaks to be preserved in one chunk (0 disables)
       "preserve_newlines": true, // Whether existing line breaks before elements should be preserved (only works before elements, not inside tags or for text)
-      "unformatted": ["a", "span", "img", "code", "pre", "sub", "sup", "em", "strong", "b", "i", "u", "strike", "big", "small", "pre", "h1", "h2", "h3", "h4", "h5", "h6"], // List of tags that should not be reformatted
+      "unformatted": ["a", "span", "img", "code", "pre", "sub", "sup", "em", "strong", "b", "i", "u", "strike", "big", "small", "pre", "h1", "h2", "h3", "h4", "h5", "h6", "script", "style"], // List of tags that should not be reformatted
       "extra_liners": [],
       "wrap_line_length": 0 // Lines should wrap at next opportunity after this number of characters (0 disables)
     },
@@ -335,7 +343,10 @@ last update 2016.10.21
       type: 'html',
       lint: CONFIG.LINT.HTML ? 'fis3-lint-htmlhint' : null,
       optimizer: CONFIG.OPTIMIZER.HTML ? 'fis-optimizer-htmlmin' : null,
-      postprocessor: CONFIG.OPTIMIZER.HTML ? null : 'fis3-postprocessor-html',
+      postprocessor: CONFIG.OPTIMIZER.HTML ? null : [
+        // 'fis3-postprocessor-posthtml-beautify',
+        'fis3-postprocessor-html'
+      ],
     }
   ];
 

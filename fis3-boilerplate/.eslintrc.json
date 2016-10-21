@@ -480,7 +480,7 @@
     "require-jsdoc": 0,
 
     // Enforce or Disallow Semicolons
-    "semi": 2,
+    "semi": 1,
 
     // Enforce spacing before and after semicolons
     "semi-spacing": 2,

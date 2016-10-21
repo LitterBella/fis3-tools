@@ -36,10 +36,16 @@ mixin header(config)
   if config.device != 'pc'
     + meta('format-detection', formatDetection)
     + meta('msapplication-tap-highlight', 'no')
+  if config.brand
+    + meta('theme-color', config.brand)
+    + meta('msapplication-navbutton-color', config.brand)
+
   if config.device != 'mobile' && config.legacyIe < 9
     <!--[if lt IE 9]>
     + js('/static/js/vendors/html5shiv/html5shiv-3.7.3.min.js')
     <![endif]-->
+  if config.useRem
+    + js('/static/js/component/_rem.min.js?__inline')
 
 mixin htmlStartTag(config)
   if config.device != 'mobile' && config.legacyIe < 9
@@ -49,7 +55,7 @@ mixin htmlStartTag(config)
       <!--[if IE 7]><html class="lt-ie9 lt-ie8 ie7" lang="zh-cmn-Hans"><![endif]-->
     if config.legacyIe < 9
       <!--[if IE 8]><html class="lt-ie9 ie8" lang="zh-cmn-Hans"><![endif]-->
-    <!--[if gt IE 8]><!--><html lang="zh-cmn-Hans"><!--<![endif]-->
+    <!--[if gte IE 9]><!--><html lang="zh-cmn-Hans"><!--<![endif]-->
   else
     <html lang="zh-cmn-Hans">
 
