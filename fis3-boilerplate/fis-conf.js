@@ -1,8 +1,8 @@
 /*!
 fis-conf.js
 by fisker Cheung <lionkay@gmail.com>
-verion 0.9
-last update 2016.1.7
+verion 0.10
+last update 2016.10.21
 */
 
 ;(function($) {
@@ -104,7 +104,6 @@ last update 2016.1.7
     CONFIG.LEGACY_IE = 9;
   }
 
-
   // output crossLangConfig
   cacheConfig({
     device: CONFIG.DEVICE,
@@ -136,18 +135,18 @@ last update 2016.1.7
         'and_uc >=1',
         'android >= 2.1',
         'bb >= 7',
-        'chrome >= 4',  // 4
+        'chrome >= 4',  // default: >= 4
                         // >=5: strip -webkit for border-radius
         'edge >= 12',
-        'firefox >= 16', // 2
+        'firefox >= 16', // default: >= 2
                          // >=16: strip -moz for linear-gradient
                          // >=16: strip -moz for animation
         'ie_mob >= 10',
         'ios_saf >= 3.2',
         'op_mini >= 5',
-        'op_mob >= 12.1', // 10
+        'op_mob >= 12.1', // default: >= 10
                           // >=12.1: strip -o for linear-gradient
-        'opera >= 12.1', // 9
+        'opera >= 12.1', // default: >= 9
                          // >=12.1: strip -o for animation
         'safari >= 3.1',
       ]),
