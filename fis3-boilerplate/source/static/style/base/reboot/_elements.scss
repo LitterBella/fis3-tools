@@ -118,6 +118,16 @@ input {
   padding: 0;
 }
 
+::-webkit-datetime-edit-fields-wrapper {
+  padding: 0;
+}
+
+::-webkit-file-upload-button {
+  padding: 0 6px;
+  border-width: 1px;
+  background-color: transparent;
+}
+
 input,
 button,
 optgroup,
@@ -139,6 +149,10 @@ textarea {
 
   // iOS adds rounded borders by default
   border-radius: 0;
+}
+
+input[type="file"] {
+  border: 0;
 }
 
 
