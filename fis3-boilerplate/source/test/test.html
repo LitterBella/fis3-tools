@@ -39,9 +39,9 @@
       }
 
       .container {
-        padding-top: 15px;
-        padding-right: 15px;
+        padding: 15px;
       }
+
       .icons {
         @include clear-spacing();
       }
@@ -51,7 +51,7 @@
         border-radius: 5px;
         color: #fff;
         padding: 0 10px;
-        margin: 10px;
+        margin: 5px 1px;
         height: 2.5rem;
       }
       $icons: (
@@ -84,7 +84,14 @@
       }
 
       .justify-box {
-        @include justify-box("> div");
+        @include justify-box(".content");
+        border: 1px solid #333;
+        background: #f00;
+
+        .content {
+          background: lightgreen;
+          padding: 10px;
+        }
       }
 
       .ellipsis {
@@ -104,23 +111,37 @@
       }
 
       .clear-spacing {
-        @include clear-spacing('div,span');
+        @include clear-spacing("> *");
 
-        div,
-        span {
-          display: inline-block;
+        > * {
           width: 100px;
           height: 50px;
-          background: #f1c;
-          border: 1px solid #000;
-
-          &:nth-child(2n) {
-            background: #1cd;
-          }
+          line-height: 50px;
+          border-style: solid;
+          border-width: 1px;
+          border-color: darkred #f00 darkgoldenrod #00f;
+          padding: 0;
+          text-align: center;
+          box-sizing: border-box;
+          background: #fff;
         }
 
-        img {
-          max-width: none;
+        > * {
+          *width: 100px;
+          *height: 50px;
+        }
+        > button {
+          *width: 102px;
+          *height: 52px;
+        }
+        > input[type="text"] {
+          *width: 100px;
+          *margin-top: -1px;
+        }
+        > input[type="submit"],
+        > input[type="button"] {
+          *width: 102px;
+          *height: 52px;
         }
       }
 
@@ -160,12 +181,17 @@
     </div>
 
     <div class="container-fluid">
-      <div class="container justify-box">
-        <div>content 1<br>content<br> 1content 1<br></div>
-        <div>content 2</div>
-        <div>content 3</div>
-        <div class="shim"></div>
-      </div>
+    <div class="container">
+      <div class="justify-box">
+        <div class="content">
+          content 1<br>
+          content 1<br>
+          content 1
+        </div>
+        <div class="content">content 2</div>
+        <div class="content">content 3</div>
+        <div class="shim"></div></div>
+    </div>
     </div>
 
     <div class="ellipsis">ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis</div>
@@ -175,27 +201,52 @@
     </div>
 
     <div class="clear-spacing">
-      <div><img src="http://placeholder.qiniudn.com/800x600"></div>
-      <span>1</span>
-      <div>1</div>
-      <span>1</span>
-      <span>1</span>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <span>1</span>
-      <div>1</div>
-      <span>1</span>
-      <span>1</span>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <span>1</span>
-      <div>1</div>
-      <span>1</span>
-      <span>1</span>
-      <div>1</div>
-      <div>1</div>
+      <input type="submit">
+      <a href="##">惆怅</a>
+      <a href="##">淡定</a>
+      <a href="##">热血</a>
+
+
+      <img src="http://placehold.it/100x50">
+      <span>span</span>
+      <div>div</div>
+      <button type="button">button</button>
+      <a href="###">a</a>
+      <input type="text" value="input">
+      <input type="button" value="input">
+      <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+      <progress min="0" max="100" value="20"></progress>
+
+
+      <img src="http://placehold.it/100x50">
+      <img src="http://placehold.it/100x50">
+      <span>span</span>
+      <span>span</span>
+      <div>div</div>
+      <div>div</div>
+      <button type="button">button</button>
+      <button type="button">button</button>
+      <a href="###">a</a>
+      <a href="###">a</a>
+      <input type="text" value="input">
+      <input type="text" value="input">
+      <input type="button" value="input">
+      <input type="button" value="input">
+      <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+      <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+      <progress min="0" max="100" value="20"></progress>
+      <progress min="0" max="100" value="20"></progress>
+
+
+      <img src="http://placehold.it/100x50">
+      <span>span</span>
+      <div>div</div>
+      <button type="button">button</button>
+      <a href="###">a</a>
+      <input type="text" value="input">
+      <input type="button" value="input">
+      <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+      <progress min="0" max="100" value="20"></progress>
     </div>
 
     <div class="font-face">隶书哈</div>

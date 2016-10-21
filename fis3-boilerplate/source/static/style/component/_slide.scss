@@ -1,0 +1,24 @@
+.u-slide {
+  position: relative;
+  overflow: hidden;
+
+  $selector: &;
+
+  &-wrap {
+    @include clear-spacing("#{$selector}-item");
+    white-space: nowrap;
+    width: 100%;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  &-item {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &-pagnation {
+    position: absolute;
+    text-align: center;
+  }
+}
