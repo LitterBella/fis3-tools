@@ -16,7 +16,7 @@ last update 2016.10.21
 
   /* eslint comma-dangle: 0 */
   var ENV = {
-    FIS_MEDIA: process.env.FIS_MEDIA || $.project.currentMedia(),
+    FIS_MEDIA: process.env.NODE_ENV || $.project.currentMedia(),
     ENGINE: process.version, // node 版本
     TEMP_RESOURCE_FOLDER: process.env.TEMP_RESOURCE_FOLDER || '$$$TEMP_RESOURCE$$$',
     SOURCE_FOLDER: (process.env.SOURCE_FOLDER || 'source'),
@@ -116,6 +116,7 @@ last update 2016.10.21
     legacyIe: CONFIG.LEGACY_IE,
     useRem: CONFIG.USE_REM,
     brand: CONFIG.BRAND_COLOR || null,
+    debug: ENV.FIS_MEDIA === 'dev',
   });
 
   var PLUGINS_CONFIG = {
@@ -371,7 +372,7 @@ last update 2016.10.21
     $.set('livereload.hostname', CONFIG.LIVERELOAD.HOSTNAME);
   }
 
-  if (ENV.FIS_MEDIA === 'prod') {
+  if (ENV.FIS_MEDIA === 'production') {
     $.set('project.md5Length', CONFIG.HASH.LENGTH);
     $.set('project.md5Connector', CONFIG.HASH.CONNECTOR);
     CONFIG.HASH.USE.forEach(function(reg) {
@@ -637,7 +638,7 @@ last update 2016.10.21
     var processor = {};
 
     // lint can't used on preProcessor
-    // and we only lint for prodution
+    // and we only lint for production
     if (data.lint) {
       $.match(getExtsReg(toArray(data.type)), {
         lint: getPlugin(data.lint)
@@ -685,7 +686,7 @@ last update 2016.10.21
 
   $.match('::package', pluginToProperties('fis-spriter-csssprites'));
 
-  if (ENV.FIS_MEDIA === 'prod') {
+  if (ENV.FIS_MEDIA === 'production') {
     $.match('**', pluginToProperties('fis3-deploy-local-deliver'));
   }
 
@@ -694,4 +695,8 @@ last update 2016.10.21
       optimizer: null
     });
   }
+
+  // a empty config to avoid warning
+  $.media(ENV.NODE_ENV).match('fisker', {});
+
 })(global.fis);

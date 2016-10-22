@@ -11,7 +11,7 @@ export DIST_FOLDER=dist
 export DIST_FILETYPE=zip # zip,tar.gz  ; tar.gz do NOT support chinese filename
 export LOG_FILE=release.log
 export TEMP_RESOURCE_FOLDER=\$\$\$TEMP_RESOURCE\$\$\$
-export FIS_MEDIA=dev
+export NODE_ENV=dev
 
 function main() {
   echo "==============================================================================="
@@ -42,7 +42,7 @@ function main() {
 }
 
 function release() {
-  export FIS_MEDIA=prod
+  export NODE_ENV=production
   clear
 
   # remove release file and log file
@@ -56,7 +56,7 @@ function release() {
   # release file
   echo "..............................................................................."
   echo "releasing files"
-  fis3 release $FIS_MEDIA --dest release --lint --unique --root "./$SOURCE_FOLDER" --file "./$CONFIG_FILE" --verbose --no-color > "./$LOG_FILE" || error
+  fis3 release $NODE_ENV --dest release --lint --unique --root "./$SOURCE_FOLDER" --file "./$CONFIG_FILE" --verbose --no-color > "./$LOG_FILE" || error
 
   if [ -d "./$RELEASE_FOLDER/$TEMP_RESOURCE_FOLDER" ]; then
     rm -r "./$RELEASE_FOLDER/$TEMP_RESOURCE_FOLDER"
@@ -103,7 +103,7 @@ function archive() {
 
 #debug
 function debug() {
-  export FIS_MEDIA=dev
+  export NODE_ENV=dev
   clear
 
   # check java server
@@ -140,7 +140,7 @@ function debug() {
   # release
   echo "..............................................................................."
   echo "release files"
-  fis3 release $FIS_MEDIA --root "./$SOURCE_FOLDER" --verbose --no-color > "./$LOG_FILE" || error
+  fis3 release $NODE_ENV --root "./$SOURCE_FOLDER" --verbose --no-color > "./$LOG_FILE" || error
   rm "./$LOG_FILE"
   echo "..........................................................................done."
   echo -e "\n"
@@ -155,7 +155,7 @@ function debug() {
   # start livereload
   echo "..............................................................................."
   echo "watching files"
-  fis3 release $FIS_MEDIA --root "./$SOURCE_FOLDER" --watch --live --verbose
+  fis3 release $NODE_ENV --root "./$SOURCE_FOLDER" --watch --live --verbose
   pause
 }
 
