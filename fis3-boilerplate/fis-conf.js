@@ -26,7 +26,7 @@ last update 2016.10.21
   var CONFIG = {
     DEVICE: 'multi-device', // [multi-device, mobile, pc]
     LEGACY_IE: 6, // IE 支持最低版本, 仅非 'mobile' 生效
-    USE_REM: !false, // REM
+    USE_REM: false, // REM
     BRAND_COLOR: '', // 主色调，用于浏览器标题栏等
     ENV_LANG: [
       'json',

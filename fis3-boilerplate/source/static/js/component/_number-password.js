@@ -15,11 +15,11 @@
     var displaySpan = $('<span class="' + DISPLAY_CLASS + '">').appendTo(container[0]);
     var digitSpans = [];
     for (var i =0; i < maxlength; i ++) {
-      digitSpans.push('<span class="' + DIGIT_CLASS + '">&nbsp;</span>');
+      digitSpans.push('<span class="' + DIGIT_CLASS + '"></span>');
     }
 
     digitSpans = $(digitSpans.join('')).appendTo(displaySpan[0]);
-    if (maxlength !== 6) {
+    if (maxlength && maxlength !== 6) {
       digitSpans.css({
         width: 1 / maxlength * 100 + '%'
       });
