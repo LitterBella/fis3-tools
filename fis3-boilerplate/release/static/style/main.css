@@ -735,11 +735,6 @@ select:disabled {
   background: transparent;
 }
 
-[type="range"][orient="vertical"] {
-  width: 1.5em;
-  height: 12em;
-}
-
 ::-moz-range-track {
   background: #a9a9a9;
 }

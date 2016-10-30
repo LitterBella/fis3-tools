@@ -204,10 +204,10 @@ select {
   }
 }
 
-[type="range"][orient="vertical"] {
-  width: 1.5em;
-  height: 12em;
-}
+// [type="range"][orient="vertical"] {
+//   width: 1.5em;
+//   height: 12em;
+// }
 
 ::-moz-range-track {
   background: $input-border-color;

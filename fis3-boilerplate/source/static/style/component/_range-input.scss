@@ -31,30 +31,30 @@
     background: currentcolor;
   }
 
-  &.is-vertical {
-    width: 1.5em;
-    height: 12em;
+  // &.is-vertical {
+  //   width: 1.5em;
+  //   height: 12em;
 
-    input {
-      height: 100%;
-    }
+  //   input {
+  //     height: 100%;
+  //   }
 
-    .u-track {
-      left: 50%;
-      right: auto;
-      top: .5em;
-      bottom: .5em;
-      margin-top: 0;
-      margin-left: -.1em;
-      height: auto;
-      width: .2em;
-    }
+  //   .u-track {
+  //     left: 50%;
+  //     right: auto;
+  //     top: .5em;
+  //     bottom: .5em;
+  //     margin-top: 0;
+  //     margin-left: -.1em;
+  //     height: auto;
+  //     width: .2em;
+  //   }
 
-    .u-indicate {
-      height: auto;
-      width: 100%;
-    }
-  }
+  //   .u-indicate {
+  //     height: auto;
+  //     width: 100%;
+  //   }
+  // }
 
   &.is-inited {
     position: relative;
