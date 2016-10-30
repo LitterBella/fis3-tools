@@ -151,23 +151,23 @@ textarea {
   border-radius: 0;
 }
 
-input[type="file"] {
-  border: 0;
-}
-
-
-
 input,
 textarea {
   @if $legacy-ie <= 8 {
-    &[disabled],
-    &[readonly] {
+    &[disabled] {
       @include input-disabled();
     }
   }
 
-  &:disabled,
+  &:disabled {
+    @include input-disabled();
+  }
+
   &:read-only {
+    @include input-disabled();
+  }
+
+  &[readonly] {
     @include input-disabled();
   }
 }
@@ -183,6 +183,38 @@ select {
   &:disabled{
     @include input-disabled();
   }
+}
+
+[type="range"] {
+  border: 0;
+  background: transparent;
+  height: 1.5em;
+  width: 12em;
+
+  &:disabled {
+    background: transparent;
+  }
+
+  &:read-only {
+    background: transparent;
+  }
+
+  &[readonly] {
+    background: transparent;
+  }
+}
+
+[type="range"][orient="vertical"] {
+  width: 1.5em;
+  height: 12em;
+}
+
+::-moz-range-track {
+  background: $input-border-color;
+}
+
+[type="file"] {
+  border: 0;
 }
 
 [type="number"] {

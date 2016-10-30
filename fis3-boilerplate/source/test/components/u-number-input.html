@@ -2,34 +2,29 @@
 <link rel="import" href="/html/snippets/_html-start-tag.pug?__inline">
   <head>
     <link rel="import" href="/html/snippets/_head.pug?__inline">
-    <title>number -password</title>
+    <title>number input</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <link href="/static/style/main.scss" rel="stylesheet">
     <style type="text/x-scss">
       @import '../../static/style/global';
-      @import '../../static/style/component/number-password';
+      @import '../../static/style/component/number-input';
 
       .demo {
         padding:  15px;
-      }
-      .u-number-password {
-        display: block;
-        width: 18em;
-        height: 3em;
       }
     </style>
   </head>
   <body>
 
     <div class="container demo">
-      <legend>.u-number-password (css、js)</legend>
-      <label class="u-number-password">
-        <input type="password" maxlength="6">
+      <legend>.u-number-input (css、js)</legend>
+      <label class="u-number-input">
+        <input type="number" min="1" max="10" step="1">
       </label>
     </div>
 
     <script src="../../static/js/vendors/jquery/jquery-1.12.4.min.js"></script>
-    <script src="../../static/js/component/_number-password.js?__inline"></script>
+    <script src="../../static/js/component/_number-input.js?__inline"></script>
   </body>
 <link rel="import" href="/html/snippets/_html-end-tag.pug?__inline">

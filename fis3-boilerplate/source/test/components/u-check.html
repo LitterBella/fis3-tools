@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<link rel="import" href="/html/snippets/_html-start-tag.pug?__inline">
+  <head>
+    <link rel="import" href="/html/snippets/_head.pug?__inline">
+    <title>check</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="/static/style/main.scss" rel="stylesheet">
+    <style type="text/x-scss">
+      @import '../../static/style/global';
+      @import '../../static/style/component/check';
+
+      .demo {
+        padding:  15px;
+      }
+
+      .u-check {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container demo">
+      <legend>.u-check (css)</legend>
+      <label class="u-check">
+        <input type="checkbox">
+        <i class="u-indicate"></i>
+        unchecked
+      </label>
+      <label class="u-check">
+        <input type="checkbox" checked>
+        <i class="u-indicate"></i>
+        checked
+      </label>
+      <label class="u-check">
+        <input type="checkbox">
+        <i class="u-indicate"></i>
+      </label>
+      <label class="u-check no-text">
+        <input type="checkbox" checked>
+        <i class="u-indicate"></i>
+      </label>
+      <label class="u-check">
+        <input type="radio" name="_name_1">
+        <i class="u-indicate"></i>
+        unchecked
+      </label>
+      <label class="u-radio">
+        <input type="radio" name="_name_1" checked>
+        <i class="u-indicate"></i>
+        checked
+      </label>
+      <label class="u-check no-text">
+        <input type="radio" name="_name_2" checked>
+        <i class="u-indicate"></i>
+      </label>
+      <label class="u-check no-text">
+        <input type="radio" name="_name_2">
+        <i class="u-indicate"></i>
+      </label>
+      <label class="u-check">
+        <input type="checkbox" disabled>
+        <i class="u-indicate"></i>
+        disabled
+      </label>
+      <label class="u-check">
+        <input type="radio" disabled>
+        <i class="u-indicate"></i>
+        disabled
+      </label>
+      <label class="u-check">
+        <input type="checkbox" checked disabled>
+        <i class="u-indicate"></i>
+        disabled
+      </label>
+      <label class="u-check">
+        <input type="radio" checked disabled>
+        <i class="u-indicate"></i>
+        disabled
+      </label>
+    </div>
+
+  </body>
+<link rel="import" href="/html/snippets/_html-end-tag.pug?__inline">

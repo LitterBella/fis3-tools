@@ -548,7 +548,8 @@ textarea {
 
 label,
 button,
-[role="button"] [type="button"],
+[role="button"]
+[type="button"],
 [type="reset"],
 [type="submit"],
 [type="file"],
@@ -558,6 +559,22 @@ button,
 
 ::-webkit-file-upload-button {
   cursor: pointer;
+}
+
+::-webkit-slider-thumb {
+  cursor: pointer;
+}
+
+::-moz-range-thumb {
+  cursor: pointer;
+}
+
+[disabled]::-webkit-slider-thumb {
+  cursor: default;
+}
+
+[disabled]::-moz-range-thumb {
+  cursor: default;
 }
 
 button:focus {
@@ -663,22 +680,26 @@ textarea {
   border-radius: 0;
 }
 
-input[type="file"] {
-  border: 0;
-}
-
 input[disabled],
-input[readonly],
-textarea[disabled],
-textarea[readonly] {
+textarea[disabled] {
   color: #545454;
   background: #ebebe4;
 }
 
 input:disabled,
+textarea:disabled {
+  color: #545454;
+  background: #ebebe4;
+}
+
 input:read-only,
-textarea:disabled,
 textarea:read-only {
+  color: #545454;
+  background: #ebebe4;
+}
+
+input[readonly],
+textarea[readonly] {
   color: #545454;
   background: #ebebe4;
 }
@@ -693,6 +714,38 @@ button:disabled,
 select:disabled {
   color: #545454;
   background: #ebebe4;
+}
+
+[type="range"] {
+  border: 0;
+  background: transparent;
+  height: 1.5em;
+  width: 12em;
+}
+
+[type="range"]:disabled {
+  background: transparent;
+}
+
+[type="range"]:read-only {
+  background: transparent;
+}
+
+[type="range"][readonly] {
+  background: transparent;
+}
+
+[type="range"][orient="vertical"] {
+  width: 1.5em;
+  height: 12em;
+}
+
+::-moz-range-track {
+  background: #a9a9a9;
+}
+
+[type="file"] {
+  border: 0;
 }
 
 [type="number"] {
