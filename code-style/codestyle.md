@@ -3,6 +3,8 @@ Bootstrap — https://github.com/mdo/code-guide
 
 Github — http://primercss.io/guidelines/
 
+Airbnb — https://github.com/airbnb/css
+
 
 # js
 Airbnb — https://github.com/airbnb/javascript
