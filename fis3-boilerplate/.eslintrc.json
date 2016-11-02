@@ -14,11 +14,17 @@
     "es6": true
   },
   "globals": {
+    "module": true,
+    "require": true,
+    "import": true,
+    "define": true,
     "__inline": true
   },
   // eslint:recommended see http://eslint.org/docs/rules/
   "extends": "eslint:recommended",
   "rules": {
+    "no-cond-assign": 1,
+
     // warn calls to methods of the `console` object
     "no-console": 1,
 
