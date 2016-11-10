@@ -3,7 +3,7 @@
     @include center-block();
     @include clearfix();
 
-    @if $use-border-box and value-of($container-padding) > 0 {
+    @if $box-sizing == border-box and value-of($container-padding) > 0 {
       padding-left: $container-padding;
       padding-right: $container-padding;
     }

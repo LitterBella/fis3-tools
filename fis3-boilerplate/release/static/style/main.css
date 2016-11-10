@@ -548,8 +548,7 @@ textarea {
 
 label,
 button,
-[role="button"]
-[type="button"],
+[role="button"] [type="button"],
 [type="reset"],
 [type="submit"],
 [type="file"],
