@@ -497,6 +497,9 @@ hr {
     // https://github.com/necolas/normalize.css/issues/506
     border-collapse: collapse;
     // border-spacing: 0;
+
+    // remove float on table[align=left|right]
+    float: none;
   }
 
   caption {
