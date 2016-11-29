@@ -213,7 +213,10 @@ select {
   background: $input-border-color;
 }
 
-[type="file"] {
+[type="checkbox"],
+[type="file"],
+[type="radio"],
+[type="range"] {
   border: 0;
 }
 
