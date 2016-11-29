@@ -109,6 +109,7 @@ img {
   // Get rid of gap under images by making them display: inline-block; by default
   // https://github.com/zurb/foundation-sites/blob/develop/scss/_global.scss
   max-width: 100%;
+  width: auto; // on ie8 appendChild may cause max-width incorrect
   height: auto;
   display: inline-block;
 }
