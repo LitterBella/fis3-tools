@@ -230,6 +230,13 @@ select {
   // Apply a disabled cursor for radios and checkboxes.
   //
   // Note: Neither radios nor checkboxes can be readonly.
+
+  @if $legacy-ie <= 8 {
+    &[disabled] {
+      cursor: not-allowed;
+    }
+  }
+
   &:disabled {
     cursor: not-allowed;
   }
