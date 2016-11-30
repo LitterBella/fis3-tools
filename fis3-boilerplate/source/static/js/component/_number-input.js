@@ -1,13 +1,25 @@
+  var NUMBER_INPUT_SELECTOR = '.u-number-input';
+
   function initNumberInput() {
-    var container = $(this).addClass('is-inited');
+    var container = $(this);
+    if (container.hasClass('is-inited')) {
+      return;
+    }
+
+    container.addClass('is-inited');
+
     var input = $('input', container[0]);
     var btnDecrease = $('<button class="u-number-input-decrease-btn" type="button">-</button>').appendTo(container);
     var btnIncrease = $('<button class="u-number-input-increase-btn" type="button">+</button>').appendTo(container);
-    var min = input.attr('min');
-    min = min === "0" ? 0 : (+min || Number.MIN_VALUE);
-    var max = input.attr('max');
-    max = max === "0" ? 0 : (+max || Number.MAX_VALUE);
-    var step = +input.attr('step') || 1;
+
+    function getFloatProperty(prop, defalutValue) {
+      var value = parseFloat(input.attr(prop));
+      return isFinite(value) ? value : defalutValue;
+    }
+
+    var min = getFloatProperty('min', Number.MIN_VALUE);
+    var max = getFloatProperty('max', Number.MAX_VALUE);
+    var step = getFloatProperty('step', 1);
 
     function increaseValue(valueIncrese) {
       valueIncrese = valueIncrese || 0;
@@ -44,5 +56,5 @@
   }
 
   $(function() {
-    $('.u-number-input').each(initNumberInput);
+    $(NUMBER_INPUT_SELECTOR).each(initNumberInput);
   });

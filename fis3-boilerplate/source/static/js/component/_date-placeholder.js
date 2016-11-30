@@ -1,5 +1,6 @@
   // TODO: webkit-only
 
+  var INPUT_NO_PLACEHOLDER_SELECTOR = '[type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]';
   function supportPlaceholder() {
     var el = $(this);
     var placeholder = el.attr('placeholder');
@@ -23,5 +24,5 @@
   }
 
   $(function() {
-    $('[type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"]').each(supportPlaceholder);
+    $(INPUT_NO_PLACEHOLDER_SELECTOR).each(supportPlaceholder);
   });
