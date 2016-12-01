@@ -16,3 +16,22 @@
     }
   }
 }
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+
+  th,
+  td {
+    border: 1px solid $table-border-color;
+    padding: $root-font-size * .5;
+  }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: $table-strip-color;
+}
+
+.table-hover tbody tr:hover {
+  background-color: $table-hover-color;
+}
