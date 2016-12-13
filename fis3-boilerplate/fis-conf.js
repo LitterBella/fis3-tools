@@ -121,19 +121,19 @@ last update 2016.10.21
 
   var PLUGINS_CONFIG = {
     'fis-parser-node-sass': {
-        includePaths: [],
-        indentType: 'space',
-        indentWidth: 2,
-        linefeed: 'lf',
-        omitSourceMapUrl: false,
-        //outFile: '',
-        outputStyle: 'expanded', //nested, expanded, compact, compressed
-        precision: 8, //default 5
-        sourceComments: ENV.FIS_MEDIA === 'dev',
-        sourceMap: false,
-        sourceMapContents: true,
-        sourceMapEmbed: ENV.FIS_MEDIA === 'dev',
-        //sourceMapRoot: ''
+      includePaths: [],
+      indentType: 'space',
+      indentWidth: 2,
+      linefeed: 'lf',
+      omitSourceMapUrl: false,
+      //outFile: '',
+      outputStyle: 'expanded', //nested, expanded, compact, compressed
+      precision: 8, //default 5
+      sourceComments: ENV.FIS_MEDIA === 'dev',
+      sourceMap: false,
+      sourceMapContents: true,
+      sourceMapEmbed: ENV.FIS_MEDIA === 'dev',
+      //sourceMapRoot: ''
     },
     'fis-parser-stylus2': {},
     'fis-parser-less-2.x': {},
@@ -226,8 +226,7 @@ last update 2016.10.21
       '.png': CONFIG.OPTIMIZER.PNG && ! CONFIG.OPTIMIZER.PNG.LOSSY ?
         {
           pngcrush: {}
-        }
-        :
+        } :
         {
           pngquant: {
             quality: '65-80',
