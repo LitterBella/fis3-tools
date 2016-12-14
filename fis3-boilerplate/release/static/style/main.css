@@ -529,6 +529,10 @@ h6 {
   outline: none !important;
 }
 
+:disabled {
+  cursor: default;
+}
+
 [disabled] {
   cursor: default;
 }
@@ -565,15 +569,15 @@ button,
   cursor: pointer;
 }
 
+:disabled::-webkit-slider-thumb {
+  cursor: default;
+}
+
 ::-moz-range-thumb {
   cursor: pointer;
 }
 
-[disabled]::-webkit-slider-thumb {
-  cursor: default;
-}
-
-[disabled]::-moz-range-thumb {
+:disabled::-moz-range-thumb {
   cursor: default;
 }
 
@@ -887,6 +891,7 @@ label {
 .table {
   table-layout: fixed;
   width: 100%;
+  border: 1px solid #eceeef;
 }
 
 .table th,
@@ -901,4 +906,13 @@ label {
 
 .table-hover tbody tr:hover {
   background-color: #ececec;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.btn-block + .btn-block {
+  margin-top: 8px;
 }

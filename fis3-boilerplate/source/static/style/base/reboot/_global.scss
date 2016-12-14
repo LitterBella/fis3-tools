@@ -65,7 +65,7 @@
   outline: none !important;
 }
 
-[disabled] {
+@include pseudo(disabled) {
   cursor: default;
 }
 
@@ -112,26 +112,20 @@ button,
   cursor: pointer;
 }
 
-::-webkit-slider-thumb {
-  cursor: pointer;
-  // cursor: ew-resize;
-}
-
-::-moz-range-thumb {
-  cursor: pointer;
-  // cursor: ew-resize;
-}
-
 // [orient="vertical"]::-moz-range-thumb {
 //   cursor: ns-resize;
 // }
 
-[disabled]::-webkit-slider-thumb {
-  cursor: default;
-}
+@include pseudo(range-thumb) {
+  cursor: pointer;
+  // cursor: ew-resize;
 
-[disabled]::-moz-range-thumb {
-  cursor: default;
+  @at-root {
+    // [disabled]#{&}
+    :disabled#{&} {
+      cursor: default;
+    }
+  }
 }
 
 @if $focus-outline {
