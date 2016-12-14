@@ -142,6 +142,8 @@ textarea {
   border: 1px solid $input-border-color;
   font: inherit;
   color: inherit;
+  // iOS adds rounded borders by default
+  border-radius: 0;
 
   @if $legacy-ie <= 7 {
     // font-style, line-height seems inherited in ie7
@@ -150,42 +152,43 @@ textarea {
     *font-weight: expression(this.parentNode.currentStyle.fontWeight);
     *color: expression(this.parentNode.currentStyle.color);
   }
+}
 
-  // iOS adds rounded borders by default
-  border-radius: 0;
+input,
+textarea,
+button,
+select {
+  @include pseudo(disabled) {
+    @include input-disabled();
+  }
 }
 
 input,
 textarea {
-  @if $legacy-ie <= 8 {
-    &[disabled] {
-      @include input-disabled();
-    }
-  }
-
-  &:disabled {
-    @include input-disabled();
-  }
-
-  &:read-only {
-    @include input-disabled();
-  }
-
-  &[readonly] {
+  @include pseudo(read-only) {
     @include input-disabled();
   }
 }
 
-button,
-select {
-  @if $legacy-ie <= 7 {
-    &[disabled] {
-      @include input-disabled();
-    }
+[type="checkbox"],
+[type="file"],
+[type="radio"],
+[type="range"] {
+  border-width: 0;
+}
+
+
+[type="checkbox"],
+[type="file"],
+[type="radio"],
+[type="range"],
+[type="color"] {
+  @include pseudo(disabled) {
+    background-color: transparent;
   }
 
-  &:disabled{
-    @include input-disabled();
+  @include pseudo(read-only) {
+    background-color: transparent;
   }
 }
 
@@ -194,18 +197,6 @@ select {
   background: transparent;
   height: 1.5em;
   width: 12em;
-
-  &:disabled {
-    background: transparent;
-  }
-
-  &:read-only {
-    background: transparent;
-  }
-
-  &[readonly] {
-    background: transparent;
-  }
 }
 
 // [type="range"][orient="vertical"] {
@@ -217,13 +208,6 @@ select {
   background: $input-border-color;
 }
 
-[type="checkbox"],
-[type="file"],
-[type="radio"],
-[type="range"] {
-  border-width: 0;
-}
-
 [type="number"] {
   width: auto; // Firefox 36+
 }
@@ -233,14 +217,7 @@ select {
   // Apply a disabled cursor for radios and checkboxes.
   //
   // Note: Neither radios nor checkboxes can be readonly.
-
-  @if $legacy-ie <= 8 {
-    &[disabled] {
-      cursor: not-allowed;
-    }
-  }
-
-  &:disabled {
+  @include pseudo(disabled) {
     cursor: not-allowed;
   }
 }
@@ -302,7 +279,7 @@ h6 {
  * and Chrome.
  */
 @if $legacy-ie <= 7 {
-  // normalize.css has this
+  // normalize.css already done this
   // h1 {
   //   font-size: 2em;
   //   margin: 0.67em 0;
@@ -310,33 +287,32 @@ h6 {
 
   h2 {
     font-size: 1.5em;
-    margin: 0.83em 0;
+    // margin: 0.83em 0;
   }
 
   h3 {
     font-size: 1.17em;
-    margin: 1em 0;
+    // margin: 1em 0;
   }
 
   h4 {
     font-size: 1em;
-    margin: 1.33em 0;
+    // margin: 1.33em 0;
   }
 
   h5 {
     font-size: 0.83em;
-    margin: 1.67em 0;
+    // margin: 1.67em 0;
   }
 
   h6 {
     font-size: 0.67em;
-    margin: 2.33em 0;
+    // margin: 2.33em 0;
   }
 }
 
 
 // Horizontal rules
-
 hr {
   margin-top: $root-font-size * 1;
   margin-bottom: $root-font-size * 1;
