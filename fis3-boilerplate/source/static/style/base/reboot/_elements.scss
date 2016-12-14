@@ -41,9 +41,12 @@ html {
   }
 
   @if $legacy-ie <= 6 {
-    _background-attachment: fixed;
-    _background-image: url(about:blank);
-    _filter: expression(document.execCommand("BackgroundImageCache", false, true));
+    & {
+      /* autoprefixer: off */
+      _background-attachment: fixed;
+      _background-image: url(about:blank);
+      _filter: expression(document.execCommand("BackgroundImageCache", false, true));
+    }
   }
 }
 
