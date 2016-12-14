@@ -20,6 +20,7 @@
 .table {
   table-layout: fixed;
   width: 100%;
+  border: 1px solid $table-border-color;
 
   th,
   td {
@@ -34,4 +35,13 @@
 
 .table-hover tbody tr:hover {
   background-color: $table-hover-color;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+
+  & + & {
+    margin-top: ($root-font-size / 2);
+  }
 }
