@@ -548,7 +548,8 @@ textarea {
 
 label,
 button,
-[role="button"] [type="button"],
+[role="button"],
+[type="button"],
 [type="reset"],
 [type="submit"],
 [type="file"],
@@ -603,16 +604,19 @@ html {
   width: 100%;
   height: 100%;
   min-width: 320px;
+}
+
+html {
+  /* autoprefixer: off */
   _background-attachment: fixed;
   _background-image: url(about:blank);
-  _-webkit-filter: expression(document.execCommand("BackgroundImageCache", false, true));
-  _: expression(document.execCommand("BackgroundImageCache", false, true));
+  _filter: expression(document.execCommand("BackgroundImageCache", false, true));
 }
 
 /* Sections
    ========================================================================== */
 body {
-  font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Lantinghei SC", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Lantinghei SC", "WenQuanYi Micro Hei", "Source Han Sans CN", sans-serif;
   font-size: 87.5%;
   line-height: 1.5;
   color: #373a3c;
@@ -641,6 +645,7 @@ img {
   vertical-align: middle;
   -ms-interpolation-mode: bicubic;
   max-width: 100%;
+  width: auto;
   height: auto;
   display: inline-block;
   *display: inline;
@@ -671,22 +676,26 @@ textarea {
   border: 1px solid #a9a9a9;
   font: inherit;
   color: inherit;
+  -webkit-border-radius: 0;
+  border-radius: 0;
   *font-family: expression(this.parentNode.currentStyle.fontFamily);
   *font-size: expression(this.parentNode.currentStyle.fontSize);
   *font-weight: expression(this.parentNode.currentStyle.fontWeight);
   *color: expression(this.parentNode.currentStyle.color);
-  -webkit-border-radius: 0;
-  border-radius: 0;
 }
 
-input[disabled],
-textarea[disabled] {
+input:disabled,
+textarea:disabled,
+button:disabled,
+select:disabled {
   color: #545454;
   background: #ebebe4;
 }
 
-input:disabled,
-textarea:disabled {
+input[disabled],
+textarea[disabled],
+button[disabled],
+select[disabled] {
   color: #545454;
   background: #ebebe4;
 }
@@ -703,43 +712,52 @@ textarea[readonly] {
   background: #ebebe4;
 }
 
-button[disabled],
-select[disabled] {
-  color: #545454;
-  background: #ebebe4;
+[type="checkbox"],
+[type="file"],
+[type="radio"],
+[type="range"] {
+  border-width: 0;
 }
 
-button:disabled,
-select:disabled {
-  color: #545454;
-  background: #ebebe4;
+[type="checkbox"]:disabled,
+[type="file"]:disabled,
+[type="radio"]:disabled,
+[type="range"]:disabled,
+[type="color"]:disabled {
+  background-color: transparent;
+}
+
+[type="checkbox"][disabled],
+[type="file"][disabled],
+[type="radio"][disabled],
+[type="range"][disabled],
+[type="color"][disabled] {
+  background-color: transparent;
+}
+
+[type="checkbox"]:read-only,
+[type="file"]:read-only,
+[type="radio"]:read-only,
+[type="range"]:read-only,
+[type="color"]:read-only {
+  background-color: transparent;
+}
+
+[type="checkbox"][readonly],
+[type="file"][readonly],
+[type="radio"][readonly],
+[type="range"][readonly],
+[type="color"][readonly] {
+  background-color: transparent;
 }
 
 [type="range"] {
-  border: 0;
-  background: transparent;
   height: 1.5em;
   width: 12em;
 }
 
-[type="range"]:disabled {
-  background: transparent;
-}
-
-[type="range"]:read-only {
-  background: transparent;
-}
-
-[type="range"][readonly] {
-  background: transparent;
-}
-
 ::-moz-range-track {
   background: #a9a9a9;
-}
-
-[type="file"] {
-  border: 0;
 }
 
 [type="number"] {
@@ -748,6 +766,11 @@ select:disabled {
 
 [type="radio"]:disabled,
 [type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+
+[type="radio"][disabled],
+[type="checkbox"][disabled] {
   cursor: not-allowed;
 }
 
@@ -785,27 +808,22 @@ textarea {
  */
 h2 {
   font-size: 1.5em;
-  margin: .83em 0;
 }
 
 h3 {
   font-size: 1.17em;
-  margin: 1em 0;
 }
 
 h4 {
   font-size: 1em;
-  margin: 1.33em 0;
 }
 
 h5 {
   font-size: .83em;
-  margin: 1.67em 0;
 }
 
 h6 {
   font-size: .67em;
-  margin: 2.33em 0;
 }
 
 hr {
@@ -851,6 +869,7 @@ dd {
 table {
   background-color: transparent;
   border-collapse: collapse;
+  float: none;
 }
 
 caption {
@@ -863,4 +882,23 @@ label {
   *display: inline;
   *zoom: 1;
   margin-bottom: 8px;
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  border: 1px solid #eceeef;
+  padding: 8px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #eee;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #ececec;
 }
