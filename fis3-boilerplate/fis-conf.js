@@ -138,7 +138,7 @@ last update 2016.10.21
     'fis-parser-stylus2': {},
     'fis-parser-less-2.x': {},
     'fis-postprocessor-autoprefixer': {
-      browsers: (CONFIG.LEGACY_IE ? ['ie >= 5.5'] : ['ie >= 9']).concat([
+      browsers: (['ie >= ' + CONFIG.LEGACY_IE]).concat([
         'and_chr >= 1',
         'and_ff >=1',
         'and_uc >=1',
@@ -174,7 +174,7 @@ last update 2016.10.21
       aggressiveMerging: false,
       shorthandCompacting: false,
       roundingPrecision: 8, // default is 2
-      compatibility: CONFIG.LEGACY_IE ? [
+      compatibility: CONFIG.LEGACY_IE <= 8 ? [
         '+properties.ieBangHack',
         '+properties.iePrefixHack',
         '+properties.ieSuffixHack',
@@ -308,7 +308,7 @@ last update 2016.10.21
     {
       type: 'css',
       lint: CONFIG.LINT.CSS ? 'fis3-lint-stylelint' : null,
-      preprocessor: CONFIG.LEGACY_IE ? 'fis-preprocessor-cssgrace' : null,
+      preprocessor: CONFIG.LEGACY_IE <= 8 ? 'fis-preprocessor-cssgrace' : null,
       optimizer: CONFIG.OPTIMIZER.CSS ? 'fis-optimizer-clean-css-2x' : null,
       postprocessor: ['fis-postprocessor-autoprefixer'].concat(
           (CONFIG.OPTIMIZER.CSS || ENV.FIS_MEDIA === 'dev') ?
