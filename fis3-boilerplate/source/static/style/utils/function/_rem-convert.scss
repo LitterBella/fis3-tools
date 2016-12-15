@@ -27,5 +27,9 @@
     $result: append($result, $item, $separator);
   }
 
+  @if length($result) == 1 {
+    $result: nth($result, 1);
+  }
+
   @return $result;
 }
