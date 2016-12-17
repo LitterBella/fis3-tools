@@ -8,10 +8,13 @@
       padding-right: $container-padding;
     }
 
-    @if $legacy-ie <= 7 and $container-max-width and value-of($container-max-width) > 0 {
+    @if $container-max-width and value-of($container-max-width) > 0 {
       max-width: $container-max-width * 1px;
-      *width: expression(this.offsetWidth > #{$container-max-width} ? "#{$container-max-width * 1px}" : "auto");
-      *overflow: hidden;
+
+      @if $legacy-ie <= 7 {
+        *width: expression(this.offsetWidth > #{$container-max-width} ? "#{$container-max-width * 1px}" : "auto");
+        *overflow: hidden;
+      }
     }
   }
 }
