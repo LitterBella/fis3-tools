@@ -65,10 +65,6 @@
   outline: none !important;
 }
 
-@include pseudo(disabled) {
-  cursor: default;
-}
-
 // Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.
 //
 // In particular, unlike most other browsers, IE11+Edge on Windows 10 on touch devices and IE Mobile 10-11
@@ -150,4 +146,8 @@ button,
   :focus {
     outline-width: 0;
   }
+}
+
+@include pseudo(disabled) {
+  cursor: default;
 }
