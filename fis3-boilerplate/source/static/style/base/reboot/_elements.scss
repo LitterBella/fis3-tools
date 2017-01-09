@@ -64,6 +64,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "liga";
+  word-wrap: break-word;
 
   @if $box-sizing == border-box {
     min-height: 100%;
