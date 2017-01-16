@@ -1,28 +1,28 @@
 .u-tab-panel {
   @include clearfix();
-}
 
-.u-tab {
-  display: inline-block;
+  .u-tab {
+    display: inline-block;
 
-  button {
-    display: block;
-    width: 100%;
-    border: 0;
-  }
+    button {
+      display: block;
+      width: 100%;
+      border: 0;
+    }
 
-  &.is-current {
-    + .u-panel {
-      display: inline;
+    &.is-current {
+      + .u-panel {
+        display: inline;
+      }
     }
   }
-}
 
-.u-panel {
-  display: none;
-}
+  .u-panel {
+    display: none;
+  }
 
-.u-content {
-  float: left;
-  width: 100%;
+  .u-content {
+    float: left;
+    width: 100%;
+  }
 }
