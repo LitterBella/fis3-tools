@@ -8,6 +8,7 @@
     @include clear-spacing("#{$selector}-item");
     white-space: nowrap;
     width: 100%;
+    table-layout: fixed;
     margin-bottom: 0;
     position: relative;
   }
