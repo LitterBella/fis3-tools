@@ -51,16 +51,16 @@ echo.
 choice /N /C 123Q /D 1 /T 5 /M "Please choose an option:"
 set choice=%errorlevel%
 dir > nul ::reset errorlevel
-if "%choice%"=="1" ( goto debug )
-if "%choice%"=="2" (
-  set NODE_ENV=production
-  goto release
-)
+if "%choice%"=="4" ( cls & goto end )
 if "%choice%"=="3" (
   set NODE_ENV=production
   goto release
 )
-if "%choice%"=="4" ( cls & goto end )
+if "%choice%"=="2" (
+  set NODE_ENV=production
+  goto release
+)
+if "%choice%"=="1" ( goto debug )
 goto debug
 
 :: archive
@@ -79,7 +79,7 @@ set DIST_FILENAME=%FOLDER%.%date:~2,2%%date:~5,2%%date:~8,2%-%hour%%time:~3,2%%t
 echo ...............................................................................
 echo packing files
 if "%DIST_FILETYPE%"=="tar.gz" ( call targz -l 9 -m 9 -c "./%RELEASE_FOLDER%" "./%DIST_FOLDER%/%DIST_FILENAME%.tar.gz" ) else ( call winzip zip "./%RELEASE_FOLDER%" "./%DIST_FOLDER%/%DIST_FILENAME%" )
-if %errorlevel 1 ( pause )
+if errorlevel 1 ( pause )
 echo ..........................................................................done.
 echo.
 
