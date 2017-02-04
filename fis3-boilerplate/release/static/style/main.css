@@ -470,6 +470,7 @@ template {
  * 2. suitcss https://github.com/suitcss/base
  * 3. sanitize.css https://github.com/jonathantneal/sanitize.css
  */
+p,
 ul,
 ol,
 dl {
@@ -529,14 +530,6 @@ h6 {
   outline: none !important;
 }
 
-:disabled {
-  cursor: default;
-}
-
-[disabled] {
-  cursor: default;
-}
-
 a,
 area,
 button,
@@ -592,6 +585,14 @@ a:focus {
   outline-offset: -2px;
 }
 
+:disabled {
+  cursor: default;
+}
+
+[disabled] {
+  cursor: default;
+}
+
 /* Document
    ========================================================================== */
 html {
@@ -620,7 +621,7 @@ html {
 /* Sections
    ========================================================================== */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Lantinghei SC", "WenQuanYi Micro Hei", "Source Han Sans CN", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Lantinghei SC", "WenQuanYi Micro Hei", "Source Han Sans SC", sans-serif;
   font-size: 87.5%;
   line-height: 1.5;
   color: #373a3c;
@@ -630,6 +631,7 @@ body {
   -webkit-font-feature-settings: "liga";
   -moz-font-feature-settings: "liga";
   font-feature-settings: "liga";
+  word-wrap: break-word;
   min-height: 100%;
 }
 
