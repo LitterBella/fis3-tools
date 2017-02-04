@@ -61,7 +61,7 @@ if "%choice%"=="2" (
   goto release
 )
 if "%choice%"=="1" ( goto debug )
-goto debug
+goto end
 
 :: archive
 :archive
