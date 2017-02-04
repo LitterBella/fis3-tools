@@ -23,7 +23,7 @@ title fis3 debug ^& distribute script
 color 37
 REM mode con cols=80 lines=25
 
-:: display info
+:: menu
 echo.
 echo ===============================================================================
 echo                        fis3 debug ^& distribute script
@@ -33,14 +33,13 @@ echo ===========================================================================
 echo.
 echo.
 echo.
+echo.                  1. debug (default)
 echo.
+echo.                  2. distribute
 echo.
-echo.       [1] debug (default)
-echo.       [2] distribute
-echo.       [3] distribute ^& archive
-echo.       [Q] quit
+echo.                  3. distribute ^& archive
 echo.
-echo.
+echo.                  Q. quit
 echo.
 echo.
 echo.
