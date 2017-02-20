@@ -1,5 +1,5 @@
 .u-switch {
-  .u-indicate {
+  .u-indicator {
     display: block;
     width: 3em;
     height: 1.5em;
@@ -7,7 +7,7 @@
     border-radius: 25% / 50%;
     border: 1px solid;
     box-sizing: content-box;
-    @if $legacy-ie {
+    @if $legacy-ie < 9 {
       color: #{$input-color-disabled}\9;
       background: #{$input-color-disabled}\9;
     }
@@ -32,7 +32,7 @@
 
     &::after {
       transform: translateX(-100%) scale(0);
-      @if $legacy-ie {
+      @if $legacy-ie < 9 {
         visibility: hidden\9;
       }
     }
@@ -41,7 +41,7 @@
   @mixin switch-checked() {
     filter: grayscale(0);
 
-    @if $legacy-ie {
+    @if $legacy-ie < 9 {
       color: inherit\9;
       background: #{$base-color}\9; // need a color here
       background: currentcolor\9;
@@ -50,14 +50,14 @@
 
     &::before {
       transform: translateX(100%) scale(0);
-      @if $legacy-ie {
+      @if $legacy-ie < 9 {
         visibility: hidden\9;
       }
     }
 
     &::after {
       transform: translateX(0) scale(1);
-      @if $legacy-ie {
+      @if $legacy-ie < 9 {
         visibility: visible\9;
       }
     }
@@ -66,12 +66,12 @@
   input[type="checkbox"] {
     @include hide-check();
 
-    &:checked + .u-indicate {
+    &:checked + .u-indicator {
       @include switch-checked();
     }
 
-    @if $legacy-ie {
-      &.pseudo-checked + .u-indicate {
+    @if $legacy-ie < 9 {
+      &.pseudo-checked + .u-indicator {
         @include switch-checked();
       }
     }
