@@ -56,7 +56,7 @@ function release() {
   # release file
   echo "..............................................................................."
   echo "releasing files"
-  fis3 release $NODE_ENV --dest release --lint --unique --root "./$SOURCE_FOLDER" --file "./$CONFIG_FILE" --verbose --no-color > "./$LOG_FILE" || error
+  fis3 release $NODE_ENV --dest "./$RELEASE_FOLDER" --lint --unique --root "./$SOURCE_FOLDER" --file "./$CONFIG_FILE" --verbose --no-color > "./$LOG_FILE" || error
 
   if [ -d "./$RELEASE_FOLDER/$TEMP_RESOURCE_FOLDER" ]; then
     rm -r "./$RELEASE_FOLDER/$TEMP_RESOURCE_FOLDER"
