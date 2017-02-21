@@ -17,8 +17,8 @@
       return isFinite(value) ? value : defalutValue;
     }
 
-    var min = getFloatProperty('min', Number.MIN_VALUE);
-    var max = getFloatProperty('max', Number.MAX_VALUE);
+    var min = getFloatProperty('min', -Infinity);
+    var max = getFloatProperty('max', Infinity);
     var step = getFloatProperty('step', 1);
 
     function increaseValue(valueIncrese) {
