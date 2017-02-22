@@ -135,6 +135,21 @@ last update 2016.10.21
       sourceMapEmbed: ENV.FIS_MEDIA === 'dev',
       //sourceMapRoot: ''
     },
+    'fis3-parser-dart-sass': {
+      includePaths: [],
+      indentType: 'space',
+      indentWidth: 2,
+      linefeed: 'lf',
+      omitSourceMapUrl: false,
+      //outFile: '',
+      outputStyle: 'expanded', //nested, expanded, compact, compressed
+      precision: 8, //default 5
+      sourceComments: ENV.FIS_MEDIA === 'dev',
+      sourceMap: false,
+      sourceMapContents: true,
+      sourceMapEmbed: ENV.FIS_MEDIA === 'dev',
+      //sourceMapRoot: ''
+    },
     'fis-parser-stylus2': {},
     'fis-parser-less-2.x': {},
     'fis-postprocessor-autoprefixer': {
