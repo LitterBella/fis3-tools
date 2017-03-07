@@ -706,6 +706,12 @@ select[disabled] {
   background: #ebebe4;
 }
 
+input:-moz-read-only,
+textarea:-moz-read-only {
+  color: #545454;
+  background: #ebebe4;
+}
+
 input:read-only,
 textarea:read-only {
   color: #545454;
@@ -738,6 +744,14 @@ textarea[readonly] {
 [type="radio"][disabled],
 [type="range"][disabled],
 [type="color"][disabled] {
+  background-color: transparent;
+}
+
+[type="checkbox"]:-moz-read-only,
+[type="file"]:-moz-read-only,
+[type="radio"]:-moz-read-only,
+[type="range"]:-moz-read-only,
+[type="color"]:-moz-read-only {
   background-color: transparent;
 }
 

@@ -91,7 +91,7 @@ function installplugins() {
   # npm i -g fis-optimizer-uglify-js
   npm i -g fis-optimizer-clean-css-2x
   npm i -g fis3-optimizer-imagemin
-  npm i -g fis-postprocessor-autoprefixer
+  npm i -g fis3-postprocessor-autoprefixer-latest
   npm i -g fis3-hook-relative
   npm i -g fis-parser-less-2.x
   # npm i -g fis-parser-sass

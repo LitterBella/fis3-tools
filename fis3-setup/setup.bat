@@ -66,7 +66,7 @@ REM call npm i -g fis-optimizer-uglify-js
 call npm i -g fis-optimizer-clean-css-2x
 REM call npm i -g fis-optimizer-jpeg-compressor
 call npm i -g fis3-optimizer-imagemin
-call npm i -g fis-postprocessor-autoprefixer
+call npm i -g fis3-postprocessor-autoprefixer-latest
 call npm i -g fis3-postprocessor-stylefmt
 call npm i -g fis3-postprocessor-html
 call npm i -g fis3-hook-relative
