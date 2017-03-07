@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7 ie6" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 7]><html class="lt-ie9 lt-ie8 ie7" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9 ie8" lang="zh-cmn-Hans"><![endif]-->
+<!--[if gte IE 9]><!-->
+<html lang="zh-cmn-Hans">
+<!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="google" value="notranslate">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,shrink-to-fit=no,minimal-ui">
+  <meta name="format-detection" content="telephone=no,email=no,address=no,date=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <!--[if lt IE 9]>
+<script src="static/js/vendors/html5shiv/html5shiv-3.7.3.min.js"></script><![endif]-->
+  <title>check</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <link href="../../static/style/main.css" rel="stylesheet">
+  <style type="text/css">.u-check .u-indicate,
+.u-checkbox .u-indicate,
+.u-radio .u-indicate {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 1.15em;
+  height: 1.15em;
+  border: 1px solid #a9a9a9;
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.u-check .u-indicate:before,
+.u-checkbox .u-indicate:before,
+.u-radio .u-indicate:before {
+  position: absolute;
+  border-style: solid;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.u-check input[type="checkbox"],
+.u-check input[type="radio"],
+.u-checkbox input[type="checkbox"],
+.u-radio input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.u-check input[type="checkbox"]:disabled + .u-indicate,
+.u-check input[type="radio"]:disabled + .u-indicate,
+.u-checkbox input[type="checkbox"]:disabled + .u-indicate,
+.u-radio input[type="radio"]:disabled + .u-indicate {
+  color: #545454;
+  background: #ebebe4;
+}
+
+.u-check input[type="checkbox"]:checked + .u-indicate:before,
+.u-checkbox input[type="checkbox"]:checked + .u-indicate:before {
+  content: "";
+  height: .375em;
+  width: .75em;
+  border-width: 0 0 1px 1px;
+  -webkit-transform: translateY(-30%) rotate(-45deg);
+  -ms-transform: translateY(-30%) rotate(-45deg);
+  transform: translateY(-30%) rotate(-45deg);
+}
+
+.u-check input[type="radio"] + .u-indicate,
+.u-radio input[type="radio"] + .u-indicate {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.u-check input[type="radio"]:checked + .u-indicate:before,
+.u-radio input[type="radio"]:checked + .u-indicate:before {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  border-width: .375em;
+  border-width: .375em;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.demo {
+  padding: 15px;
+}
+
+.u-check {
+  display: block;
+}
+</style>
+</head>
+<body>
+  <div class="container demo">
+    <legend>.u-check (css)</legend>
+    <label class="u-check">
+      <input type="checkbox">
+      <i class="u-indicate"></i> unchecked
+    </label>
+    <label class="u-check">
+      <input type="checkbox" checked>
+      <i class="u-indicate"></i> checked
+    </label>
+    <label class="u-check">
+      <input type="checkbox">
+      <i class="u-indicate"></i>
+    </label>
+    <label class="u-check no-text">
+      <input type="checkbox" checked>
+      <i class="u-indicate"></i>
+    </label>
+    <label class="u-check">
+      <input type="radio" name="_name_1">
+      <i class="u-indicate"></i> unchecked
+    </label>
+    <label class="u-radio">
+      <input type="radio" name="_name_1" checked>
+      <i class="u-indicate"></i> checked
+    </label>
+    <label class="u-check no-text">
+      <input type="radio" name="_name_2" checked>
+      <i class="u-indicate"></i>
+    </label>
+    <label class="u-check no-text">
+      <input type="radio" name="_name_2">
+      <i class="u-indicate"></i>
+    </label>
+    <label class="u-check">
+      <input type="checkbox" disabled>
+      <i class="u-indicate"></i> disabled
+    </label>
+    <label class="u-check">
+      <input type="radio" disabled>
+      <i class="u-indicate"></i> disabled
+    </label>
+    <label class="u-check">
+      <input type="checkbox" checked disabled>
+      <i class="u-indicate"></i> disabled
+    </label>
+    <label class="u-check">
+      <input type="radio" checked disabled>
+      <i class="u-indicate"></i> disabled
+    </label>
+  </div>
+</body>
+</html>

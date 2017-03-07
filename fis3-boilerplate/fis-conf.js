@@ -698,6 +698,11 @@ last update 2016.10.21
     postprocessor: null,
   });
 
+  // font/*.svg should not be compressed
+  $.match('font/*.svg', {
+    optimizer: null,
+  });
+
   $.match('::package', pluginToProperties('fis-spriter-csssprites'));
 
   if (ENV.FIS_MEDIA === 'production') {
