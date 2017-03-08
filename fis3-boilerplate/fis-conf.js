@@ -699,7 +699,7 @@ last update 2016.10.21
   });
 
   // font/*.svg should not be compressed
-  $.match('font/*.svg', {
+  $.match('{fonts,font}/*.svg', {
     optimizer: null,
   });
 
