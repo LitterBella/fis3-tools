@@ -57,7 +57,7 @@ last update 2016.10.21
         PROGRESSIVE: true, // 渐进式 JPEG
       },
       GIF: true,
-      SVG: true,
+      SVG: false,
     },
     HASH: {
       LENGTH: 6, // md5戳长度
@@ -699,9 +699,11 @@ last update 2016.10.21
   });
 
   // font/*.svg should not be compressed
-  $.match('{fonts,font}/*.svg', {
-    optimizer: null,
-  });
+  if (CONFIG.OPTIMIZER.SVG) {
+    $.match('{fonts,font}/*.svg', {
+      optimizer: null,
+    });
+  }
 
   $.match('::package', pluginToProperties('fis-spriter-csssprites'));
 
