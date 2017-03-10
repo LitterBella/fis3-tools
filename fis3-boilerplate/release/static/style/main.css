@@ -45,7 +45,7 @@ section {
  */
 h1 {
   font-size: 2em;
-  margin: .67em 0;
+  margin: 0.67em 0;
 }
 
 /* Grouping content
@@ -74,8 +74,8 @@ figure {
  */
 hr {
   -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
   /* 1 */
   height: 0;
   /* 1 */
@@ -193,11 +193,11 @@ sup {
 }
 
 sub {
-  bottom: -.25em;
+  bottom: -0.25em;
 }
 
 sup {
-  top: -.5em;
+  top: -0.5em;
 }
 
 /* Embedded content
@@ -315,7 +315,7 @@ button:-moz-focusring,
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
-  padding: .35em .625em .75em;
+  padding: 0.35em 0.625em 0.75em;
 }
 
 /**
@@ -326,8 +326,8 @@ fieldset {
  */
 legend {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
   /* 1 */
   color: inherit;
   /* 2 */
@@ -368,8 +368,8 @@ textarea {
 [type="checkbox"],
 [type="radio"] {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */
@@ -470,10 +470,7 @@ template {
  * 2. suitcss https://github.com/suitcss/base
  * 3. sanitize.css https://github.com/jonathantneal/sanitize.css
  */
-p,
-ul,
-ol,
-dl {
+p, ul, ol, dl {
   margin-top: 0;
   margin-bottom: 16px;
 }
@@ -490,7 +487,6 @@ h6 {
 
 /* Globals
    ========================================================================== */
-
 @-ms-viewport {
   width: device-width;
 }
@@ -504,8 +500,8 @@ h6 {
 :after {
   background-repeat: no-repeat;
   -webkit-box-sizing: inherit;
-  -moz-box-sizing: inherit;
-  box-sizing: inherit;
+     -moz-box-sizing: inherit;
+          box-sizing: inherit;
 }
 
 :before,
@@ -540,7 +536,7 @@ select,
 summary,
 textarea {
   -ms-touch-action: manipulation;
-  touch-action: manipulation;
+      touch-action: manipulation;
 }
 
 label,
@@ -602,8 +598,8 @@ html {
   -webkit-tap-highlight-color: transparent;
   text-rendering: optimizelegibility;
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -629,8 +625,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-feature-settings: "liga";
-  -moz-font-feature-settings: "liga";
-  font-feature-settings: "liga";
+     -moz-font-feature-settings: "liga";
+          font-feature-settings: "liga";
+  word-break: break-all;
   word-wrap: break-word;
   min-height: 100%;
 }
@@ -641,8 +638,7 @@ a {
   *cursor: pointer;
 }
 
-a:focus,
-a:hover {
+a:focus, a:hover {
   text-decoration: underline;
   color: #014c8c;
 }
@@ -683,7 +679,7 @@ textarea {
   font: inherit;
   color: inherit;
   -webkit-border-radius: 0;
-  border-radius: 0;
+          border-radius: 0;
   *font-family: expression(this.parentNode.currentStyle.fontFamily);
   *font-size: expression(this.parentNode.currentStyle.fontSize);
   *font-weight: expression(this.parentNode.currentStyle.fontWeight);
@@ -839,26 +835,23 @@ h4 {
 }
 
 h5 {
-  font-size: .83em;
+  font-size: 0.83em;
 }
 
 h6 {
-  font-size: .67em;
+  font-size: 0.67em;
 }
 
 hr {
   margin-top: 16px;
   margin-bottom: 16px;
   border: 0;
-  border-top: 1px solid rgba(0, 0, 0, .1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   height: 0;
   overflow: visible;
 }
 
-ul ul,
-ul ol,
-ol ul,
-ol ol {
+ul ul, ul ol, ol ul, ol ol {
   margin-bottom: 0;
 }
 

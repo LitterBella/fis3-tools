@@ -1,66 +1,214 @@
-.u-check,
-.u-checkbox,
-.u-radio {
-  // line-height: 1;
+$name-space: u;
 
-  .u-indicate {
+.#{$name-space}-check {
+  $focus-shadow:
+    inset 0 1px 1px rgba(0,0,0,.075),
+    0 0 8px rgba(102,175,233,.6);
+
+  $selector-indicator: #{&}--indicator;
+  $selector-input: #{&}--native-control;
+  $selector-label: #{&}--label;
+  $selector-radio-check: #{&}__radio-check;
+
+  margin-bottom: 0;
+
+  &--label {}
+
+  &--indicator {
     display: inline-block;
-    width: 1.15em;
-    height: 1.15em;
-    border: 1px solid $input-border-color;
-    vertical-align: middle;
-    text-align: center;
-    position: relative;
-    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    background-size: 100%;
+    border: 2px solid $input-border-color;
+    padding: 2px;
+    border-radius: 2px;
+    transition-property: border, box-shadow;
+    vertical-align: -.125em;
 
-    &::before {
-      position: absolute;
-      border-style: solid;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      margin: auto;
+    &,
+    &::before,
+    &::after {
+      transition-duration: .28s;
+      transition-timing-function: cubic-bezier(.4,0,.2,1);
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      transition-property: color, transform, background;
+      color: inherit;
+      width: 100%;
     }
   }
-}
 
-.u-check input[type="checkbox"],
-.u-check input[type="radio"],
-.u-checkbox input[type="checkbox"],
-.u-radio input[type="radio"] {
-  @include hide-check();
+  &--native-control {
+    @include hide-check();
 
-  &:disabled + .u-indicate {
-    @include input-disabled();
-  }
-}
+    &:checked ~ #{$selector-indicator} {
+      border-color: currentcolor;
+    }
 
-.u-check,
-.u-checkbox {
-  input[type="checkbox"]:checked + .u-indicate::before {
-    content: "";
-    height: .375em;
-    width: .75em;
-    border-width: 0 0 1px 1px;
-    transform: translateY(-30%) rotate(-45deg);
-  }
-}
+    &:focus ~ #{$selector-indicator} {
+      box-shadow: $focus-shadow;
+    }
 
+    &:disabled {
+      ~ #{$selector-indicator} {
+        color: $input-bg-disabled;
+        border-color: currentcolor;
+      }
 
-.u-check,
-.u-radio {
-  input[type="radio"] + .u-indicate {
-    border-radius: 50%;
+      ~ #{$selector-label} {
+        color: $input-color-disabled;
+      }
+    }
   }
 
-  input[type="radio"]:checked + .u-indicate::before {
-    content: "";
-    display: block;
-    height: 0;
-    width: 0;
-    border-width: .375em;
-    border-width: .375em;
-    border-radius: 50%;
+  &__radio,
+  &__round,
+  &__radio-check {
+    #{$selector-indicator} {
+      border-radius: 50%;
+    }
+  }
+
+  &__checkbox,
+  &__radio-check {
+    #{$selector-indicator} {
+      transition-property: border, background;
+      padding: 1px;
+
+      &::after {
+        position: relative;
+        height: 50%;
+        border-width: 0 0 .1em .1em;
+        border-style: solid;
+        border-color: transparent;
+        transform: translateY(25%) rotate(-45deg);
+      }
+    }
+
+    #{$selector-input}:checked ~ #{$selector-indicator} {
+      background: currentcolor;
+
+      &::after {
+        border-color: #fff;
+      }
+    }
+  }
+
+  &__radio {
+    #{$selector-indicator} {
+      &::after {
+        border-radius: 50%;
+        height: 100%;
+        background: currentcolor;
+        transform: scale(0);
+      }
+    }
+
+    #{$selector-input}:checked ~ #{$selector-indicator} {
+      &::after {
+        transform: scale(1);
+      }
+    }
+  }
+
+  &__switch,
+  &__ios-switch {
+    #{$selector-indicator} {
+      width: 2em;
+      position: relative;
+      border-width: 0;
+
+      &::before {
+        content: "";
+        border-radius: 1em;
+        background-color: $input-border-color;
+        display: block;
+        width: 100%;
+        height: 100%;
+        transition-property: opacity, background;
+      }
+
+      &::after {
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+        transform: none;
+        background-color: #fff;
+        transition-property: left, background, box-shadow;
+      }
+    }
+
+    #{$selector-input}:checked ~ #{$selector-indicator} {
+      &::before {
+        background-color: currentcolor;
+      }
+
+      &::after {
+        left: 1em;
+        background-color: currentcolor;
+        border-width: 0;
+      }
+    }
+
+    #{$selector-input}:disabled ~ #{$selector-indicator} {
+      &::before {
+        background-color: $input-bg-disabled;
+      }
+    }
+  }
+
+  &__switch {
+    #{$selector-indicator} {
+      &::after {
+        box-shadow:
+          0 2px 2px 0 rgba(0,0,0,.14),
+          0 3px 1px -2px rgba(0,0,0,.2),
+          0 1px 5px 0 rgba(0,0,0,.12);
+      }
+    }
+
+    #{$selector-input}:checked ~ #{$selector-indicator} {
+      &::before {
+        opacity: .5;
+      }
+
+      &::after {
+        box-shadow:
+          0 3px 4px 0 rgba(0,0,0,.14),
+          0 3px 3px -2px rgba(0,0,0,.2),
+          0 1px 8px 0 rgba(0,0,0,.12);
+      }
+    }
+
+    #{$selector-input}:focus ~ #{$selector-indicator} {
+      box-shadow: none;
+
+      &::before {
+        box-shadow: $focus-shadow;
+      }
+    }
+  }
+
+  &__ios-switch {
+    #{$selector-indicator} {
+      padding: 0;
+
+      &::after {
+        padding: 1px;
+        background-clip: content-box;
+      }
+    }
+
+    #{$selector-input}:checked ~ #{$selector-indicator} {
+      &::after {
+        background-color: #fff;
+      }
+    }
   }
 }

@@ -17,68 +17,217 @@
       .u-check {
         display: block;
       }
+
+      .u-check--indicator {
+        color: #3f51b5;;
+      }
     </style>
   </head>
   <body>
 
     <div class="container demo">
       <legend>.u-check (css)</legend>
-      <label class="u-check">
-        <input type="checkbox">
-        <i class="u-indicate"></i>
-        unchecked
-      </label>
-      <label class="u-check">
-        <input type="checkbox" checked>
-        <i class="u-indicate"></i>
-        checked
-      </label>
-      <label class="u-check">
-        <input type="checkbox">
-        <i class="u-indicate"></i>
-      </label>
-      <label class="u-check no-text">
-        <input type="checkbox" checked>
-        <i class="u-indicate"></i>
-      </label>
-      <label class="u-check">
-        <input type="radio" name="_name_1">
-        <i class="u-indicate"></i>
-        unchecked
-      </label>
-      <label class="u-radio">
-        <input type="radio" name="_name_1" checked>
-        <i class="u-indicate"></i>
-        checked
-      </label>
-      <label class="u-check no-text">
-        <input type="radio" name="_name_2" checked>
-        <i class="u-indicate"></i>
-      </label>
-      <label class="u-check no-text">
-        <input type="radio" name="_name_2">
-        <i class="u-indicate"></i>
-      </label>
-      <label class="u-check">
-        <input type="checkbox" disabled>
-        <i class="u-indicate"></i>
-        disabled
-      </label>
-      <label class="u-check">
-        <input type="radio" disabled>
-        <i class="u-indicate"></i>
-        disabled
-      </label>
-      <label class="u-check">
-        <input type="checkbox" checked disabled>
-        <i class="u-indicate"></i>
-        disabled
-      </label>
-      <label class="u-check">
-        <input type="radio" checked disabled>
-        <i class="u-indicate"></i>
-        disabled
-      </label>
+      <div>
+          <label class="u-check u-check__checkbox">
+            <input class="u-check--native-control" type="checkbox">
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__checkbox &gt; [type="checkbox"]</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__checkbox">
+            <input class="u-check--native-control" type="checkbox" checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__checkbox &gt; [type="checkbox"]:checked</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__checkbox">
+            <input class="u-check--native-control" type="checkbox" disabled>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__checkbox &gt; [type="checkbox"]:disabled</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__checkbox">
+            <input class="u-check--native-control" type="checkbox" disabled checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__checkbox &gt; [type="checkbox"]:disabled:checked</span>
+          </label>
+        </div>
+
+        <hr>
+
+        <div>
+          <label class="u-check u-check__radio">
+            <input class="u-check--native-control" name="radio-demo-name-1" type="radio">
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio &gt; [type="radio"]</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio">
+            <input class="u-check--native-control" name="radio-demo-name-1" type="radio" checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio &gt; [type="radio"]:checked</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio">
+            <input class="u-check--native-control" name="radio-demo-name-2" type="radio" disabled>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio &gt; [type="radio"]:disabled</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio">
+            <input class="u-check--native-control" name="radio-demo-name-2" type="radio" disabled checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio &gt; [type="radio"]:disabled:disabled</span>
+          </label>
+        </div>
+
+        <hr>
+
+        <div>
+          <label class="u-check u-check__radio-check">
+            <input class="u-check--native-control" name="radio-demo-name-3" type="radio">
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio-check &gt; [type="radio"]</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio-check">
+            <input class="u-check--native-control" name="radio-demo-name-3" type="radio" checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio-check &gt; [type="radio"]:checked</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio-check">
+            <input class="u-check--native-control" name="radio-demo-name-4" type="radio" disabled>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio-check &gt; [type="radio"]:disabled</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio-check">
+            <input class="u-check--native-control" name="radio-demo-name-5" type="radio" disabled checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio-check &gt; [type="radio"]:disabled:checked</span>
+          </label>
+        </div>
+
+        <hr>
+
+        <div>
+          <label class="u-check u-check__radio-check">
+            <input class="u-check--native-control" type="checkbox">
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio-check &gt; [type="checkbox"]</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio-check">
+            <input class="u-check--native-control" type="checkbox" checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio-check &gt; [type="checkbox"]:checked</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio-check">
+            <input class="u-check--native-control" type="checkbox" disabled>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio-check &gt; [type="checkbox"]:disabled</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__radio-check">
+            <input class="u-check--native-control" type="checkbox" disabled checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__radio-check &gt; [type="checkbox"]:disabled:checked</span>
+          </label>
+        </div>
+
+        <hr>
+
+        <div>
+          <label class="u-check u-check__switch">
+            <input class="u-check--native-control" type="checkbox">
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__switch &gt; [type="checkbox"]</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__switch">
+            <input class="u-check--native-control" type="checkbox" checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__switch &gt; [type="checkbox"]:checked</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__switch">
+            <input class="u-check--native-control" type="checkbox" disabled>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__switch &gt; [type="checkbox"]:disabled</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__switch">
+            <input class="u-check--native-control" type="checkbox" disabled checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__switch &gt; [type="checkbox"]:disabled:checked</span>
+          </label>
+        </div>
+
+        <hr>
+
+        <div>
+          <label class="u-check u-check__ios-switch">
+            <input class="u-check--native-control" type="checkbox">
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__ios-switch &gt; [type="checkbox"]</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__ios-switch">
+            <input class="u-check--native-control" type="checkbox" checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__ios-switch &gt; [type="checkbox"]:checked</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__ios-switch">
+            <input class="u-check--native-control" type="checkbox" disabled>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__ios-switch &gt; [type="checkbox"]:disabled</span>
+          </label>
+        </div>
+
+        <div>
+          <label class="u-check u-check__ios-switch">
+            <input class="u-check--native-control" type="checkbox" disabled checked>
+            <i class="u-check--indicator"></i>
+            <span class="u-check--label">.u-check__ios-switch &gt; [type="checkbox"]:disabled:checked</span>
+          </label>
+        </div>
     </div>
 
   </body>

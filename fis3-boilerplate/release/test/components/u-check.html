@@ -24,39 +24,48 @@
   <meta name="keywords" content="">
   <meta name="description" content="">
   <link href="../../static/style/main.css" rel="stylesheet">
-  <style type="text/css">.u-check .u-indicate,
-.u-checkbox .u-indicate,
-.u-radio .u-indicate {
+  <style type="text/css">.u-check {
+  margin-bottom: 0;
+}
+
+.u-check--indicator {
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  width: 1.15em;
-  height: 1.15em;
-  border: 1px solid #a9a9a9;
-  vertical-align: middle;
-  text-align: center;
-  position: relative;
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  -webkit-background-size: 100% 100%;
+          background-size: 100%;
+  border: 2px solid #a9a9a9;
+  padding: 2px;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  -webkit-transition-property: border, -webkit-box-shadow;
+  transition-property: border, -webkit-box-shadow;
+  transition-property: border, box-shadow;
+  transition-property: border, box-shadow, -webkit-box-shadow;
+  vertical-align: -.125em;
 }
 
-.u-check .u-indicate:before,
-.u-checkbox .u-indicate:before,
-.u-radio .u-indicate:before {
-  position: absolute;
-  border-style: solid;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+.u-check--indicator, .u-check--indicator:before, .u-check--indicator:after {
+  -webkit-transition-duration: .28s;
+          transition-duration: .28s;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.u-check input[type="checkbox"],
-.u-check input[type="radio"],
-.u-checkbox input[type="checkbox"],
-.u-radio input[type="radio"] {
+.u-check--indicator:after {
+  content: "";
+  display: block;
+  -webkit-transition-property: color, background, -webkit-transform;
+  transition-property: color, background, -webkit-transform;
+  transition-property: color, transform, background;
+  transition-property: color, transform, background, -webkit-transform;
+  color: inherit;
+  width: 100%;
+}
+
+.u-check--native-control {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -67,41 +76,157 @@
   border: 0;
 }
 
-.u-check input[type="checkbox"]:disabled + .u-indicate,
-.u-check input[type="radio"]:disabled + .u-indicate,
-.u-checkbox input[type="checkbox"]:disabled + .u-indicate,
-.u-radio input[type="radio"]:disabled + .u-indicate {
+.u-check--native-control:checked ~ .u-check--indicator {
+  border-color: currentcolor;
+}
+
+.u-check--native-control:focus ~ .u-check--indicator {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.u-check--native-control:disabled ~ .u-check--indicator {
+  color: #ebebe4;
+  border-color: currentcolor;
+}
+
+.u-check--native-control:disabled ~ .u-check--label {
   color: #545454;
-  background: #ebebe4;
 }
 
-.u-check input[type="checkbox"]:checked + .u-indicate:before,
-.u-checkbox input[type="checkbox"]:checked + .u-indicate:before {
-  content: "";
-  height: .375em;
-  width: .75em;
-  border-width: 0 0 1px 1px;
-  -webkit-transform: translateY(-30%) rotate(-45deg);
-  -ms-transform: translateY(-30%) rotate(-45deg);
-  transform: translateY(-30%) rotate(-45deg);
-}
-
-.u-check input[type="radio"] + .u-indicate,
-.u-radio input[type="radio"] + .u-indicate {
+.u-check__radio .u-check--indicator, .u-check__round .u-check--indicator, .u-check__radio-check .u-check--indicator {
   -webkit-border-radius: 50%;
-  border-radius: 50%;
+          border-radius: 50%;
 }
 
-.u-check input[type="radio"]:checked + .u-indicate:before,
-.u-radio input[type="radio"]:checked + .u-indicate:before {
+.u-check__checkbox .u-check--indicator, .u-check__radio-check .u-check--indicator {
+  -webkit-transition-property: border, background;
+  transition-property: border, background;
+  padding: 1px;
+}
+
+.u-check__checkbox .u-check--indicator:after, .u-check__radio-check .u-check--indicator:after {
+  position: relative;
+  height: 50%;
+  border-width: 0 0 .1em .1em;
+  border-style: solid;
+  border-color: transparent;
+  -webkit-transform: translateY(25%) rotate(-45deg);
+      -ms-transform: translateY(25%) rotate(-45deg);
+          transform: translateY(25%) rotate(-45deg);
+}
+
+.u-check__checkbox .u-check--native-control:checked ~ .u-check--indicator, .u-check__radio-check .u-check--native-control:checked ~ .u-check--indicator {
+  background: currentcolor;
+}
+
+.u-check__checkbox .u-check--native-control:checked ~ .u-check--indicator:after, .u-check__radio-check .u-check--native-control:checked ~ .u-check--indicator:after {
+  border-color: #fff;
+}
+
+.u-check__radio .u-check--indicator:after {
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  height: 100%;
+  background: currentcolor;
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+}
+
+.u-check__radio .u-check--native-control:checked ~ .u-check--indicator:after {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+
+.u-check__switch .u-check--indicator, .u-check__ios-switch .u-check--indicator {
+  width: 2em;
+  position: relative;
+  border-width: 0;
+}
+
+.u-check__switch .u-check--indicator:before, .u-check__ios-switch .u-check--indicator:before {
   content: "";
+  -webkit-border-radius: 1em;
+          border-radius: 1em;
+  background-color: #a9a9a9;
   display: block;
-  height: 0;
-  width: 0;
-  border-width: .375em;
-  border-width: .375em;
+  width: 100%;
+  height: 100%;
+  -webkit-transition-property: opacity, background;
+  transition-property: opacity, background;
+}
+
+.u-check__switch .u-check--indicator:after, .u-check__ios-switch .u-check--indicator:after {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 1em;
+  height: 1em;
   -webkit-border-radius: 50%;
-  border-radius: 50%;
+          border-radius: 50%;
+  -webkit-transform: none;
+      -ms-transform: none;
+          transform: none;
+  background-color: #fff;
+  -webkit-transition-property: left, background, -webkit-box-shadow;
+  transition-property: left, background, -webkit-box-shadow;
+  transition-property: left, background, box-shadow;
+  transition-property: left, background, box-shadow, -webkit-box-shadow;
+}
+
+.u-check__switch .u-check--native-control:checked ~ .u-check--indicator:before, .u-check__ios-switch .u-check--native-control:checked ~ .u-check--indicator:before {
+  background-color: currentcolor;
+}
+
+.u-check__switch .u-check--native-control:checked ~ .u-check--indicator:after, .u-check__ios-switch .u-check--native-control:checked ~ .u-check--indicator:after {
+  left: 1em;
+  background-color: currentcolor;
+  border-width: 0;
+}
+
+.u-check__switch .u-check--native-control:disabled ~ .u-check--indicator:before, .u-check__ios-switch .u-check--native-control:disabled ~ .u-check--indicator:before {
+  background-color: #ebebe4;
+}
+
+.u-check__switch .u-check--indicator:after {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.u-check__switch .u-check--native-control:checked ~ .u-check--indicator:before {
+  opacity: .5;
+  filter: alpha(opacity=50);
+}
+
+.u-check__switch .u-check--native-control:checked ~ .u-check--indicator:after {
+  -webkit-box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12);
+}
+
+.u-check__switch .u-check--native-control:focus ~ .u-check--indicator {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.u-check__switch .u-check--native-control:focus ~ .u-check--indicator:before {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.u-check__ios-switch .u-check--indicator {
+  padding: 0;
+}
+
+.u-check__ios-switch .u-check--indicator:after {
+  padding: 1px;
+  -webkit-background-clip: content-box;
+          background-clip: content-box;
+}
+
+.u-check__ios-switch .u-check--native-control:checked ~ .u-check--indicator:after {
+  background-color: #fff;
 }
 
 .demo {
@@ -111,59 +236,188 @@
 .u-check {
   display: block;
 }
+
+.u-check--indicator {
+  color: #3f51b5;
+}
 </style>
 </head>
 <body>
   <div class="container demo">
     <legend>.u-check (css)</legend>
-    <label class="u-check">
-      <input type="checkbox">
-      <i class="u-indicate"></i> unchecked
-    </label>
-    <label class="u-check">
-      <input type="checkbox" checked>
-      <i class="u-indicate"></i> checked
-    </label>
-    <label class="u-check">
-      <input type="checkbox">
-      <i class="u-indicate"></i>
-    </label>
-    <label class="u-check no-text">
-      <input type="checkbox" checked>
-      <i class="u-indicate"></i>
-    </label>
-    <label class="u-check">
-      <input type="radio" name="_name_1">
-      <i class="u-indicate"></i> unchecked
-    </label>
-    <label class="u-radio">
-      <input type="radio" name="_name_1" checked>
-      <i class="u-indicate"></i> checked
-    </label>
-    <label class="u-check no-text">
-      <input type="radio" name="_name_2" checked>
-      <i class="u-indicate"></i>
-    </label>
-    <label class="u-check no-text">
-      <input type="radio" name="_name_2">
-      <i class="u-indicate"></i>
-    </label>
-    <label class="u-check">
-      <input type="checkbox" disabled>
-      <i class="u-indicate"></i> disabled
-    </label>
-    <label class="u-check">
-      <input type="radio" disabled>
-      <i class="u-indicate"></i> disabled
-    </label>
-    <label class="u-check">
-      <input type="checkbox" checked disabled>
-      <i class="u-indicate"></i> disabled
-    </label>
-    <label class="u-check">
-      <input type="radio" checked disabled>
-      <i class="u-indicate"></i> disabled
-    </label>
+    <div>
+      <label class="u-check u-check__checkbox">
+        <input class="u-check--native-control" type="checkbox">
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__checkbox &gt; [type="checkbox"]</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__checkbox">
+        <input class="u-check--native-control" type="checkbox" checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__checkbox &gt; [type="checkbox"]:checked</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__checkbox">
+        <input class="u-check--native-control" type="checkbox" disabled>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__checkbox &gt; [type="checkbox"]:disabled</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__checkbox">
+        <input class="u-check--native-control" type="checkbox" disabled checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__checkbox &gt; [type="checkbox"]:disabled:checked</span>
+      </label>
+    </div>
+    <hr>
+    <div>
+      <label class="u-check u-check__radio">
+        <input class="u-check--native-control" name="radio-demo-name-1" type="radio">
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio &gt; [type="radio"]</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio">
+        <input class="u-check--native-control" name="radio-demo-name-1" type="radio" checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio &gt; [type="radio"]:checked</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio">
+        <input class="u-check--native-control" name="radio-demo-name-2" type="radio" disabled>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio &gt; [type="radio"]:disabled</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio">
+        <input class="u-check--native-control" name="radio-demo-name-2" type="radio" disabled checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio &gt; [type="radio"]:disabled:disabled</span>
+      </label>
+    </div>
+    <hr>
+    <div>
+      <label class="u-check u-check__radio-check">
+        <input class="u-check--native-control" name="radio-demo-name-3" type="radio">
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio-check &gt; [type="radio"]</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio-check">
+        <input class="u-check--native-control" name="radio-demo-name-3" type="radio" checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio-check &gt; [type="radio"]:checked</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio-check">
+        <input class="u-check--native-control" name="radio-demo-name-4" type="radio" disabled>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio-check &gt; [type="radio"]:disabled</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio-check">
+        <input class="u-check--native-control" name="radio-demo-name-5" type="radio" disabled checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio-check &gt; [type="radio"]:disabled:checked</span>
+      </label>
+    </div>
+    <hr>
+    <div>
+      <label class="u-check u-check__radio-check">
+        <input class="u-check--native-control" type="checkbox">
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio-check &gt; [type="checkbox"]</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio-check">
+        <input class="u-check--native-control" type="checkbox" checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio-check &gt; [type="checkbox"]:checked</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio-check">
+        <input class="u-check--native-control" type="checkbox" disabled>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio-check &gt; [type="checkbox"]:disabled</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__radio-check">
+        <input class="u-check--native-control" type="checkbox" disabled checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__radio-check &gt; [type="checkbox"]:disabled:checked</span>
+      </label>
+    </div>
+    <hr>
+    <div>
+      <label class="u-check u-check__switch">
+        <input class="u-check--native-control" type="checkbox">
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__switch &gt; [type="checkbox"]</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__switch">
+        <input class="u-check--native-control" type="checkbox" checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__switch &gt; [type="checkbox"]:checked</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__switch">
+        <input class="u-check--native-control" type="checkbox" disabled>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__switch &gt; [type="checkbox"]:disabled</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__switch">
+        <input class="u-check--native-control" type="checkbox" disabled checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__switch &gt; [type="checkbox"]:disabled:checked</span>
+      </label>
+    </div>
+    <hr>
+    <div>
+      <label class="u-check u-check__ios-switch">
+        <input class="u-check--native-control" type="checkbox">
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__ios-switch &gt; [type="checkbox"]</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__ios-switch">
+        <input class="u-check--native-control" type="checkbox" checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__ios-switch &gt; [type="checkbox"]:checked</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__ios-switch">
+        <input class="u-check--native-control" type="checkbox" disabled>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__ios-switch &gt; [type="checkbox"]:disabled</span>
+      </label>
+    </div>
+    <div>
+      <label class="u-check u-check__ios-switch">
+        <input class="u-check--native-control" type="checkbox" disabled checked>
+        <i class="u-check--indicator"></i>
+        <span class="u-check--label">.u-check__ios-switch &gt; [type="checkbox"]:disabled:checked</span>
+      </label>
+    </div>
   </div>
 </body>
 </html>

@@ -21,8 +21,7 @@
   *zoom: 1;
 }
 
-.clearfix:before,
-.clearfix:after {
+.clearfix:before, .clearfix:after {
   content: "";
   display: table;
 }
@@ -38,9 +37,9 @@
   vertical-align: middle;
   width: 0;
   height: 0;
-  border-left: .5em solid transparent;
-  border-right: .5em solid transparent;
-  border-top: .5em solid;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-top: 0.5em solid;
 }
 
 .icon-arrow {
@@ -48,14 +47,14 @@
   *display: inline;
   *zoom: 1;
   vertical-align: middle;
-  width: .707em;
-  height: .707em;
+  width: 0.707em;
+  height: 0.707em;
   border: 1px solid;
   border-left-color: transparent;
   border-bottom-color: transparent;
   -webkit-transform: translate(-25%, 0) rotate(45deg);
-  -ms-transform: translate(-25%, 0) rotate(45deg);
-  transform: translate(-25%, 0) rotate(45deg);
+      -ms-transform: translate(-25%, 0) rotate(45deg);
+          transform: translate(-25%, 0) rotate(45deg);
 }
 
 .icon-plus {
@@ -68,8 +67,7 @@
   position: relative;
 }
 
-.icon-plus:before,
-.icon-plus:after {
+.icon-plus:before, .icon-plus:after {
   content: "";
   position: absolute;
   top: 0;
@@ -101,8 +99,7 @@
   position: relative;
 }
 
-.icon-close:before,
-.icon-close:after {
+.icon-close:before, .icon-close:after {
   content: "";
   position: absolute;
   top: 0;
@@ -125,15 +122,15 @@
 }
 
 .icon-close:before {
-  -webkit-transform: translate(0, .5px) rotate(45deg);
-  -ms-transform: translate(0, .5px) rotate(45deg);
-  transform: translate(0, .5px) rotate(45deg);
+  -webkit-transform: translate(0, 0.5px) rotate(45deg);
+      -ms-transform: translate(0, 0.5px) rotate(45deg);
+          transform: translate(0, 0.5px) rotate(45deg);
 }
 
 .icon-close:after {
-  -webkit-transform: translate(-.5px, 0) rotate(45deg);
-  -ms-transform: translate(-.5px, 0) rotate(45deg);
-  transform: translate(-.5px, 0) rotate(45deg);
+  -webkit-transform: translate(-0.5px, 0) rotate(45deg);
+      -ms-transform: translate(-0.5px, 0) rotate(45deg);
+          transform: translate(-0.5px, 0) rotate(45deg);
 }
 
 @font-face {
@@ -153,7 +150,7 @@
   width: 2rem;
   width: 2rem;
   width: 2rem;
-  color: .26223485;
+  color: 0.26223485;
 }
 
 .container {
@@ -182,7 +179,7 @@
   *zoom: 1;
   background: #1cf;
   -webkit-border-radius: 5px;
-  border-radius: 5px;
+          border-radius: 5px;
   color: #fff;
   padding: 0 10px;
   margin: 5px 1px;
@@ -191,12 +188,11 @@
 
 .box-sizing {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-.box-sizing:before,
-.box-sizing:after {
+.box-sizing:before, .box-sizing:after {
   content: "";
   display: inline-block;
   *display: inline;
@@ -228,7 +224,7 @@
   *zoom: 1;
   vertical-align: top;
   font-size: 14px;
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 
 .justify-box .content {
@@ -283,8 +279,8 @@
   padding: 0;
   text-align: center;
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
   background: #fff;
 }
 
