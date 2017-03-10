@@ -65,7 +65,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "liga";
   // overflow-wrap: break-word;
-  // word-break: break-all;
+  word-break: break-all;
   word-wrap: break-word;
 
   @if $box-sizing == border-box {
