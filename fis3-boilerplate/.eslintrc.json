@@ -18,7 +18,8 @@
         "require": true,
         "import": true,
         "define": true,
-        "__inline": true
+        "__inline": true,
+        "__uri": true
     },
     // eslint:recommended see http://eslint.org/docs/rules/
     "extends": "eslint:recommended",

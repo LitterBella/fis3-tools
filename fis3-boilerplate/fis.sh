@@ -3,12 +3,12 @@ export PS1="\[\e[37;44m\]"
 
 # const
 export CONFIG_FILE=fis-conf.js
-export SOURCE_FOLDER=source
+export SOURCE_FOLDER=src
 export SERVER_TYPE=node # java,php,node,jello...
 export SERVER_PORT=1983
-export RELEASE_FOLDER=release
 export DIST_FOLDER=dist
-export DIST_FILETYPE=zip # zip,tar.gz  ; tar.gz do NOT support chinese filename
+export ARCHIVE_FOLDER=archive
+export ARCHIVE_FILETYPE=zip # zip,tar.gz  ; tar.gz do NOT support chinese filename
 export LOG_FILE=release.log
 export TEMP_RESOURCE_FOLDER=\$\$\$TEMP_RESOURCE\$\$\$
 export NODE_ENV=dev
@@ -46,8 +46,8 @@ function release() {
   clear
 
   # remove release file and log file
-  if [ -d "./$RELEASE_FOLDER" ]; then
-    rm -r "./$RELEASE_FOLDER"
+  if [ -d "./$DIST_FOLDER" ]; then
+    rm -r "./$DIST_FOLDER"
   fi
   if [ -f "./$LOG_FILE" ]; then
     rm "./$LOG_FILE"
@@ -56,10 +56,10 @@ function release() {
   # release file
   echo "..............................................................................."
   echo "releasing files"
-  fis3 release $NODE_ENV --dest "./$RELEASE_FOLDER" --lint --unique --root "./$SOURCE_FOLDER" --file "./$CONFIG_FILE" --verbose --no-color > "./$LOG_FILE" || error
+  fis3 release $NODE_ENV --dest "./$DIST_FOLDER" --lint --unique --root "./$SOURCE_FOLDER" --file "./$CONFIG_FILE" --verbose --no-color > "./$LOG_FILE" || error
 
-  if [ -d "./$RELEASE_FOLDER/$TEMP_RESOURCE_FOLDER" ]; then
-    rm -r "./$RELEASE_FOLDER/$TEMP_RESOURCE_FOLDER"
+  if [ -d "./$DIST_FOLDER/$TEMP_RESOURCE_FOLDER" ]; then
+    rm -r "./$DIST_FOLDER/$TEMP_RESOURCE_FOLDER"
   fi
 
   echo "..........................................................................done."
@@ -76,8 +76,8 @@ function release() {
 function archive() {
       echo "archive"
   # make distribute folder ready
-  if [ ! -d "./$DIST_FOLDER" ]; then
-    mkdir "./$DIST_FOLDER"
+  if [ ! -d "./$ARCHIVE_FOLDER" ]; then
+    mkdir "./$ARCHIVE_FOLDER"
   fi
 
   # set distribute file name
@@ -88,10 +88,10 @@ function archive() {
   # archive files to distribute folder
   echo "..............................................................................."
   echo "packing files"
-  if [ "$DIST_FILETYPE" = "tar.gz" ]; then
-    targz -l 9 -m 9 -c "./$RELEASE_FOLDER" "./$DIST_FOLDER/$DIST_FILENAME.tar.gz" || pause
+  if [ "$ARCHIVE_FILETYPE" = "tar.gz" ]; then
+    targz -l 9 -m 9 -c "./$DIST_FOLDER" "./$ARCHIVE_FOLDER/$DIST_FILENAME.tar.gz" || pause
   else
-    winzip zip "./$RELEASE_FOLDER" "./$DIST_FOLDER/$DIST_FILENAME" || pause
+    winzip zip "./$DIST_FOLDER" "./$ARCHIVE_FOLDER/$DIST_FILENAME" || pause
   fi
 
   echo "..........................................................................done."

@@ -20,7 +20,7 @@ last update 2016.10.21
     ENGINE: process.version, // node 版本
     TEMP_RESOURCE_FOLDER: process.env.TEMP_RESOURCE_FOLDER || '$$$TEMP_RESOURCE$$$',
     SOURCE_FOLDER: (process.env.SOURCE_FOLDER || 'source'),
-    RELEASE_FOLDER: (process.env.RELEASE_FOLDER || 'release'),
+    DIST_FOLDER: (process.env.DIST_FOLDER || 'dist'),
   };
 
   var CONFIG = {
@@ -83,7 +83,7 @@ last update 2016.10.21
       ],
       release: [
         '_**',
-        '_*/*'
+        '_*/**'
       ],
       lint: [
         '*{.,-}min.**',
@@ -210,7 +210,7 @@ last update 2016.10.21
       layout: 'linear', //'linear/matrix' default linear
     },
     'fis3-deploy-local-deliver': {
-      to: './' + ENV.RELEASE_FOLDER,
+      to: './' + ENV.DIST_FOLDER,
     },
     'fis-parser-coffee-script': {
       //header: true,

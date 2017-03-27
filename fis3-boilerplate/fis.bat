@@ -1,13 +1,13 @@
 @echo off
 :: const
 set CONFIG_FILE=fis-conf.js
-set SOURCE_FOLDER=source
+set SOURCE_FOLDER=src
+set DIST_FOLDER=dist
 set SERVER_TYPE=node
 :: java,php,node,jello...
 set SERVER_PORT=1983
-set RELEASE_FOLDER=release
-set DIST_FOLDER=dist
-set DIST_FILETYPE=zip
+set ARCHIVE_FOLDER=archive
+set ARCHIVE_FILETYPE=zip
 :: zip,tar.gz  ; tar.gz do NOT support chinese filename
 set LOG_FILE=release.log
 set TEMP_RESOURCE_FOLDER=$$$TEMP_RESOURCE$$$
@@ -67,7 +67,7 @@ goto end
 :archive
 
 :: make distribute folder ready
-if not exist "./%DIST_FOLDER%" md "./%DIST_FOLDER%"
+if not exist "./%ARCHIVE_FOLDER%" md "./%ARCHIVE_FOLDER%"
 
 :: set distribute file name
 for /f "delims=" %%i in ("%cd%") do set FOLDER=%%~ni
@@ -78,7 +78,7 @@ set DIST_FILENAME=%FOLDER%.%date:~2,2%%date:~5,2%%date:~8,2%-%hour%%time:~3,2%%t
 :: archive files to distribute folder
 echo ...............................................................................
 echo packing files
-if "%DIST_FILETYPE%"=="tar.gz" ( call targz -l 9 -m 9 -c "./%RELEASE_FOLDER%" "./%DIST_FOLDER%/%DIST_FILENAME%.tar.gz" ) else ( call winzip zip "./%RELEASE_FOLDER%" "./%DIST_FOLDER%/%DIST_FILENAME%" )
+if "%ARCHIVE_FILETYPE%"=="tar.gz" ( call targz -l 9 -m 9 -c "./%DIST_FOLDER%" "./%ARCHIVE_FOLDER%/%DIST_FILENAME%.tar.gz" ) else ( call winzip zip "./%DIST_FOLDER%" "./%ARCHIVE_FOLDER%/%DIST_FILENAME%" )
 if errorlevel 1 ( pause )
 echo ..........................................................................done.
 echo.
@@ -93,7 +93,7 @@ cls
 :: remove release file and log file
 echo ...............................................................................
 echo clean release folder
-if exist "./%RELEASE_FOLDER%" rd /S /Q "./%RELEASE_FOLDER%"
+if exist "./%DIST_FOLDER%" rd /S /Q "./%DIST_FOLDER%"
 if exist "./%LOG_FILE%" del /Q "./%LOG_FILE%"
 echo ..........................................................................done.
 echo.
@@ -101,9 +101,9 @@ echo.
 :: release file
 echo ...............................................................................
 echo releasing files
-call fis3 release %NODE_ENV% --dest "./%RELEASE_FOLDER%" --lint --unique --root "./%SOURCE_FOLDER%" --file "./%CONFIG_FILE%" --verbose --no-color > "./%LOG_FILE%"
+call fis3 release %NODE_ENV% --dest "./%DIST_FOLDER%" --lint --unique --root "./%SOURCE_FOLDER%" --file "./%CONFIG_FILE%" --verbose --no-color > "./%LOG_FILE%"
 if errorlevel 1 ( goto error )
-if exist "./%RELEASE_FOLDER%/%TEMP_RESOURCE_FOLDER%" rd /S /Q "./%RELEASE_FOLDER%/%TEMP_RESOURCE_FOLDER%"
+if exist "./%DIST_FOLDER%/%TEMP_RESOURCE_FOLDER%" rd /S /Q "./%DIST_FOLDER%/%TEMP_RESOURCE_FOLDER%"
 echo ..........................................................................done.
 echo.
 
