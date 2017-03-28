@@ -1,3 +1,4 @@
+/* eslint comma-dangle: 0 */
 /*!
 fis-conf.js
 by fisker Cheung <lionkay@gmail.com>
@@ -8,22 +9,20 @@ last update 2016.10.21
 ;(function($) {
   'use strict';
   var fs = require('fs');
-  var os = require('os');
   var path = require('path');
   var CHARSET = 'utf-8';
   var EOL = '\n';
   var INSERT_FINAL_NEWLINE = true;
   var INDENT = '  ';
 
-  /* eslint comma-dangle: 0 */
   var ENV = {
     FIS_MEDIA: process.env.NODE_ENV || $.project.currentMedia(),
     ENGINE: process.version, // node 版本
     TEMP_RESOURCE_FOLDER: process.env.TEMP_RESOURCE_FOLDER || '$$$TEMP_RESOURCE$$$',
     SOURCE_FOLDER: (process.env.SOURCE_FOLDER || 'source'),
     DIST_FOLDER: (process.env.DIST_FOLDER || 'dist'),
-    HOSTNAME: os.hostname(),
-    USERNAME: os.userInfo && os.userInfo().username || '',
+    COMPUTER_NAME: process.env.COMPUTERNAME,
+    USER_NAME: process.env.USERNAME,
   };
 
   var CONFIG = {
@@ -122,8 +121,8 @@ last update 2016.10.21
     debug: ENV.FIS_MEDIA === 'dev',
   };
   if (ENV.FIS_MEDIA === 'dev') {
-    cacheEnv.hostname = ENV.HOSTNAME;
-    cacheEnv.userName = ENV.USERNAME;
+    cacheEnv.computerName = ENV.COMPUTER_NAME;
+    cacheEnv.userName = ENV.USER_NAME;
   }
   cacheConfig(cacheEnv);
 

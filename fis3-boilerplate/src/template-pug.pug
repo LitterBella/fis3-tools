@@ -22,7 +22,7 @@ head
   each cssFile in cssFiles
     + css(cssFile)
 body
-  .container hello world!
+  .container hello #{env.userName}!
 
   +polyfill(env)
   +jquery(env)
