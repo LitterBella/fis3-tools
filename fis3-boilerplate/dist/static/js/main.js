@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var env = {"device":"multi-device","legacyIe":6,"useRem":false,"brand":null,"debug":false};
+  var env = {"device":"multi-device","legacyIe":6,"useRem":false,"brandColor":null,"debug":false};
 
 
   // __inline('component/_pseudo.js')

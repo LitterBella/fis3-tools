@@ -8,6 +8,7 @@ last update 2016.10.21
 ;(function($) {
   'use strict';
   var fs = require('fs');
+  var os = require('os');
   var path = require('path');
   var CHARSET = 'utf-8';
   var EOL = '\n';
@@ -21,6 +22,8 @@ last update 2016.10.21
     TEMP_RESOURCE_FOLDER: process.env.TEMP_RESOURCE_FOLDER || '$$$TEMP_RESOURCE$$$',
     SOURCE_FOLDER: (process.env.SOURCE_FOLDER || 'source'),
     DIST_FOLDER: (process.env.DIST_FOLDER || 'dist'),
+    HOSTNAME: os.hostname(),
+    USERNAME: os.userInfo && os.userInfo().username || '',
   };
 
   var CONFIG = {
@@ -111,13 +114,18 @@ last update 2016.10.21
   }
 
   // output crossLangConfig
-  cacheConfig({
+  var cacheEnv = {
     device: CONFIG.DEVICE,
     legacyIe: CONFIG.LEGACY_IE,
     useRem: CONFIG.USE_REM,
-    brand: CONFIG.BRAND_COLOR || null,
+    brandColor: CONFIG.BRAND_COLOR || null,
     debug: ENV.FIS_MEDIA === 'dev',
-  });
+  };
+  if (ENV.FIS_MEDIA === 'dev') {
+    cacheEnv.hostname = ENV.HOSTNAME;
+    cacheEnv.userName = ENV.USERNAME;
+  }
+  cacheConfig(cacheEnv);
 
   var PLUGINS_CONFIG = {
     'fis-parser-node-sass': {

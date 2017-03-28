@@ -43,8 +43,8 @@ mixin head(config)
     + meta('format-detection', formatDetection)
     + meta('msapplication-tap-highlight', 'no')
   if config.brand
-    + meta('theme-color', config.brand)
-    + meta('msapplication-navbutton-color', config.brand)
+    + meta('theme-color', config.brandColor)
+    + meta('msapplication-navbutton-color', config.brandColor)
 
   if config.device != 'mobile' && config.legacyIe < 9
     <!--[if lt IE 9]>
