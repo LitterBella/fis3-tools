@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="google" value="notranslate">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,shrink-to-fit=no">
+  <meta name="format-detection" content="telephone=no,email=no,address=no,date=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>title</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <!--[if lt IE 9]>
+    <script src="../static/js/vendors/html5shiv/html5shiv-3.7.3.min.js"></script>
+    <![endif]-->
+  <link href="../static/style/main.css" rel="stylesheet">
+  <style type="text/css">.clearfix {
+  *zoom: 1;
+}
+
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.icon-caret {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  border-left: 0.5em solid transparent;
+  border-right: 0.5em solid transparent;
+  border-top: 0.5em solid;
+}
+
+.icon-arrow {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  width: 0.707em;
+  height: 0.707em;
+  border: 1px solid;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  -webkit-transform: translate(-25%, 0) rotate(45deg);
+      -ms-transform: translate(-25%, 0) rotate(45deg);
+          transform: translate(-25%, 0) rotate(45deg);
+}
+
+.icon-plus {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  width: 1em;
+  height: 1em;
+  position: relative;
+}
+
+.icon-plus:before, .icon-plus:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+.icon-plus:before {
+  border-top: 1px solid;
+  width: 100%;
+  height: 0;
+}
+
+.icon-plus:after {
+  border-left: 1px solid;
+  height: 100%;
+  width: 0;
+}
+
+.icon-close {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+}
+
+.icon-close:before, .icon-close:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+
+.icon-close:before {
+  border-top: 1px solid;
+  width: 100%;
+  height: 0;
+}
+
+.icon-close:after {
+  border-left: 1px solid;
+  height: 100%;
+  width: 0;
+}
+
+.icon-close:before {
+  -webkit-transform: translate(0, 0.5px) rotate(45deg);
+      -ms-transform: translate(0, 0.5px) rotate(45deg);
+          transform: translate(0, 0.5px) rotate(45deg);
+}
+
+.icon-close:after {
+  -webkit-transform: translate(-0.5px, 0) rotate(45deg);
+      -ms-transform: translate(-0.5px, 0) rotate(45deg);
+          transform: translate(-0.5px, 0) rotate(45deg);
+}
+
+@font-face {
+  font-family: "FZLBJW";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../font/fzlbjw.eot");
+  src: local("FZLBJW"), url("../font/fzlbjw.eot?#iefix") format("embedded-opentype"), url("../font/fzlbjw.woff") format("woff"), url("../font/fzlbjw.ttf") format("truetype"), url("../font/fzlbjw.svg#FZLBJW") format("svg");
+}
+
+.unit-test {
+  width: 32px;
+  width: 32px;
+  width: 32px;
+  width: 32px;
+  width: 2rem;
+  width: 2rem;
+  width: 2rem;
+  width: 2rem;
+  color: 0.26223485;
+}
+
+.container {
+  padding: 15px;
+}
+
+.icons {
+  display: table;
+  word-spacing: -.43em;
+  *word-spacing: normal;
+  *font-size: 0;
+}
+
+.icons > * {
+  word-spacing: normal;
+  vertical-align: top;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  *font-size: 14px;
+}
+
+.icon {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  background: #1cf;
+  -webkit-border-radius: 5px;
+          border-radius: 5px;
+  color: #fff;
+  padding: 0 10px;
+  margin: 5px 1px;
+  height: 2.5rem;
+}
+
+.box-sizing {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.box-sizing:before, .box-sizing:after {
+  content: "";
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #eee;
+}
+
+.justify-box {
+  text-align: justify;
+  font-size: 0;
+  border: 1px solid #333;
+  background: #f00;
+}
+
+.justify-box .shim {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 100%;
+}
+
+.justify-box .content {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+  font-size: 14px;
+  font-size: 0.875rem;
+}
+
+.justify-box .content {
+  background: lightgreen;
+  padding: 10px;
+}
+
+.ellipsis {
+  width: 200px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+  max-height: 3em;
+}
+
+.btn-font {
+  line-height: 20;
+  font-size: 2px;
+}
+
+.btn-font button {
+  background: #f00;
+  color: #fff;
+  font-size: 2px;
+}
+
+.clear-spacing {
+  display: table;
+  word-spacing: -.43em;
+  *word-spacing: normal;
+  *font-size: 0;
+}
+
+.clear-spacing > * {
+  word-spacing: normal;
+  vertical-align: top;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  *font-size: 14px;
+}
+
+.clear-spacing > * {
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: darkred #f00 darkgoldenrod #00f;
+  padding: 0;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  background: #fff;
+}
+
+.clear-spacing > * {
+  *width: 100px;
+  *height: 50px;
+}
+
+.clear-spacing > button {
+  *width: 102px;
+  *height: 52px;
+}
+
+.clear-spacing > input[type="text"] {
+  *width: 100px;
+  *margin-top: -1px;
+}
+
+.clear-spacing > input[type="submit"],
+.clear-spacing > input[type="button"] {
+  *width: 102px;
+  *height: 52px;
+}
+
+.font-face {
+  font-family: FZLBJW;
+}
+</style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="container icons">
+      <button class="icon"><i class="icon-arrow"></i> <span>三角</span></button>
+      <button class="icon"><i class="icon-caret"></i> <span>三角</span></button>
+      <button class="icon"><i class="icon-arrow"></i> <span>箭头</span></button>
+      <button class="icon"><i class="icon-plus"></i> <span>加号</span></button>
+      <button class="icon"><i class="icon-close"></i> <span>乘号</span></button>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="box-sizing">
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="select">
+      <select name="" id="">
+        <option value="1">option 1</option>
+        <option value="2">option 2</option>
+        <option value="3">option 3</option>
+        <option value="4">option 4</option>
+        <option value="5">option 5</option>
+      </select>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="container">
+      <div class="justify-box">
+        <div class="content">
+          content 1
+          <br> content 1
+          <br> content 1
+        </div>
+        <div class="content">content 2</div>
+        <div class="content">content 3</div>
+        <div class="shim"></div>
+      </div>
+    </div>
+  </div>
+  <div class="ellipsis">ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis ellipsis</div>
+  <div class="btn-font">
+    <button type="button">测试按钮ABC</button>
+  </div>
+  <div class="clear-spacing">
+    <input type="submit">
+    <a href="##">惆怅</a>
+    <a href="##">淡定</a>
+    <a href="##">热血</a>
+    <img src="http://placehold.it/100x50">
+    <span>span</span>
+    <div>div</div>
+    <button type="button">button</button>
+    <a href="###">a</a>
+    <input type="text" value="input">
+    <input type="button" value="input">
+    <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+    <progress min="0" max="100" value="20"></progress>
+    <img src="http://placehold.it/100x50">
+    <img src="http://placehold.it/100x50">
+    <span>span</span>
+    <span>span</span>
+    <div>div</div>
+    <div>div</div>
+    <button type="button">button</button>
+    <button type="button">button</button>
+    <a href="###">a</a>
+    <a href="###">a</a>
+    <input type="text" value="input">
+    <input type="text" value="input">
+    <input type="button" value="input">
+    <input type="button" value="input">
+    <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+    <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+    <progress min="0" max="100" value="20"></progress>
+    <progress min="0" max="100" value="20"></progress>
+    <img src="http://placehold.it/100x50">
+    <span>span</span>
+    <div>div</div>
+    <button type="button">button</button>
+    <a href="###">a</a>
+    <input type="text" value="input">
+    <input type="button" value="input">
+    <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+    <progress min="0" max="100" value="20"></progress>
+  </div>
+  <div class="font-face">隶书哈</div>
+  <div class="meter">
+    low better
+    <meter min="0" max="100" value="20" low="30" high="70" optimum="20"></meter>
+    <meter min="0" max="100" value="50" low="30" high="70" optimum="20"></meter>
+    <meter min="0" max="100" value="80" low="30" high="70" optimum="20"></meter>
+    high better
+    <meter min="0" max="100" value="20" low="30" high="70" optimum="80"></meter>
+    <meter min="0" max="100" value="50" low="30" high="70" optimum="80"></meter>
+    <meter min="0" max="100" value="80" low="30" high="70" optimum="80"></meter>
+  </div>
+  <div class="progress">
+    <progress value=".2" max="1"></progress>
+  </div>
+  <!--[if IE 6]>
+    <script src="../static/js/vendors/dd_belatedpng/dd_belatedpng_0.0.8a-min.js"></script>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+  <script src="../static/js/vendors/jquery/jquery-1.12.4.min.js"></script>
+  <script src="../static/js/main.js"></script>
+  <!--a empty nav element to aviod uc brower font size adjust.-->
+  <nav></nav>
+  
+</body>
+</html>
