@@ -64,7 +64,7 @@ body {
   background-color: $base-background-color; // 2
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "liga";
+  // font-feature-settings: "liga"; // cause UC bug
   // overflow-wrap: break-word;
   word-break: break-all;
   word-wrap: break-word;
