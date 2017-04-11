@@ -589,9 +589,6 @@ body {
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-font-feature-settings: "liga";
-     -moz-font-feature-settings: "liga";
-          font-feature-settings: "liga";
   word-break: break-all;
   word-wrap: break-word;
   min-height: 100%;
