@@ -1,10 +1,12 @@
-.u-slide {
+$name-space: u;
+
+.#{$name-space}-slide {
   position: relative;
   overflow: hidden;
 
   $selector: &;
 
-  &-wrap {
+  &__wrap {
     @include clear-spacing("#{$selector}-item");
     white-space: nowrap;
     width: 100%;
@@ -13,12 +15,14 @@
     position: relative;
   }
 
-  &-item {
+  &__item {
+    display: inline-block;
+    vertical-align: top;
     width: 100%;
     overflow: hidden;
   }
 
-  &-pagnation {
+  &__pagnation {
     position: absolute;
     text-align: center;
   }

@@ -9,5 +9,9 @@
   "src-not-empty": true,
   "attr-no-duplication": true,
   "title-require": true,
-  "doctype-html5": true
+  "doctype-html5": true,
+  "id-class-value": "dash",
+  "space-tab-mixed-disabled": "space",
+  "id-class-ad-disabled": true,
+  "attr-unsafe-chars": true
 }
