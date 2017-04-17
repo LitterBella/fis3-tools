@@ -32,10 +32,10 @@ $base-font-family-cn: (
   ) !default;
 $base-font-family-emoji: (
   "EmojiOne Mozilla",
-  "Segoe UI Emoji",
-  "Apple Color Emoji",
-  "Android Emoji",
-  NotoColorEmoji,
+  "Segoe UI Emoji", // Windows 7
+  "Apple Color Emoji", // iOS & OS X 10.7
+  "Android Emoji", // Linux
+  "Noto Color Emoji", // Android & Linux
   "Segoe UI Symbol",
   EmojiSymbols,
   ) !default;
