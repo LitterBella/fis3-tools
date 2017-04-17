@@ -30,6 +30,24 @@ $base-font-family-cn: (
   "WenQuanYi Micro Hei",
   "Source Han Sans SC",
   ) !default;
+$base-font-family-emoji: (
+  "EmojiOne Mozilla",
+  "Segoe UI Emoji",
+  "Apple Color Emoji",
+  "Android Emoji",
+  NotoColorEmoji,
+  "Segoe UI Symbol",
+  EmojiSymbols,
+  ) !default;
+$base-font-family-monospace: (
+  "Roboto Mono",
+  "Source Code Pro",
+  Consolas,
+  Menlo,
+  Monaco,
+  "Courier New",
+  ) !default;
+
 $base-font-family: $base-font-family-system, $base-font-family-en, $base-font-family-cn !default;
 $input-border-color: #a9a9a9 !default;
 $input-bg-disabled: #ebebe4 !default;
@@ -47,7 +65,6 @@ $table-strip-color: #eee !default;
 
 $design-width: 720 !default;
 
-$font-family-monospace: "Source Code Pro", Consolas, Menlo, Monaco, "Courier New" !default;
 $focus-outline: true !default;
 
 $container-min-width: 1000 !default;
@@ -72,7 +89,7 @@ $grid-breakpoints: (
   xl: 1200px,
   ) !default;
 
-$base-font-family: $base-font-family, sans-serif;
-$font-family-monospace: $font-family-monospace, monospace;
+$base-font-family: $base-font-family, sans-serif, $base-font-family-emoji;
+$font-family-monospace: $base-font-family-monospace, monospace;
 $inline-mark: "?__inline";
 $sprite-mark: "?__sprite";
